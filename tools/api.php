@@ -8,13 +8,29 @@ function reply(int $status, array $body): never {
     echo json_encode($body, JSON_UNESCAPED_SLASHES);
     exit;
 }
+$configuration = require __DIR__ . '/server-config.php';
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+$scheme = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http';
+$sameOrigin = $scheme . '://' . ($_SERVER['HTTP_HOST'] ?? '');
+$allowed = $origin !== '' && ($origin === $sameOrigin || in_array($origin, $configuration['allowed_origins'], true));
+header('Vary: Origin');
+if ($origin !== '' && !$allowed) reply(403, ['error'=>'origin']);
+if ($allowed) {
+    header('Access-Control-Allow-Origin: ' . $origin);
+    header('Access-Control-Allow-Methods: POST, OPTIONS');
+    header('Access-Control-Allow-Headers: Content-Type');
+}
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    if (!$allowed) reply(403, ['error'=>'origin']);
+    http_response_code(204); exit;
+}
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Allow: POST');
     reply(405, ['error'=>'method']);
 }
 // JSON requests cannot be submitted by a cross-origin HTML form.
 if (strtolower(trim(explode(';', $_SERVER['CONTENT_TYPE'] ?? '')[0])) !== 'application/json') reply(415, ['error'=>'format']);
-if (($_SERVER['HTTP_SEC_FETCH_SITE'] ?? '') === 'cross-site') reply(403, ['error'=>'origin']);
+if (($_SERVER['HTTP_SEC_FETCH_SITE'] ?? '') === 'cross-site' && !$allowed) reply(403, ['error'=>'origin']);
 $raw = file_get_contents('php://input', false, null, 0, 8193);
 if (strlen($raw) > 8192) reply(413, ['error'=>'invalid']);
 $input = json_decode($raw, true);
