@@ -1,0 +1,230 @@
+/* Portrait component: a single aligned editorial card, in the CV palette. */
+.hero-visual {
+  width: 100%;
+  max-width: 430px;
+  justify-self: end;
+  padding: 0;
+}
+
+.portrait-frame {
+  transform: none;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px -4px #081d6308, 0 24px 64px -32px #081d6333;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.portrait-frame:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px -8px #081d6315, 0 32px 72px -24px #081d6345;
+}
+
+.portrait-image-wrap {
+  position: relative;
+  overflow: hidden;
+  background: #071959;
+  isolation: isolate;
+}
+
+.portrait-frame .portrait-image-wrap img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1.13;
+  object-fit: cover;
+  object-position: center 42%;
+  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.portrait-frame:hover .portrait-image-wrap img {
+  transform: scale(1.04);
+}
+
+.portrait-image-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #05134250, transparent 24%, transparent 70%, #051342bb);
+  pointer-events: none;
+}
+
+.portrait-frame .portrait-topline {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  padding: 20px 24px;
+  color: #e0e8ff;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.portrait-frame .portrait-topline .portrait-monogram {
+  font-size: 22px;
+  letter-spacing: -1.7px;
+  line-height: 1;
+  font-weight: 750;
+}
+
+.portrait-photo-label {
+  position: absolute;
+  z-index: 1;
+  bottom: 19px;
+  left: 24px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 8px;
+  letter-spacing: 1.8px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.portrait-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #c1d3ff;
+}
+
+.portrait-details {
+  padding: 25px 26px 23px;
+}
+
+.portrait-identity {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.portrait-kicker {
+  color: var(--muted);
+  font-size: 8px;
+  line-height: 1.5;
+  font-weight: 650;
+  letter-spacing: 1.45px;
+}
+
+.portrait-name {
+  margin-top: 7px;
+  color: var(--navy);
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: 650;
+  letter-spacing: -1px;
+}
+
+.portrait-contact {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--navy);
+  background: var(--surface);
+  transition: background .2s, color .2s, border-color .2s;
+}
+
+.portrait-contact:hover {
+  background: #081d63;
+  border-color: #081d63;
+  color: white;
+}
+
+.portrait-contact svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.portrait-location {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.portrait-location svg {
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+}
+
+.portrait-divider {
+  opacity: .5;
+  margin-inline: 4px;
+}
+
+.portrait-method {
+  border-top: 1px solid var(--line);
+  margin-top: 21px;
+  padding-top: 18px;
+}
+
+.portrait-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 14px;
+}
+
+.portrait-steps > span {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.portrait-steps > span + span {
+  border-left: 1px solid var(--line);
+  padding-left: 17px;
+}
+
+.portrait-steps small {
+  color: var(--muted);
+  font: 9px Consolas, monospace;
+}
+
+.portrait-steps strong {
+  color: var(--navy);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+@media (min-width: 641px) and (max-width: 900px) {
+  .portrait-details { padding: 21px 18px; }
+  .portrait-name { font-size: 23px; }
+  .portrait-kicker { font-size: 7px; letter-spacing: 1px; }
+  .portrait-steps > span + span { padding-left: 9px; }
+  .portrait-steps strong { font-size: 9px; }
+}
+
+@media (max-width: 640px) {
+  .hero-visual { width: 100%; max-width: 380px; margin: 0 auto; }
+  .portrait-frame { border-radius: 16px; }
+  .portrait-details { padding: 22px; }
+  .portrait-name { font-size: 26px; }
+  .portrait-kicker { font-size: 7px; letter-spacing: 1.1px; }
+  .portrait-steps > span + span { padding-left: 11px; }
+  .portrait-steps strong { font-size: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portrait-contact { transition: none; }
+}
