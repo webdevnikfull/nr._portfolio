@@ -1,1 +1,1 @@
-[Otwórz aplikację ↗]()
+[Open app ↗]()
