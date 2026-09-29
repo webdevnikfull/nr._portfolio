@@ -29,7 +29,7 @@
   t={...dictionary[lang],...dictionary[lang][kind]};
   document.documentElement.lang=lang;$('language').value=lang;
   document.querySelectorAll('[data-i]').forEach(el=>el.textContent=t[el.dataset.i]);
-  document.title='NR. Link Studio'+' — '+t[kind==='qr'?'qrTab':'shortTab'];
+  document.title='Link Studio'+' — '+t[kind==='qr'?'qrTab':'shortTab'];
   document.querySelectorAll('.tool-tabs a').forEach(a=>{const u=new URL(a.href);u.searchParams.set('lang',lang);a.href=u.href;});
   const home=config.portfolioUrl || 'index.html';$('portfolio-link').href=home;$('back-link').href=home; $('back-link').hidden=!config.portfolioUrl;
   $('theme').setAttribute('aria-label',t.theme);

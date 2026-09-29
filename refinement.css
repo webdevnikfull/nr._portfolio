@@ -1,0 +1,90 @@
+/* Portfolio refinement — shared by the Polish, English and German pages. */
+.language-switch{position:relative;display:block}
+.language-switch summary{display:flex;align-items:center;gap:9px;height:42px;padding:0 13px;border:1px solid var(--line);border-radius:24px;background:var(--surface);color:var(--navy);font-size:11px;font-weight:650;cursor:pointer;list-style:none}
+.language-switch summary::-webkit-details-marker{display:none}
+.language-switch svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.4}
+.language-switch[open] summary{background:var(--soft)}
+.language-options{position:absolute;top:52px;right:0;min-width:190px;padding:7px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 16px 40px #0002;z-index:30;display:grid;gap:4px}
+.language-switch .language-options a{display:flex;justify-content:space-between;gap:24px;padding:12px;border:0;border-radius:10px;color:var(--text);background:transparent;font-size:13px}
+.language-switch .language-options a span{font:10px Consolas,monospace;opacity:.7}
+.language-switch .language-options a[aria-current=page],.language-switch .language-options a:hover{background:var(--soft);color:var(--navy)}
+.language-switch summary:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.skill-symbol{display:grid;place-items:center;width:44px;height:44px;padding:9px}
+.skill-symbol svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.skill-card{transition:background-color .25s,color .25s,transform .25s,border-color .25s}
+@media(hover:hover){.skill-card:hover{background:#142b79;--navy:#fff;--muted:#d2ddf6;--line:#ffffff30;--surface-alt:#ffffff0c;--soft:#ffffff18;color:#fff;border-color:#3655a4}.skill-card:hover .skill-symbol{background:#ffffff0a}.skill-card:hover .tags>span{color:#e7eeff}}
+.timeline{display:grid;gap:18px;border:0;margin-top:0}
+.timeline::before,.experience-date::after{display:none}
+.experience-row{grid-template-columns:205px minmax(0,1fr);gap:38px;padding:32px;border:1px solid var(--line);border-radius:20px;background:var(--surface);overflow:hidden}
+.experience-row:hover{transform:none;background:var(--surface);border-color:var(--accent);box-shadow:0 14px 35px -26px #173a9440}
+.experience-date{display:flex;flex-direction:column;align-items:flex-start;gap:17px;padding:0;border-right:1px solid var(--line);font-size:12px;letter-spacing:.3px;color:var(--navy)}
+.experience-area{display:block;justify-self:auto;padding:0 14px 0 0;max-width:180px;font:11px/1.6 "Segoe UI",sans-serif;letter-spacing:.1px;color:var(--muted)}
+.experience-row>div:nth-child(2){padding:0;min-width:0}
+.experience-row .company{font-size:10px;letter-spacing:1.5px;color:var(--muted);margin-bottom:9px}
+.experience-row h3{font-size:22px;line-height:1.35;letter-spacing:-.5px}
+.experience-row ul{font-size:13px;line-height:1.8;margin:18px 0 20px;padding-left:17px;max-width:760px}
+.experience-row li+li{margin-top:7px}
+.experience-tags{display:flex;flex-wrap:wrap;gap:7px}
+.experience-tags span{font:10px/1.5 Consolas,monospace;padding:5px 9px;border:1px solid var(--line);border-radius:6px;color:var(--muted);background:var(--surface-alt)}
+.project-visual{height:300px;background:radial-gradient(ellipse at 50% 30%,#f6f8ff,#e2e8f5);padding:48px 30px 34px}
+.project-visual .mock-window,.project-visual .bmi-mock,.project-visual .tool-preview{width:100%;max-width:360px;border:1px solid #d8e0f0;border-radius:13px;background:#fff;box-shadow:0 22px 38px -24px #203d8066;transform:rotate(-2deg);animation:preview-enter 1s ease both;transition:transform .5s,box-shadow .5s}
+.project-visual .bmi-mock{padding:21px 30px;max-width:310px;transform:rotate(2deg)}
+.project-visual .tool-preview{padding:0;display:block;gap:0;color:#10265e}
+.tool-preview .window-bar>span{font-size:7px}
+.link-demo{padding:22px;display:grid;grid-template-columns:1fr 66px;gap:15px;align-items:center}
+.link-demo .mock-title{font-size:16px;line-height:1.3;max-width:180px}
+.link-field{margin:16px 0 10px;padding:8px 6px;border:1px solid #dce4f3;border-radius:5px;color:#7785a0;font:8px Consolas,monospace;white-space:nowrap}
+.link-result{display:flex;align-items:center;gap:6px;color:#183875;font:9px Consolas,monospace;background:#edf2fc;padding:8px 6px;border-radius:5px}
+.link-result b{margin-left:auto}
+.qr-demo{position:relative;padding:5px;border:1px solid #e1e7f3;border-radius:7px}
+.qr-demo svg{display:block;width:100%;height:auto}
+.qr-demo i{position:absolute;left:2px;right:2px;top:8%;height:2px;background:#7898e6;opacity:0;box-shadow:0 0 8px #7898e6}
+.project-content{display:flex;flex-direction:column;flex:1}
+.project-content>.qa-note{margin-top:22px;margin-bottom:24px}
+.project-content>.project-links{margin-top:auto}
+.project-card:hover .mock-window,.project-card:hover .bmi-mock,.project-card:hover .tool-preview{transform:rotate(0) translateY(-5px)}
+@media(hover:hover){.project-card:hover .mock-task b{animation:task-check 1.2s ease both}.project-card:hover .mock-task:nth-child(3) b{animation-delay:.18s}.project-card:hover .bmi-scale i{animation:meter-settle 1.4s ease both}.project-card:hover .qr-demo i{animation:qr-scan 1.6s ease 2}}
+@keyframes preview-enter{from{opacity:0;translate:0 10px}to{opacity:1;translate:0 0}}
+@keyframes task-check{0%,30%{opacity:.35;transform:scale(.8)}100%{opacity:1;transform:scale(1)}}
+@keyframes meter-settle{0%{left:12%}65%{left:50%}100%{left:43%}}
+@keyframes qr-scan{0%{top:8%;opacity:0}20%{opacity:1}80%{opacity:1}100%{top:90%;opacity:0}}
+.cv-downloads{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;align-items:center}
+.cv-downloads>span{font-size:11px;color:#bacbef;margin-right:4px}
+.cv-downloads a{display:flex;gap:24px;padding:10px 14px;border:1px solid #ffffff40;border-radius:8px;font-size:12px;color:#fff;background:#ffffff09}
+.cv-downloads a:hover{background:#ffffff18}
+@media(max-width:700px){.experience-row{grid-template-columns:1fr;gap:21px;padding:24px}.experience-date{flex-direction:row;align-items:center;flex-wrap:wrap;border:0;border-bottom:1px solid var(--line);padding-bottom:18px;gap:12px}.experience-area{max-width:none;margin-left:auto;font-size:10px}.experience-row h3{font-size:20px}.project-visual{height:280px;padding:45px 24px 32px}}
+@media(max-width:400px){.project-visual{padding:42px 16px 28px;height:260px}.link-demo{padding:16px;gap:10px;grid-template-columns:minmax(0,1fr) 54px}.link-field{font-size:7px}.link-demo .mock-title{font-size:15px}.experience-row{padding:20px}.experience-area{flex-basis:100%;margin:0}.language-switch summary{gap:6px;padding:0 10px}.nav-tools{gap:7px}}
+@media(prefers-reduced-motion:reduce){.project-visual *,.project-card:hover *{animation:none!important;transition:none!important}}
+@media print{.language-switch{display:none}.experience-row{break-inside:avoid}}
+
+/* V5: precise controls, dates and restrained interaction feedback. */
+.language-switch summary{gap:10px;padding-inline:15px;line-height:1}
+.language-switch summary .language-chevron{width:13px;height:13px;flex:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:transform 220ms ease;color:var(--muted)}
+.language-switch[open] .language-chevron{transform:rotate(180deg);color:var(--navy)}
+.experience-date{gap:14px;align-self:stretch;justify-content:flex-start;padding-top:3px}
+.career-years{display:inline-flex;align-items:center;white-space:nowrap;font:600 20px/1.3 "Segoe UI",sans-serif;letter-spacing:-.6px;color:var(--navy);font-variant-numeric:tabular-nums}
+.career-years::before{content:"";width:4px;height:24px;border-radius:4px;background:#6688d2;margin-right:12px;flex:none;transition:background-color 250ms ease,height 250ms ease}
+.experience-row{position:relative;transition:transform 320ms var(--ease-out),border-color 320ms ease,box-shadow 320ms ease,background-color 320ms ease}
+.experience-row::after{content:"";position:absolute;left:0;top:28px;bottom:28px;width:3px;background:#5078cc;border-radius:0 4px 4px 0;transform:scaleY(0);transition:transform 320ms var(--ease-out);transform-origin:center}
+.experience-tags{gap:8px}
+.experience-tags>span{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border-radius:8px;font:500 11px/1.4 "Segoe UI",sans-serif;letter-spacing:.1px;color:var(--navy);background:var(--surface-alt);transition:color 250ms ease,background-color 250ms ease,border-color 250ms ease,transform 250ms ease,box-shadow 250ms ease}
+.experience-tags>span::before{content:"";width:4px;height:4px;border-radius:50%;background:#7b94c8;flex:none;transition:background-color 250ms ease}
+.portrait-steps{gap:6px;margin-top:14px}
+.portrait-steps>span,.portrait-steps>span+span{position:relative;min-width:0;gap:7px;padding:12px 9px;border:1px solid var(--line);border-radius:10px;background:var(--surface-alt);transition:transform 280ms var(--ease-out),background-color 280ms ease,border-color 280ms ease,box-shadow 280ms ease}
+.portrait-steps small,.portrait-steps strong{transition:color 240ms ease}
+.portrait-steps strong{font-size:10px;line-height:1.4;overflow-wrap:anywhere}
+.portrait-steps small{font-size:9px;letter-spacing:.6px}
+@media(hover:hover) and (pointer:fine){
+ .experience-row:hover{transform:translateY(-3px);border-color:#7791c7;box-shadow:0 18px 42px -30px #173a9460}
+ .experience-row:hover::after{transform:scaleY(1)}
+ .experience-row:hover .career-years::before{background:#315ac0;height:32px}
+ .experience-row:hover .experience-tags>span{border-color:#8ba3d2;background:var(--soft)}
+ .experience-tags>span:hover{background:#173a94!important;color:#fff;border-color:#173a94!important;transform:translateY(-2px);box-shadow:0 6px 14px -8px #173a94}
+ .experience-tags>span:hover::before{background:#c4d5ff}
+ .portrait-steps>span:hover{background:#173a94;border-color:#315bc3;transform:translateY(-4px);box-shadow:0 10px 20px -13px #173a94aa}
+ .portrait-steps>span:hover strong{color:#fff}
+ .portrait-steps>span:hover small{color:#c9d8ff}
+}
+@media(max-width:700px){.experience-date{padding-top:0;gap:12px;align-items:center}.career-years{font-size:21px}.experience-area{flex-basis:100%;margin-left:16px}.experience-row::after{top:20px;bottom:20px}.experience-tags>span{font-size:11px}}
+@media(min-width:641px) and (max-width:900px){.portrait-steps{gap:4px}.portrait-steps>span,.portrait-steps>span+span{padding:10px 6px}.portrait-steps strong{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.language-chevron,.experience-row,.experience-row::after,.career-years::before,.experience-tags>span,.portrait-steps>span,.portrait-steps small,.portrait-steps strong{animation:none!important;transition:none!important}.experience-row:hover,.experience-tags>span:hover,.portrait-steps>span:hover{transform:none!important}}
