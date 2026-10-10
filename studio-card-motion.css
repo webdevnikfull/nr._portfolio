@@ -1,0 +1,13 @@
+/* Decorative motion for the two standalone web-tool previews. */
+.project-card[data-it-project="currency"] .it-preview,.project-card[data-it-project="text"] .it-preview{isolation:isolate;overflow:hidden}
+.project-card[data-it-project="currency"] .it-preview::before,.project-card[data-it-project="text"] .it-preview::before{content:"";position:absolute;width:240px;height:240px;border:1px solid #91a9df55;border-radius:50%;box-shadow:0 0 0 46px #91a9df14,0 0 0 92px #91a9df0d;animation:studio-preview-orbit 7s ease-in-out infinite}
+.project-card[data-it-project="currency"] .it-mini,.project-card[data-it-project="text"] .it-mini{position:relative;z-index:1;animation:studio-preview-enter .8s cubic-bezier(.22,1,.36,1) backwards}
+.project-card[data-it-project="currency"] .currency-demo>b{animation:studio-preview-swap 4s ease-in-out infinite}
+.project-card[data-it-project="text"] .text-demo-lines i{background:linear-gradient(90deg,#dce4f5,#afc3f0,#dce4f5);background-size:210% 100%;animation:studio-preview-shimmer 4s ease-in-out infinite}
+.project-card[data-it-project="text"] .text-demo-lines i:nth-child(2){animation-delay:.25s}
+.project-card[data-it-project="text"] .text-demo-lines i:nth-child(3){animation-delay:.5s}
+@keyframes studio-preview-orbit{50%{transform:scale(1.08);opacity:.55}}
+@keyframes studio-preview-enter{from{opacity:0;transform:translateY(16px) rotate(-5deg)}}
+@keyframes studio-preview-swap{50%{transform:rotate(90deg) scale(1.12)}}
+@keyframes studio-preview-shimmer{50%{background-position:100% 0}}
+@media(prefers-reduced-motion:reduce){.project-card[data-it-project="currency"] .it-preview::before,.project-card[data-it-project="text"] .it-preview::before,.project-card[data-it-project="currency"] .it-mini,.project-card[data-it-project="text"] .it-mini,.project-card[data-it-project="currency"] .currency-demo>b,.project-card[data-it-project="text"] .text-demo-lines i{animation:none!important}}

@@ -15,8 +15,12 @@
     const labels = {
       pl: ['Włącz ciemny motyw', 'Włącz jasny motyw'],
       en: ['Use dark theme', 'Use light theme'],
-      de: ['Dunkles Design aktivieren', 'Helles Design aktivieren']
+      de: ['Dunkles Design aktivieren', 'Helles Design aktivieren'],
+      uk: ['Увімкнути темну тему', 'Увімкнути світлу тему']
     };
+    themeButton.querySelector('svg').innerHTML = dark
+      ? '<path d="M20.7 13.1A9 9 0 0 1 10.9 3.3a9 9 0 1 0 9.8 9.8Z"></path>'
+      : '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path>';
     themeButton.setAttribute('aria-pressed', String(dark));
     themeButton.setAttribute('aria-label', (labels[language] || labels.pl)[Number(dark)]);
   }

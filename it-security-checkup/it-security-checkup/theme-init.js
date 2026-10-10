@@ -1,0 +1,1 @@
+try{document.documentElement.dataset.theme=(localStorage.getItem('qa-portfolio-theme')||localStorage.getItem('nr-security-theme'))==='dark'?'dark':'light'}catch{document.documentElement.dataset.theme='light'}

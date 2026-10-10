@@ -5,23 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Nikita Rysiev — Junior QA Tester. Testowanie manualne, diagnostyka IT i automatyzacja w Playwright. Projekty, doświadczenie i CV po polsku."
+      content="Nikita Rysiev — Specjalista IT. Wsparcie L1 / L2, diagnostyka, Windows, Active Directory i Microsoft 365."
     />
     <meta name="theme-color" content="#081d63" />
     <meta name="view-transition" content="same-origin" />
-    <title>Nikita Rysiev — Tester QA i automatyzacja</title>
+    <title>Nikita Rysiev — Specjalista IT Support</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <script src="theme-init.js"></script>
-    <link rel="stylesheet" href="styles.css?v=20260922-v3" />
+    <link rel="stylesheet" href="styles.css?v=20261010-logo-layout" />
     <link rel="stylesheet" href="portrait.css?v=20260922-header2" />
-    <script src="main.js?v=20260922-header2" defer></script>
+    <script src="main.js?v=20261010" defer></script>
     <link rel="alternate" hreflang="pl" href="index.html" />
     <link rel="alternate" hreflang="en" href="index-en.html" />
     <link rel="alternate" hreflang="de" href="index-de.html" />
+    <link rel="alternate" hreflang="uk" href="index-uk.html" />
     <link rel="stylesheet" href="motion.css?v=3" />
     <script src="motion.js?v=20260929-v5" defer></script>
-  <link rel="stylesheet" href="refinement.css?v=20260929-v5" />
+  <link rel="stylesheet" href="refinement.css?v=20261010" />
 <script src="refinement.js?v=20260929" defer></script>
+<link rel="stylesheet" href="workspace-projects.css?v=20261010"><link rel="stylesheet" href="studio-card-motion.css">
+    <link rel="stylesheet" href="volunteer.css?v=20261009" />
+    <link rel="stylesheet" href="logo-layout.css?v=20261010-mobile-3" />
 </head>
   <body>
     <a class="skip-link" href="#main">Przejdź do treści</a>
@@ -31,17 +35,18 @@
           class="brand"
           href="#about"
           aria-label="Nikita Rysiev — strona główna"
-          >nr<span>.</span><span class="brand-caption">QA PORTFOLIO</span></a
+          >nr<span>.</span><span class="brand-caption">IT SUPPORT PORTFOLIO</span></a
         >
         <nav class="main-nav" id="navigation" aria-label="Nawigacja główna">
           <a href="#about">O mnie</a>
           <a href="#skills">Kompetencje</a>
           <a href="#experience">Doświadczenie</a>
           <a href="#projects">Projekty</a>
+          <a href="#volunteer">Wolontariat</a>
           <a href="#contact">Kontakt</a>
         </nav>
         <div class="nav-tools">
-          <details class="language-switch"><summary aria-label="Wybierz język"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg>PL<svg class="language-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></summary><nav aria-label="Wybierz język" class="language-options"><a href="index.html" lang="pl" hreflang="pl" aria-current="page">Polski<span>PL</span></a><a href="index-en.html" lang="en" hreflang="en">English<span>EN</span></a><a href="index-de.html" lang="de" hreflang="de">Deutsch<span>DE</span></a></nav></details>
+          <details class="language-switch"><summary aria-label="Wybierz język"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg>PL<svg class="language-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></summary><nav aria-label="Wybierz język" class="language-options"><a href="index.html" lang="pl" hreflang="pl" aria-current="page">Polski<span>PL</span></a><a href="index-en.html" lang="en" hreflang="en">English<span>EN</span></a><a href="index-de.html" lang="de" hreflang="de">Deutsch<span>DE</span></a><a href="index-uk.html" lang="uk" hreflang="uk">Українська<span>UK</span></a></nav></details>
           <button
             class="icon-button"
             id="theme-toggle"
@@ -49,9 +54,7 @@
             aria-label="Włącz ciemny motyw"
             aria-pressed="false"
           >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M20.7 13.1A9 9 0 0 1 10.9 3.3a9 9 0 1 0 9.8 9.8Z"></path>
-            </svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path></svg>
           </button>
           <button
             class="icon-button menu-toggle"
@@ -71,31 +74,22 @@
     <main id="main" class="container">
       <section class="hero" id="about" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <p class="availability">
-            <span class="status-dot"></span
-            ><span>Szukam pracy jako Specjalista IT</span>
-          </p>
+          <p class="availability"><span class="status-dot"></span><span>Doświadczenie, umiejętności i projekty IT</span></p>
           <p class="eyebrow hero-name">NIKITA RYSIEV / WARSZAWA</p>
-          <h1 id="hero-title">Uwaga na detale.<br />Fokus na jakość.</h1>
+          <h1 id="hero-title">Wsparcie, które działa.<br />Spokojniejsza praca.</h1>
           <p class="hero-role">
-            Tester QA <span>&amp;</span> Automatyzacja testów
+            IT Support Specialist
           </p>
           <p class="hero-description">
-            Przenoszę trzy lata doświadczenia we wsparciu IT do świata
-            testowania. Testuję manualnie, diagnozuję problemy i rozwijam
-            automatyzację w Playwright.
+            Łączę doświadczenie L1 / L2, diagnostykę środowisk Windows,
+            Active Directory i Microsoft 365 z uważną dokumentacją zgłoszeń
+            oraz praktycznym podejściem do użytkownika.
           </p>
           <div class="hero-actions">
             <a class="button button-primary" href="#projects"
               ><span>Zobacz moje projekty</span
               ><span aria-hidden="true">↗</span></a
-            ><a
-              class="button button-secondary"
-              href="CV_NIKITA_RYSIEV_QA_PL.pdf"
-              download="CV_NIKITA_RYSIEV_QA_PL.pdf"
-              hreflang="pl"
-              ><span>Pobierz CV</span><span aria-hidden="true">↓</span></a
-            >
+            ><a class="button button-secondary" href="CV_NIKITA_RYSIEV_IT_SUPPORT_PL.pdf" download="CV_NIKITA_RYSIEV_IT_SUPPORT_PL.pdf" hreflang="pl"><span>Pobierz CV po polsku</span><span aria-hidden="true">↓</span></a>
           </div>
           <div class="hero-links">
             <a
@@ -126,13 +120,13 @@
                 ><span class="portrait-monogram" aria-hidden="true">nr.</span>
               </div>
               <div class="portrait-photo-label">
-                <span class="portrait-dot"></span>TESTER QA I AUTOMATYZACJA
+                <span class="portrait-dot"></span>IT SUPPORT SPECIALIST
               </div>
             </div>
             <div class="portrait-details">
               <div class="portrait-identity">
                 <div>
-                  <p class="portrait-kicker">TWÓJ PRZYSZŁY CZŁONEK ZESPOŁU</p>
+                  <p class="portrait-kicker">POZNAJ MOJĄ PRAKTYKĘ IT</p>
                   <p class="portrait-name">Nikita Rysiev</p>
                 </div>
                 <a
@@ -151,14 +145,14 @@
                   <circle cx="12" cy="10" r="2.5"></circle></svg
                 ><span>Warszawa, Polska</span
                 ><span class="portrait-divider" aria-hidden="true">/</span
-                ><span>Junior QA</span>
+                ><span>IT Support · L1 / L2</span>
               </div>
               <div class="portrait-method">
-                <p class="portrait-kicker">MOJE PODEJŚCIE DO JAKOŚCI</p>
+                <p class="portrait-kicker">MOJE PODEJŚCIE DO WSPARCIA</p>
                 <div class="portrait-steps">
                   <span><small>01</small><strong>Zrozumieć</strong></span
-                  ><span><small>02</small><strong>Sprawdzić</strong></span
-                  ><span><small>03</small><strong>Ulepszyć</strong></span>
+                  ><span><small>02</small><strong>Rozwiązać</strong></span
+                  ><span><small>03</small><strong>Udokumentować</strong></span>
                 </div>
               </div>
             </div>
@@ -171,51 +165,50 @@
           <p>Wsparcie IT · L1 / L2</p>
         </div>
         <div>
-          <strong>Manual<span>+ Automation</span></strong>
-          <p>Kierunek rozwoju w QA</p>
+          <strong>Helpdesk / SLA</strong>
+          <p>Diagnostyka i rozwiązywanie incydentów</p>
         </div>
         <div>
-          <strong>Playwright</strong>
-          <p>Rozwijana automatyzacja testów</p>
+          <strong>Windows / M365</strong>
+          <p>Środowiska użytkowników i administracja</p>
         </div>
         <div>
           <strong>LINGWISTYKA</strong>
-          <p>Angielski B1 / B2</p>
+          <p>Angielski · średnio-zaawansowany</p>
         </div>
       </div>
 
       <section class="section" id="skills" aria-labelledby="skills-title">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">01 / KOMPETENCJE</p>
+            <p class="eyebrow">01 / KOMPETENCJE IT SUPPORT</p>
             <h2 id="skills-title">
-              Jakość z więcej<br />niż jednej perspektywy.
+              Skuteczne wsparcie.<br />Sprawne systemy.
             </h2>
           </div>
           <p class="section-intro">
-            Zaplecze techniczne, analityczne myślenie i uważność na
-            doświadczenie użytkownika.
+            Diagnostyka, uporządkowana komunikacja i niezawodne wsparcie
+            użytkowników oraz ich urządzeń.
           </p>
         </div>
         <div class="skills-grid">
           <article class="skill-card">
             <span class="skill-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="m8 12 3 3 5-6"/></svg></span>
-            <h3>Testowanie manualne</h3>
-            <p>Przypadki i scenariusze testowe, testy eksploracyjne oraz weryfikacja UI. Testowanie REST API w Postman i Newman.</p>
-            <div class="tags"><span>Postman / Newman</span><span>Test cases</span><span>DevTools</span></div>
+            <h3>Obsługa incydentów</h3>
+            <p>Obsługa zgłoszeń L1 / L2: diagnoza, dokumentowanie działań i eskalacja złożonych problemów.</p>
+            <div class="tags"><span>Helpdesk</span><span>SLA</span><span>RCA</span></div>
           </article>
           <article class="skill-card">
             <span class="skill-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 16"/></svg></span>
-            <h3>Automatyzacja testów</h3>
-            <p>Rozwijam automatyzację w Mate Academy: Playwright, Cypress, JavaScript i Python. Uzupełniam ją o podstawy CI/CD w GitHub Actions.</p>
-            <div class="tags"><span>Playwright / Cypress</span><span>JS / Python</span><span>GitHub Actions</span></div>
-            <span class="learning-label">W trakcie rozwoju</span>
+            <h3>Środowiska użytkowników</h3>
+            <p>Wsparcie środowisk Windows, kont Active Directory, dostępu Microsoft 365 i codziennych narzędzi pracy.</p>
+            <div class="tags"><span>Windows</span><span>Active Directory</span><span>Microsoft 365</span></div>
           </article>
           <article class="skill-card">
             <span class="skill-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="3"/><path d="M8 21h8m-4-4v4M6 11h3l2-3 3 6 2-3h2"/></svg></span>
-            <h3>Analiza techniczna</h3>
-            <p>Diagnostyka incydentów, RCA i wsparcie L1 / L2. Praca z Windows, Active Directory i Microsoft 365 oraz dokumentowanie zgłoszeń.</p>
-            <div class="tags"><span>Jira / ServiceNow</span><span>Active Directory</span><span>Microsoft 365</span></div>
+            <h3>Infrastruktura i sprzęt</h3>
+            <p>Diagnostyka sprzętu i urządzeń sieciowych, konfiguracja oraz testowanie łączności LAN / WLAN na miejscu.</p>
+            <div class="tags"><span>LAN / WLAN</span><span>Hardware</span><span>ServiceNow</span></div>
           </article>
         </div>
       </section>
@@ -228,14 +221,14 @@
         <div class="section-heading">
           <div>
             <p class="eyebrow">02 / DOŚWIADCZENIE</p>
-            <h2 id="experience-title">Doświadczenie, które<br>pracuje na jakość.</h2>
+            <h2 id="experience-title">Doświadczenie, które<br>usprawnia pracę.</h2>
           </div>
-          <p class="section-intro">Wsparcie użytkowników, testowanie aplikacji i infrastruktura IT. Trzy środowiska pracy, jedna uważność na szczegóły.</p>
+          <p class="section-intro">Wsparcie użytkowników, infrastruktura i środowiska pracy — zawsze z naciskiem na rozwiązanie i dokumentację.</p>
         </div>
         <div class="timeline">
-          <article class="experience-row"><div class="experience-date"><span class="career-years">2026</span><span class="experience-area">Sieci i infrastruktura</span></div><div class="experience-detail"><p class="company">AJM ELEKTRO SP. Z O.O.</p><h3>Instalator systemów bezpieczeństwa &amp; IT</h3><ul><li>Instalacja, konfiguracja i testowanie systemów LAN / WLAN / CCTV zgodnie ze specyfikacją techniczną.</li><li>Weryfikacja ciągłości sygnałów, diagnostyka oraz naprawa usterek sprzętowych.</li></ul><div class="experience-tags"><span>LAN / WLAN</span><span>CCTV</span><span>Hardware</span></div></div></article>
-          <article class="experience-row"><div class="experience-date"><span class="career-years">2024 — 2026</span><span class="experience-area">Testowanie i wsparcie web</span></div><div class="experience-detail"><p class="company">INFLAA SP. Z O.O.</p><h3>Informatyk / Web Tester</h3><ul><li>Tworzenie i wykonywanie manualnych przypadków testowych dla platform e-commerce.</li><li>Raportowanie defektów i współpraca z zespołem technicznym przy ich usuwaniu.</li><li>Weryfikacja WordPress, naprawa błędów UI i wsparcie użytkowników sklepu.</li></ul><div class="experience-tags"><span>Test cases</span><span>WordPress</span><span>Bug tracking</span></div></div></article>
-          <article class="experience-row"><div class="experience-date"><span class="career-years">2022 — 2024</span><span class="experience-area">Wsparcie IT · L1 / L2</span></div><div class="experience-detail"><p class="company">FUJITSU SOLUTIONS SP. Z O.O.</p><h3>Informatyk · Helpdesk / Tech-IT</h3><ul><li>Diagnozowanie, rozwiązywanie i dokumentowanie incydentów w Helpdesk zgodnie z SLA.</li><li>Analiza przyczyn źródłowych (RCA) oraz współpraca z zespołami L1 / L2.</li><li>Wsparcie użytkowników i zarządzanie kontami oraz uprawnieniami w Active Directory.</li></ul><div class="experience-tags"><span>SLA</span><span>RCA</span><span>Active Directory</span></div></div></article>
+          <article class="experience-row"><div class="experience-date"><span class="career-years">2026 — obecnie</span><a class="company-logo company-logo--iss company-logo-link" href="https://www.pl.issworld.com/" target="_blank" rel="noopener noreferrer" aria-label="ISS Polska — Usługi dla obiektów · obsługa techniczna (oficjalna strona firmy)"><img src="brand-logos/iss.png" alt="ISS Polska logo" width="116" height="82" loading="lazy" decoding="async"></a><a class="experience-area experience-area-link" href="https://www.pl.issworld.com/" target="_blank" rel="noopener noreferrer" aria-label="ISS Polska — Usługi dla obiektów · obsługa techniczna (oficjalna strona firmy)">Usługi dla obiektów · obsługa techniczna<span class="external-arrow" aria-hidden="true">↗</span></a></div><div class="experience-detail"><p class="company">ISS POLSKA</p><h3>Instalator systemów bezpieczeństwa &amp; IT</h3><ul><li>Rozwiązywanie problemów sprzętowych i sieciowych bezpośrednio w miejscu awarii.</li><li>Konfiguracja i testowanie urządzeń sieciowych LAN / WLAN.</li></ul><div class="experience-tags"><span>Diagnostyka na miejscu</span><span>LAN / WLAN</span><span>Hardware</span></div></div></article>
+          <article class="experience-row"><div class="experience-date"><span class="career-years">2024 — 2026</span><a class="company-logo company-logo--inflaa company-logo-link" href="https://inflaa.com/" target="_blank" rel="noopener noreferrer" aria-label="INFLAA — Atrakcje dmuchane · e-commerce (oficjalna strona firmy)"><img src="brand-logos/inflaa.svg" alt="INFLAA logo" width="140" height="22" loading="lazy" decoding="async"></a><a class="experience-area experience-area-link" href="https://inflaa.com/" target="_blank" rel="noopener noreferrer" aria-label="INFLAA — Atrakcje dmuchane · e-commerce (oficjalna strona firmy)">Atrakcje dmuchane · e-commerce<span class="external-arrow" aria-hidden="true">↗</span></a></div><div class="experience-detail"><p class="company">INFLAA</p><h3>Informatyk · Web / IT</h3><ul><li>Przyjmowanie zgłoszeń i wsparcie użytkowników platformy e-commerce.</li><li>Wstępna diagnoza błędów na poziomie L1 / L2 i eskalacja złożonych problemów.</li><li>Wykorzystywanie prawa jazdy kat. B w codziennej pracy i dojazdach związanych z obowiązkami zawodowymi.</li></ul><div class="experience-tags"><span>E-commerce</span><span>L1 / L2</span><span>Eskalacja</span><span>Prawo jazdy kat. B</span></div></div></article>
+          <article class="experience-row"><div class="experience-date"><span class="career-years">2022 — 2024</span><a class="company-logo company-logo--fujitsu company-logo-link" href="https://global.fujitsu/pl-PL" target="_blank" rel="noopener noreferrer" aria-label="Fujitsu — Usługi IT · transformacja cyfrowa (oficjalna strona firmy)"><img src="brand-logos/fujitsu.png" alt="Fujitsu logo" width="66" height="66" loading="lazy" decoding="async"></a><a class="experience-area experience-area-link" href="https://global.fujitsu/pl-PL" target="_blank" rel="noopener noreferrer" aria-label="Fujitsu — Usługi IT · transformacja cyfrowa (oficjalna strona firmy)">Usługi IT · transformacja cyfrowa<span class="external-arrow" aria-hidden="true">↗</span></a></div><div class="experience-detail"><p class="company">FUJITSU SOLUTIONS</p><h3>Informatyk · Helpdesk / Tech-IT</h3><ul><li>Diagnozowanie, rozwiązywanie i rejestrowanie incydentów w systemie Helpdesk zgodnie z SLA.</li><li>Analiza przyczyn źródłowych (RCA) we współpracy z zespołami L1 / L2.</li><li>Wsparcie użytkowników oraz zarządzanie kontami i uprawnieniami w Active Directory.</li><li>Wykorzystywanie prawa jazdy kat. B w codziennej pracy i dojazdach związanych z obowiązkami zawodowymi.</li></ul><div class="experience-tags"><span>Helpdesk / SLA</span><span>RCA</span><span>Active Directory</span><span>Prawo jazdy kat. B</span></div></div></article>
         </div>
       </section>
 
@@ -244,12 +237,12 @@
           <div>
             <p class="eyebrow">03 / WYBRANE PROJEKTY</p>
             <h2 id="projects-title">
-              Zbudowane, by działać.<br />Gotowe do testowania.
+              Zbudowane, by wspierać.<br />Gotowe do pracy.
             </h2>
           </div>
           <p class="section-intro">
-            Moje aplikacje webowe — praktyczna baza do rozwijania scenariuszy
-            testowych i automatyzacji.
+            Moje aplikacje pokazują podejście do procesów wsparcia, widoczności
+            usług, historii sprzętu i jasnych rezultatów dla użytkownika.
           </p>
         </div>
         <div class="projects-grid">
@@ -275,7 +268,7 @@
                   </div>
                 </div>
               </div>
-              <span class="visual-footnote">Ilustracja interfejsu</span>
+              <span class="visual-footnote">Animowana ilustracja interfejsu</span>
             </div>
             <div class="project-content">
               <div class="project-meta">
@@ -288,11 +281,9 @@
                 zaprojektowany z myślą o codziennym użyciu.
               </p>
               <div class="qa-note">
-                <span>Perspektywa QA</span>
+                <span>PERSPEKTYWA IT SUPPORT</span>
                 <p>
-                  Walidacja, filtrowanie i sortowanie objęte 6 testami
-                  jednostkowymi. W przeglądarce sprawdzone: edycja, zapis,
-                  kończenie i cofanie usunięcia.
+                  Czytelne statusy zadań, zapis danych i wygodny codzienny proces.
                 </p>
               </div>
               <div class="project-links">
@@ -326,11 +317,11 @@
                   >
                 </div>
               </div>
-              <span class="visual-footnote">Ilustracja interfejsu</span>
+              <span class="visual-footnote">Animowana ilustracja interfejsu</span>
             </div>
             <div class="project-content">
               <div class="project-meta">
-                <span>APLIKACJA WEB / KALKULATOR</span><span>02</span>
+                <span>JAVASCRIPT / CALCULATOR</span><span>02</span>
               </div>
               <h3>Kalkulator BMI</h3>
               <p>
@@ -338,10 +329,9 @@
                 interfejs do pracy z danymi liczbowymi.
               </p>
               <div class="qa-note">
-                <span>Perspektywa QA</span>
+                <span>PERSPEKTYWA IT SUPPORT</span>
                 <p>
-                  Obszary do testów: walidacja danych, wartości brzegowe, puste
-                  pola i poprawność obliczeń.
+                  Czytelna obsługa danych, przydatne komunikaty i wiarygodny wynik.
                 </p>
               </div>
               <div class="project-links">
@@ -363,24 +353,41 @@
           <article class="project-card">
             <div class="project-visual tool-visual" aria-hidden="true">
               <span class="visual-label">03 / Link STUDIO</span>
-              <div class="tool-preview"><div class="window-bar"><i></i><i></i><i></i><span>link.studio</span></div><div class="link-demo"><div><div class="mock-title">Jeden link. Więcej możliwości.</div><div class="link-field">https://example.com/project</div><div class="link-result"><span>↗</span> nr.link / portfolio <b>✓</b></div></div><div class="qr-demo"><svg viewBox="0 0 70 70" aria-hidden="true"><path d="M4 4h18v18H4zM48 4h18v18H48zM4 48h18v18H4z" fill="none" stroke="currentColor" stroke-width="5"/><path d="M10 10h6v6h-6zM54 10h6v6h-6zM10 54h6v6h-6zM29 3h7v12h-7zM29 22h13v7H29zM3 29h12v7H3zM21 34h8v10h-8zM35 35h12v7H35zM54 29h12v7H54zM29 49h8v17h-8zM43 48h7v8h-7zM56 41h10v8H56zM54 58h12v8H54zM40 62h8v5h-8z" fill="currentColor"/></svg><i></i></div></div></div><span class="visual-footnote">Animowana ilustracja interfejsu</span>
+              <div class="tool-preview"><div class="window-bar"><i></i><i></i><i></i><span>link.studio</span></div><div class="link-demo"><div><div class="mock-title">Jeden link. Więcej możliwości.</div><div class="link-field">https://example.com/project</div></div><div class="qr-demo"><svg viewBox="0 0 70 70" aria-hidden="true"><path d="M4 4h18v18H4zM48 4h18v18H48zM4 48h18v18H4z" fill="none" stroke="currentColor" stroke-width="5"/><path d="M10 10h6v6h-6zM54 10h6v6h-6zM10 54h6v6h-6zM29 3h7v12h-7zM29 22h13v7H29zM3 29h12v7H3zM21 34h8v10h-8zM35 35h12v7H35zM54 29h12v7H54zM29 49h8v17h-8zM43 48h7v8h-7zM56 41h10v8H56zM54 58h12v8H54zM40 62h8v5h-8z" fill="currentColor"/></svg><i></i></div></div></div><span class="visual-footnote">Animowana ilustracja interfejsu</span>
             </div>
             <div class="project-content">
               <div class="project-meta">
-                <span>JAVASCRIPT / PHP / SQLITE</span><span>03</span>
+                <span>JAVASCRIPT / SVG / CANVAS</span><span>03</span>
               </div>
-              <h3>Link Studio — URL &amp; QR</h3>
-              <p>
-                Jeden projekt, dwa narzędzia: skracanie adresów URL i
-                generowanie kodów QR. Kopiowanie linków oraz eksport PNG i SVG.
-              </p>
-              <div class="qa-note"><span>Perspektywa QA</span><p>Obszary do testów: walidacja URL, kopiowanie linków i eksport kodów QR.</p></div><div class="project-links">
+              <h3>Link Studio — QR</h3>
+              <p>Interaktywny generator kodów QR do stron, portfolio i wydarzeń. Podgląd na żywo, wybór koloru oraz eksport PNG i SVG.</p>
+              <div class="qa-note"><span>Perspektywa QA</span><p>Czytelna obsługa, lokalne generowanie QR i pliki gotowe do udostępnienia.</p></div><div class="project-links">
                 <a href="https://webdevnikfull.github.io/nr._link-studio/" target="_blank" rel="noopener noreferrer">Podgląd aplikacji ↗</a>
                 <a href="https://github.com/webdevnikfull/nr._link-studio/" target="_blank" rel="noopener noreferrer">Repozytorium GitHub ↗</a>
               </div>
             </div>
           </article>
         </div>
+      </section>
+
+      <section class="workspace-feature section" id="workspace" aria-labelledby="workspace-title">
+        <div class="workspace-feature-head">
+          <div>
+            <p class="eyebrow">04 / IT WORKSPACE</p>
+            <h2 id="workspace-title">Jedna przestrzeń.<br />Pełniejszy obraz pracy.</h2>
+          </div>
+          <p class="section-intro">Połączone narzędzia do wsparcia IT, monitoringu, kontroli jakości i ewidencji sprzętu.</p>
+        </div>
+        <div class="workspace-flow" aria-label="Połączony proces pracy">
+          <a href="it-workspace/#desk"><span>01</span><strong>Support Desk</strong><small>Zgłoszenia i rozwiązania</small><b>↗</b></a>
+          <i aria-hidden="true">→</i>
+          <a href="it-workspace/#monitor"><span>02</span><strong>Service Monitor</strong><small>Dostępność i incydenty</small><b>↗</b></a>
+          <i aria-hidden="true">→</i>
+          <a href="it-workspace/#qa"><span>03</span><strong>QA Lab</strong><small>Scenariusze i dowody</small><b>↗</b></a>
+          <i aria-hidden="true">→</i>
+          <a href="it-workspace/#assets"><span>04</span><strong>Asset Manager</strong><small>Urządzenia i historia</small><b>↗</b></a>
+        </div>
+        <div class="workspace-feature-foot"><span>IT SUPPORT × QA × AUTOMATION</span><a class="button button-primary" href="it-workspace/">Otwórz IT Workspace <span aria-hidden="true">↗</span></a></div>
       </section>
 
       <section
@@ -391,22 +398,42 @@
         <div class="education-heading">
           <p class="eyebrow">04 / ROZWÓJ</p>
           <h2 id="education-title">Stale się rozwijam.</h2>
-          <p>Buduję kompetencje QA na technicznym fundamencie.</p>
+          <p>Rozwijam kompetencje informatyczne, które wspierają codzienną diagnostykę i pracę z użytkownikami.</p>
         </div>
         <div class="education-list">
           <article>
-            <span class="education-date">2023 — OBECNIE</span>
-            <h3>Mate Academy</h3>
-            <p>QA Manual &amp; Automation</p>
+            <span class="education-date">2025 — OBECNIE</span>
+            <h3>Mate Academy Polska</h3>
+            <p>Profil: informatyka stosowana</p>
           </article>
           <article>
             <span class="education-date">2016 — 2020</span>
             <h3>II Liceum im. E. Plater</h3>
             <p>Profil: informatyka</p>
           </article>
-          <div class="languages"><span>Polski · ojczysty</span><span>Angielski · B1 / B2</span
-            ><span>Ukraiński · średniozaawansowany</span><span>Niemiecki · podstawy</span></div>
+          <div class="languages"><span>Polski · średnio-zaawansowany</span><span>Angielski · średnio-zaawansowany</span
+            ><span>Ukraiński · średnio-zaawansowany</span><span>Niemiecki · podstawy</span></div>
         </div>
+      </section>
+
+      <section class="section volunteer-section" id="volunteer" aria-labelledby="volunteer-title">
+        <div class="section-heading volunteer-heading">
+          <div><p class="eyebrow">05 / WOLONTARIAT</p><h2 id="volunteer-title">Technologia, która<br />pomaga ludziom.</h2></div>
+          <p class="section-intro">Od 2020 roku bezpłatnie wspieram osoby potrzebujące pomocy w codziennych sprawach technicznych i cyfrowych.</p>
+        </div>
+        <article class="volunteer-card">
+          <div class="volunteer-card-head">
+            <span class="volunteer-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2.5"/><path d="M8 21h8M12 18v3M9 11.2l2.1 2.1 4.2-4.7"/></svg></span>
+            <div class="volunteer-identity"><span class="volunteer-period">2020 — OBECNIE</span><h3>Chrześcijańska Fundacja Radość</h3><p>Wolontariusz · pomoc IT i wsparcie cyfrowe</p></div>
+            <a class="volunteer-site" href="https://fundacja-radosc.pl/" target="_blank" rel="noopener noreferrer">Poznaj fundację<span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="volunteer-grid">
+            <div class="volunteer-item"><span class="volunteer-index">01</span><h4>Sprzęt i diagnostyka</h4><p>Pomagam rozpoznawać usterki oraz naprawiać i przywracać do działania komputery i inne urządzenia IT.</p></div>
+            <div class="volunteer-item"><span class="volunteer-index">02</span><h4>Oprogramowanie</h4><p>Instaluję i konfiguruję programy, rozwiązuję codzienne problemy techniczne i tłumaczę użytkownikom kolejne kroki.</p></div>
+            <div class="volunteer-item"><span class="volunteer-index">03</span><h4>Dokumenty cyfrowe</h4><p>Pomagam technicznie w podstawowym przygotowaniu i porządkowaniu dokumentów legalizacyjnych, finansowych, urzędowych, konsularnych i innych.</p></div>
+          </div>
+          <p class="volunteer-footnote">Praktyczne wsparcie · cierpliwość · jasna komunikacja</p>
+        </article>
       </section>
 
       <section
@@ -415,21 +442,12 @@
         aria-labelledby="contact-title"
       >
         <div class="contact-text">
-          <p class="eyebrow">05 / POROZMAWIAJMY</p>
-          <h2 id="contact-title">
-            Miejsce w Twoim zespole QA?<br />Porozmawiajmy.
-          </h2>
-          <p>
-            Szukam roli Junior QA, w której wykorzystam doświadczenie techniczne
-            i rozwinę automatyzację testów.
-          </p>
+          <p class="eyebrow">06 / POROZMAWIAJMY</p>
+          <h2 id="contact-title">Poznajmy się.<br />Porozmawiajmy o technologii.</h2><p>To portfolio przedstawia moje doświadczenie zawodowe, umiejętności i projekty. Chętnie wymienię się wiedzą i porozmawiam o praktycznych rozwiązaniach IT.</p>
           <a class="contact-email" href="mailto:nikita.rysiev@gmail.com"
             >nikita.rysiev@gmail.com <span aria-hidden="true">↗</span></a
           >
-          <div class="cv-downloads"><span>CV po polsku</span><a href="CV_NIKITA_RYSIEV_QA_PL.pdf" download>QA / Automation <span aria-hidden="true">↓</span></a><a href="CV_NIKITA_RYSIEV_IT_SUPPORT_PL.pdf" download>IT Support <span aria-hidden="true">↓</span></a></div><div class="contact-links">
-            <a href="tel:+48453430944">+48 453 430 944</a
-            >
-          </div>
+          <div class="cv-downloads"><span>CV po polsku</span><a href="CV_NIKITA_RYSIEV_IT_SUPPORT_PL.pdf" download="CV_NIKITA_RYSIEV_IT_SUPPORT_PL.pdf" hreflang="pl">Pobierz CV po polsku <span aria-hidden="true">↓</span></a></div><div class="contact-links"><a href="tel:+48453430944">+48 453 430 944</a></div>
         </div>
         <div class="contact-monogram" aria-hidden="true">nr<span>.</span></div>
       </section>
@@ -451,5 +469,6 @@
         ><a href="#about">Do góry ↑</a>
       </div>
     </footer>
-  </body>
+  <script src="studio-repositories.js?v=20261010-live2" defer></script>
+  <script src="workspace-projects.js?v=20261010-live2" defer></script></body>
 </html>

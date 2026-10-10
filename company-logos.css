@@ -1,0 +1,40 @@
+/* Equal logo frames, preserving each company's original aspect ratio and color. */
+.experience-date .company-logo{
+  display:grid;
+  place-items:center;
+  flex:none;
+  width:128px;
+  height:78px;
+  margin:2px 0 0;
+  overflow:hidden;
+  border:1px solid #dfe5ef;
+  border-radius:13px;
+  background:#fff;
+  box-shadow:0 8px 22px -18px #142b62aa;
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+.experience-date .company-logo img{display:block;object-fit:contain;object-position:center;flex:none}
+.experience-date .company-logo--fujitsu img{width:68px;height:68px}
+.experience-date .company-logo--inflaa img{width:110px;height:auto}
+/* The supplied ISS PNG contains wide transparent margins. Scale its visible mark inside the same frame. */
+.experience-date .company-logo--iss img{width:96px;height:auto;max-width:none;max-height:none;transform:scale(1.43)}
+.experience-date .experience-area{max-width:175px;margin:0;padding:0;font-size:11px;line-height:1.5;letter-spacing:0;color:var(--muted)}
+@media(hover:hover) and (pointer:fine){.experience-row:hover .company-logo{transform:translateY(-2px);box-shadow:0 12px 26px -17px #142b6288}}
+@media(max-width:700px){.experience-date{flex-direction:column;align-items:flex-start;gap:12px}.experience-date .experience-area{flex-basis:auto;margin:0;max-width:none}.experience-date .company-logo{width:128px;height:78px}}
+@media(prefers-reduced-motion:reduce){.experience-date .company-logo{transition:none!important}.experience-row:hover .company-logo{transform:none!important}}
+
+/* The company-sector caption is the link to the official company website. */
+.experience-date .experience-area-link{
+  display:inline-flex;
+  align-items:baseline;
+  gap:5px;
+  color:var(--muted);
+  text-decoration:none;
+  border-bottom:1px solid transparent;
+  transition:color .2s ease,border-color .2s ease;
+}
+.experience-date .experience-area-link .external-arrow{flex:none;font-size:12px;line-height:1}
+.experience-date .experience-area-link:hover,
+.experience-date .experience-area-link:focus-visible{color:var(--accent,#172a71);border-color:currentColor}
+.experience-date .experience-area-link:focus-visible{outline:2px solid currentColor;outline-offset:4px;border-radius:2px}
+@media(prefers-reduced-motion:reduce){.experience-date .experience-area-link{transition:none}}

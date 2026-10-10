@@ -20,7 +20,7 @@
     animation.finished.then(()=>animations.delete(animation)).catch(()=>{});
    });
   },{threshold:.08});
-  document.querySelectorAll('.hero-copy,.hero-visual,.portrait-steps > span,.section-heading,.skill-card,.experience-row,.project-card,.education-heading,.education-list article,.contact-text').forEach(el=>observer.observe(el));
+  document.querySelectorAll('.hero-copy,.hero-visual,.portrait-steps > span,.section-heading,.skill-card,.experience-row,.project-card,.education-heading,.education-list article,.volunteer-card,.contact-text').forEach(el=>observer.observe(el));
  }
  preference.addEventListener('change',()=>{if(preference.matches){observer?.disconnect();animations.forEach(a=>a.cancel());animations.clear();}});
  document.addEventListener('focusin',()=>{animations.forEach(a=>a.finish());});

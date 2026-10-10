@@ -57,6 +57,11 @@
 @media(prefers-reduced-motion:reduce){.project-visual *,.project-card:hover *{animation:none!important;transition:none!important}}
 @media print{.language-switch{display:none}.experience-row{break-inside:avoid}}
 
+/* Dark theme: keep the portrait calm and prevent a bright hover wash at its lower edge. */
+:root[data-theme="dark"] .portrait-image-wrap::after{background:linear-gradient(180deg,rgba(5,19,66,.58),transparent 78%,rgba(5,19,66,.72))}
+:root[data-theme="dark"] .portrait-frame:hover{box-shadow:0 12px 24px -12px rgba(0,0,0,.55),0 28px 60px -30px rgba(0,0,0,.72)}
+:root[data-theme="dark"] .portrait-frame:hover .portrait-image-wrap img{transform:scale(1.04)}
+
 /* V5: precise controls, dates and restrained interaction feedback. */
 .language-switch summary{gap:10px;padding-inline:15px;line-height:1}
 .language-switch summary .language-chevron{width:13px;height:13px;flex:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:transform 220ms ease;color:var(--muted)}
@@ -88,3 +93,7 @@
 @media(max-width:700px){.experience-date{padding-top:0;gap:12px;align-items:center}.career-years{font-size:21px}.experience-area{flex-basis:100%;margin-left:16px}.experience-row::after{top:20px;bottom:20px}.experience-tags>span{font-size:11px}}
 @media(min-width:641px) and (max-width:900px){.portrait-steps{gap:4px}.portrait-steps>span,.portrait-steps>span+span{padding:10px 6px}.portrait-steps strong{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.language-chevron,.experience-row,.experience-row::after,.career-years::before,.experience-tags>span,.portrait-steps>span,.portrait-steps small,.portrait-steps strong{animation:none!important;transition:none!important}.experience-row:hover,.experience-tags>span:hover,.portrait-steps>span:hover{transform:none!important}}
+
+/* Current employment dates fit the existing timeline on narrow screens. */
+.career-years{white-space:normal;overflow-wrap:anywhere}
+.experience-date{min-width:0}
