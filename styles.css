@@ -1,4 +1,6 @@
 /* Design tokens: the white and navy palette of Nikita's CV. */
+@import url('https://fonts.googleapis.com/css2?family=Geologica:wght@400;500;600;800&display=swap');
+
 :root {
   color-scheme:light;
   --bg:#fcfcfd;
@@ -43,7 +45,7 @@ body {
   margin:0;
   background:var(--bg);
   color:var(--text);
-  font-family:Inter,"Segoe UI",Arial,sans-serif;
+  font-family: "Geologica", "Segoe UI", Arial, sans-serif;
   font-size:16px;
   line-height:1.65;
   -webkit-font-smoothing:antialiased
@@ -1342,6 +1344,7 @@ h2 {
 
 .footer>div {
   display:flex;
+  flex-wrap:wrap;
   gap:24px;
   font-size:10px;
   color:var(--muted)

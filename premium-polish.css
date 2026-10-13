@@ -1,0 +1,119 @@
+/* Final typography and interaction layer shared by all language versions. */
+:root { --radius: 20px; }
+body { text-rendering: optimizeLegibility; }
+.main-nav { gap: clamp(12px, 1.6vw, 24px); }
+.main-nav a { font-size: 12.5px; white-space: nowrap; }
+.section-heading h2,
+.education-heading h2,
+.contact-section h2,
+.project-content h3,
+.experience-row h3 { text-wrap: balance; }
+.section-intro { max-width: 39ch; font-size: 14px; line-height: 1.75; }
+.skill-card,
+.project-card { border-radius: 20px; }
+.skill-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.skill-card .skill-symbol { flex: 0 0 44px; }
+.skill-card h3 { line-height: 1.35; }
+.skill-card .tags {
+  margin-top: auto;
+  padding-top: 24px;
+  flex: 0 0 auto;
+}
+.skill-card p,
+.experience-row ul,
+.project-content > p,
+.education-list p,
+.volunteer-item p { font-size: 13.5px; line-height: 1.72; }
+.tags > span,
+.languages > span { font-size: 10.5px; line-height: 1.45; }
+.project-meta,
+.education-date,
+.qa-note > span { font-size: 10px; }
+.qa-note p { font-size: 12.5px; line-height: 1.7; }
+.project-links {
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 10px;
+  font-size: 12px;
+}
+.project-links a,
+.project-links a:first-child,
+.project-links a:last-child {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 9px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-alt);
+  color: var(--navy);
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+  transition: transform .25s ease, border-color .25s ease, background .25s ease, color .25s ease;
+}
+.project-links a:first-child,
+.project-card[data-it-project] .project-links a:first-child {
+  border-color: #1c3479;
+  background: #1c3479;
+  color: #fff;
+}
+.project-links a:hover,
+.project-links a:first-child:hover,
+.project-links a:last-child:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: none;
+}
+.project-links a:first-child:hover,
+.project-card[data-it-project] .project-links a:first-child:hover {
+  border-color: #3556a7;
+  background: #3556a7;
+  color: #fff;
+}
+.project-links a:last-child:hover {
+  background: var(--soft);
+  color: var(--navy);
+}
+.education-section { padding-bottom: 56px; }
+.certificates-section { padding-top: 72px; padding-bottom: 76px; }
+.volunteer-section { padding-top: 18px; }
+@media (hover: hover) and (pointer: fine) {
+  .skill-card:hover,
+  .project-card:hover { transform: translateY(-4px); }
+}
+@media (max-width: 1150px) {
+  .brand-caption { display: none; }
+  .main-nav { gap: 12px; }
+}
+@media (min-width: 701px) and (max-width: 1080px) {
+  .skill-card h3 { min-height: 2.7em; }
+}
+@media (max-width: 700px) {
+  .section-intro { font-size: 13.5px; }
+  .project-content { padding: 24px; }
+  .education-section { padding-bottom: 40px; }
+  .certificates-section { padding-top: 56px; padding-bottom: 66px; }
+  .volunteer-section { padding-top: 8px; }
+}
+@media (max-width: 520px) {
+  .project-links { flex-direction: column; }
+  .project-links a,
+  .project-links a:first-child,
+  .project-links a:last-child { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-links a,
+  .project-links a:first-child,
+  .project-links a:last-child { transition: none; }
+  .skill-card:hover,
+  .project-card:hover,
+  .project-links a:hover,
+  .project-links a:first-child:hover,
+  .project-links a:last-child:hover { transform: none; }
+}

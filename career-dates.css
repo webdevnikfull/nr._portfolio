@@ -1,0 +1,84 @@
+/* Open, centered work periods sit beneath each company mark and link. */
+.experience-section .experience-date { align-items: center; }
+.experience-section .career-years { display: block; width: min(100%, 180px); max-width: 100%; font: inherit; }
+.experience-section .career-years::before { display: none; }
+.experience-section .career-date-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  width: 100%;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+.experience-section .career-date-text::before {
+  content: '';
+  width: 28px;
+  height: 2px;
+  margin-bottom: 7px;
+  border-radius: 2px;
+  background: var(--accent);
+  opacity: .7;
+}
+.experience-section .career-date-text > span {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  font-family: Inter, "Segoe UI", sans-serif;
+  line-height: 1.45;
+  letter-spacing: -.015em;
+  white-space: normal;
+  overflow-wrap: normal;
+}
+.experience-section .career-date-end {
+  color: var(--navy);
+  font-size: 14px;
+  font-weight: 700;
+}
+.experience-section .career-date-start {
+  border: 0;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+.experience-section .experience-date .company-logo-link {
+  align-self: center;
+  width: min(100%, 180px);
+  height: 106px;
+}
+.experience-section .company-logo--iss img { width: 132px; height: auto; transform: scale(1.45); }
+.experience-section .company-logo--inflaa img { width: 158px; height: auto; }
+.experience-section .company-logo--fujitsu img { width: 92px; height: 92px; }
+.experience-section .experience-date .experience-area-link { align-self: center; max-width: 205px; text-align: center; }
+@media (min-width: 701px) {
+  .experience-section .experience-row { grid-template-columns: 250px minmax(0, 1fr); }
+  .experience-section .experience-date {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 2px 20px 0 0;
+  }
+}
+@media (min-width: 701px) and (max-width: 900px) {
+  .experience-section .experience-row { grid-template-columns: minmax(0, 1fr); }
+  .experience-section .experience-date {
+    padding: 0 0 22px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+}
+@media (max-width: 700px) {
+  .experience-section .experience-date {
+    grid-template-areas: "logo" "caption" "years";
+    justify-items: center;
+  }
+  .experience-section .career-years { grid-area: years; justify-self: center; width: min(100%, 180px); }
+  .experience-section .experience-date .company-logo-link { justify-self: center; width: min(100%, 180px); height: 106px; }
+  .experience-section .experience-date .experience-area-link { justify-self: center; width: min(100%, 205px); max-width: 205px; }
+}

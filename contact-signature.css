@@ -1,0 +1,69 @@
+/* Two quiet light cues, visible on touch screens without hover. */
+.contact-section .contact-monogram {
+  position: relative;
+  flex: none;
+  color: #d4e0ff12;
+  text-shadow: 0 0 38px #a4bdff12;
+  pointer-events: none;
+}
+.contact-section .contact-monogram > span {
+  display: inline-block;
+  position: relative;
+  left: -.02em;
+  color: #b8c9ff62;
+  text-shadow:
+    0 0 6px #bdd0ff44,
+    0 0 18px #86a4ff24;
+  animation: contact-dot-beacon 4.2s ease-out infinite;
+}
+.contact-section:hover .contact-monogram,
+.contact-section:focus-within .contact-monogram { color: #d4e0ff1b; }
+.contact-section:hover .contact-monogram > span,
+.contact-section:focus-within .contact-monogram > span {
+  color: #c7d6ff80;
+  text-shadow:
+    0 0 12px #cedcff66,
+    0 0 30px #91acff44;
+}
+@keyframes contact-dot-beacon {
+  0%, 10%, 100% { opacity: .6; text-shadow: 0 0 5px #bdd0ff40, 0 0 15px #86a4ff20; }
+  34% { opacity: .94; text-shadow: 0 0 10px #d4e0ff80, 0 0 27px #86a4ff52; }
+  72% { opacity: .7; text-shadow: 0 0 18px #c4d3ff40, 0 0 40px #86a4ff24; }
+}
+.availability .status-dot {
+  position: relative;
+  flex: none;
+  box-shadow: 0 0 0 2px #347d6018;
+}
+.availability .status-dot::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--green) 48%, transparent), color-mix(in srgb, var(--green) 25%, transparent) 38%, transparent 72%);
+  pointer-events: none;
+  animation: status-light-wave 3.3s ease-out infinite;
+}
+@keyframes status-light-wave {
+  0%, 12% { opacity: 0; transform: scale(.55); }
+  30% { opacity: .72; transform: scale(.9); }
+  78%, 100% { opacity: 0; transform: scale(1.8); }
+}
+@media (max-width: 900px) {
+  .contact-section { padding-bottom: 112px; }
+  .contact-section .contact-monogram {
+    display: block;
+    position: absolute;
+    right: 27px;
+    bottom: 17px;
+    font-size: clamp(76px, 14vw, 104px);
+    letter-spacing: -.09em;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .contact-section .contact-monogram > span { animation: none; opacity: .8; }
+  .availability .status-dot::after { animation: none; opacity: .3; transform: none; }
+}
+@media print {
+  .contact-section .contact-monogram { display: none; }
+}

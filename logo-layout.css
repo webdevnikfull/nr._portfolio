@@ -3,13 +3,17 @@
 .experience-section .experience-date .experience-area-link{flex:0 1 auto;min-width:0;max-width:100%;white-space:normal;overflow-wrap:anywhere}
 .experience-section .company-logo-link{flex:none;max-width:100%;text-decoration:none}
 .experience-section .company-logo-link:focus-visible{outline:3px solid var(--accent);outline-offset:5px}
+.experience-section .career-years{display:flex;align-items:flex-start;width:100%;max-width:100%;white-space:normal;overflow-wrap:normal}
+.experience-section .career-years::before{margin-top:2px}
+.experience-section .career-date-text{display:flex;flex:1 1 0;flex-wrap:wrap;column-gap:.38em;min-width:0}
+.experience-section .career-date-text>span{white-space:nowrap}
 @media(hover:hover) and (pointer:fine){
  .experience-section .experience-row:hover .company-logo-link{transform:none}
  .experience-section .experience-row .company-logo-link:hover{transform:translateY(-3px) scale(1.025);box-shadow:0 12px 30px -15px #142b6266}
 }
 @media(max-width:700px){
  .experience-section .experience-date{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"years" "logo" "caption";align-items:center;gap:16px;width:100%;min-width:0;box-sizing:border-box}
- .experience-section .career-years{grid-area:years;min-width:0;line-height:1.35;white-space:normal}
+ .experience-section .career-years{grid-area:years;min-width:0;line-height:1.35;font-size:clamp(17px,4.8vw,20px);letter-spacing:-.45px}
  .experience-section .company-logo-link{grid-area:logo;justify-self:center;margin:0;width:min(160px,100%);height:92px}
  .experience-section .experience-date .experience-area-link{grid-area:caption;display:block;width:100%;max-width:100%;min-width:0;margin:0;justify-self:stretch;text-align:center;font-size:12px;line-height:1.6;overflow-wrap:anywhere;word-break:normal}
 }
