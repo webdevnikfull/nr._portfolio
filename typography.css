@@ -1,0 +1,16 @@
+/* The complete variable font is bundled for all four language versions. */
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/Inter-Variable.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  --font-site: "Inter", sans-serif;
+  --font-body: var(--font-site);
+}
+
+html, body { font-family: var(--font-site); }
+button, input, textarea, select { font-family: inherit; }

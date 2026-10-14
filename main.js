@@ -45,7 +45,7 @@
   navigation.addEventListener('click', event => { if (event.target.closest('a')) setMenu(false); });
   document.addEventListener('keydown', event => { if (event.key === 'Escape' && menuButton.getAttribute('aria-expanded') === 'true') { setMenu(false); menuButton.focus(); } });
   document.addEventListener('click', event => { if (!event.target.closest('.nav-shell')) setMenu(false); });
-  window.matchMedia('(min-width: 901px)').addEventListener('change', () => setMenu(false));
+  window.matchMedia('(min-width: 1101px)').addEventListener('change', () => setMenu(false));
   document.getElementById('year').textContent = new Date().getFullYear();
   if ('IntersectionObserver' in window) {
     const links = [...navigation.querySelectorAll('a')];

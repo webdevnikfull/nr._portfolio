@@ -62,7 +62,7 @@ section.folded-section {
   padding-top: 14px;
   border-top: 1px solid var(--line);
   color: var(--accent);
-  font: 700 10px/1.4 Consolas, monospace;
+  font: 700 10px/1.4 var(--font-site);
   letter-spacing: .13em;
   text-transform: uppercase;
   transition: color .25s ease, border-color .25s ease;

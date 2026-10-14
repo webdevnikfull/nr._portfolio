@@ -6,7 +6,7 @@
 .language-switch[open] summary{background:var(--soft)}
 .language-options{position:absolute;top:52px;right:0;min-width:190px;padding:7px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 16px 40px #0002;z-index:30;display:grid;gap:4px}
 .language-switch .language-options a{display:flex;justify-content:space-between;gap:24px;padding:12px;border:0;border-radius:10px;color:var(--text);background:transparent;font-size:13px}
-.language-switch .language-options a span{font:10px Consolas,monospace;opacity:.7}
+.language-switch .language-options a span{font:10px var(--font-site);opacity:.7}
 .language-switch .language-options a[aria-current=page],.language-switch .language-options a:hover{background:var(--soft);color:var(--navy)}
 .language-switch summary:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
 .skill-symbol{display:grid;place-items:center;width:44px;height:44px;padding:9px}
@@ -18,14 +18,14 @@
 .experience-row{grid-template-columns:205px minmax(0,1fr);gap:38px;padding:32px;border:1px solid var(--line);border-radius:20px;background:var(--surface);overflow:hidden}
 .experience-row:hover{transform:none;background:var(--surface);border-color:var(--accent);box-shadow:0 14px 35px -26px #173a9440}
 .experience-date{display:flex;flex-direction:column;align-items:flex-start;gap:17px;padding:0;border-right:1px solid var(--line);font-size:12px;letter-spacing:.3px;color:var(--navy)}
-.experience-area{display:block;justify-self:auto;padding:0 14px 0 0;max-width:180px;font:11px/1.6 "Segoe UI",sans-serif;letter-spacing:.1px;color:var(--muted)}
+.experience-area{display:block;justify-self:auto;padding:0 14px 0 0;max-width:180px;font:11px/1.6 var(--font-site);letter-spacing:.1px;color:var(--muted)}
 .experience-row>div:nth-child(2){padding:0;min-width:0}
 .experience-row .company{font-size:10px;letter-spacing:1.5px;color:var(--muted);margin-bottom:9px}
 .experience-row h3{font-size:22px;line-height:1.35;letter-spacing:-.5px}
 .experience-row ul{font-size:13px;line-height:1.8;margin:18px 0 20px;padding-left:17px;max-width:760px}
 .experience-row li+li{margin-top:7px}
 .experience-tags{display:flex;flex-wrap:wrap;gap:7px}
-.experience-tags span{font:10px/1.5 Consolas,monospace;padding:5px 9px;border:1px solid var(--line);border-radius:6px;color:var(--muted);background:var(--surface-alt)}
+.experience-tags span{font:10px/1.5 var(--font-site);padding:5px 9px;border:1px solid var(--line);border-radius:6px;color:var(--muted);background:var(--surface-alt)}
 .project-visual{height:300px;background:radial-gradient(ellipse at 50% 30%,#f6f8ff,#e2e8f5);padding:48px 30px 34px}
 .project-visual .mock-window,.project-visual .bmi-mock,.project-visual .tool-preview{width:100%;max-width:360px;border:1px solid #d8e0f0;border-radius:13px;background:#fff;box-shadow:0 22px 38px -24px #203d8066;transform:rotate(-2deg);animation:preview-enter 1s ease both;transition:transform .5s,box-shadow .5s}
 .project-visual .bmi-mock{padding:21px 30px;max-width:310px;transform:rotate(2deg)}
@@ -33,8 +33,8 @@
 .tool-preview .window-bar>span{font-size:7px}
 .link-demo{padding:22px;display:grid;grid-template-columns:1fr 66px;gap:15px;align-items:center}
 .link-demo .mock-title{font-size:16px;line-height:1.3;max-width:180px}
-.link-field{margin:16px 0 10px;padding:8px 6px;border:1px solid #dce4f3;border-radius:5px;color:#7785a0;font:8px Consolas,monospace;white-space:nowrap}
-.link-result{display:flex;align-items:center;gap:6px;color:#183875;font:9px Consolas,monospace;background:#edf2fc;padding:8px 6px;border-radius:5px}
+.link-field{margin:16px 0 10px;padding:8px 6px;border:1px solid #dce4f3;border-radius:5px;color:#7785a0;font:8px var(--font-site);white-space:nowrap}
+.link-result{display:flex;align-items:center;gap:6px;color:#183875;font:9px var(--font-site);background:#edf2fc;padding:8px 6px;border-radius:5px}
 .link-result b{margin-left:auto}
 .qr-demo{position:relative;padding:5px;border:1px solid #e1e7f3;border-radius:7px}
 .qr-demo svg{display:block;width:100%;height:auto}
@@ -67,12 +67,12 @@
 .language-switch summary .language-chevron{width:13px;height:13px;flex:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:transform 220ms ease;color:var(--muted)}
 .language-switch[open] .language-chevron{transform:rotate(180deg);color:var(--navy)}
 .experience-date{gap:14px;align-self:stretch;justify-content:flex-start;padding-top:3px}
-.career-years{display:inline-flex;align-items:center;white-space:nowrap;font:600 20px/1.3 "Segoe UI",sans-serif;letter-spacing:-.6px;color:var(--navy);font-variant-numeric:tabular-nums}
+.career-years{display:inline-flex;align-items:center;white-space:nowrap;font:600 20px/1.3 var(--font-site);letter-spacing:-.6px;color:var(--navy);font-variant-numeric:tabular-nums}
 .career-years::before{content:"";width:4px;height:24px;border-radius:4px;background:#6688d2;margin-right:12px;flex:none;transition:background-color 250ms ease,height 250ms ease}
 .experience-row{position:relative;transition:transform 320ms var(--ease-out),border-color 320ms ease,box-shadow 320ms ease,background-color 320ms ease}
 .experience-row::after{content:"";position:absolute;left:0;top:28px;bottom:28px;width:3px;background:#5078cc;border-radius:0 4px 4px 0;transform:scaleY(0);transition:transform 320ms var(--ease-out);transform-origin:center}
 .experience-tags{gap:8px}
-.experience-tags>span{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border-radius:8px;font:500 11px/1.4 "Segoe UI",sans-serif;letter-spacing:.1px;color:var(--navy);background:var(--surface-alt);transition:color 250ms ease,background-color 250ms ease,border-color 250ms ease,transform 250ms ease,box-shadow 250ms ease}
+.experience-tags>span{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border-radius:8px;font:500 11px/1.4 var(--font-site);letter-spacing:.1px;color:var(--navy);background:var(--surface-alt);transition:color 250ms ease,background-color 250ms ease,border-color 250ms ease,transform 250ms ease,box-shadow 250ms ease}
 .experience-tags>span::before{content:"";width:4px;height:4px;border-radius:50%;background:#7b94c8;flex:none;transition:background-color 250ms ease}
 .portrait-steps{gap:6px;margin-top:14px}
 .portrait-steps>span,.portrait-steps>span+span{position:relative;min-width:0;gap:7px;padding:12px 9px;border:1px solid var(--line);border-radius:10px;background:var(--surface-alt);transition:transform 280ms var(--ease-out),background-color 280ms ease,border-color 280ms ease,box-shadow 280ms ease}

@@ -1,0 +1,111 @@
+/* The monogram stays still; only its small light can be picked up. */
+.contact-section .contact-monogram {
+  text-shadow: none;
+  transition: none;
+}
+.footer .brand:hover { color: var(--navy); text-shadow: none; }
+.contact-section .contact-monogram > .contact-play-anchor {
+  visibility: hidden;
+  animation: none;
+}
+.contact-play-trail {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.contact-section .contact-text { z-index: 3; }
+.contact-section .contact-play-ball {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  min-height: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #acbeef72;
+  box-shadow: 0 0 9px #a2c0ff40, 0 0 22px #78aeff24;
+  cursor: default;
+  touch-action: auto;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  transition: background-color .25s, box-shadow .25s;
+  animation: contact-play-beacon 4.4s ease-out infinite;
+}
+.contact-play-ball::before,
+.contact-play-ball::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.contact-play-ball::before {
+  background: radial-gradient(circle, #afdcff20 22%, #7daeff10 50%, transparent 72%);
+  animation: contact-play-light 4.4s ease-out infinite;
+}
+.contact-play-ball::after {
+  inset: -7px;
+  border: 1px solid transparent;
+  pointer-events: none;
+}
+.contact-section .contact-play-ball:disabled { opacity: 1; }
+.contact-section .contact-play-ball.is-interactive { cursor: grab; touch-action: none; }
+.contact-play-ball.is-interactive::after { pointer-events: auto; }
+.contact-section .contact-play-ball:focus-visible {
+  outline: 2px solid #c9e7ff;
+  outline-offset: 7px;
+}
+.contact-play-ball.is-grabbed {
+  cursor: grabbing;
+  background: #b5d6eea6;
+  box-shadow: 0 0 10px #bcecff66, 0 0 22px #83c8ff35;
+}
+.contact-play-ball.is-collision::after {
+  border-color: #a6e7ff70;
+  box-shadow: 0 0 12px #8edaff50;
+}
+.contact-section .contact-play-reset {
+  position: absolute;
+  z-index: 4;
+  left: 55px;
+  bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid #d0ddff30;
+  border-radius: 8px;
+  padding: 7px 11px;
+  color: #c8d8ee;
+  background: #10236a;
+  font: 500 10px/1.35 var(--font-site);
+  cursor: pointer;
+}
+.contact-play-reset svg { width: 12px; height: 12px; }
+.contact-section .contact-play-reset[hidden] { display: none; }
+.contact-section .contact-play-reset:hover { border-color: #cbe8ff70; color: #edf6ff; }
+.contact-section .contact-play-reset:focus-visible { outline: 2px solid #cbe8ff; outline-offset: 3px; }
+@keyframes contact-play-beacon {
+  0%, 13%, 100% { background-color: #acbeef62; box-shadow: 0 0 7px #a2c0ff28, 0 0 17px #78aeff16; }
+  28% { background-color: #c2d5f58a; box-shadow: 0 0 10px #c6e4ff60, 0 0 23px #83b8ff35; }
+  56% { background-color: #acbeef66; box-shadow: 0 0 12px #b6d5ff30, 0 0 28px #78aeff1a; }
+}
+@keyframes contact-play-light {
+  0%, 15%, 100% { opacity: 0; }
+  30% { opacity: .7; }
+  70% { opacity: 0; }
+}
+@media (max-width: 900px) {
+  .contact-section .contact-play-reset { left: 27px; bottom: 16px; }
+  .contact-play-ball::after { inset: -12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .contact-section .contact-play-ball,
+  .contact-play-ball::before { animation: none; transition: none; }
+  .contact-play-ball::before { opacity: .25; }
+}
+@media print {
+  .contact-play-ball, .contact-play-trail, .contact-play-reset { display: none !important; }
+}

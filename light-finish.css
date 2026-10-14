@@ -1,0 +1,21 @@
+/* A soft grey canvas and clean white surfaces in the light theme. */
+:root:not([data-theme="dark"]) {
+  --bg: #f3f4f7;
+  --surface: #fff;
+  --surface-alt: #f8f9fc;
+  --line: #dfe4ec;
+  --soft: #edf1fa;
+}
+
+:root:not([data-theme="dark"]) :is(
+  .skill-card, .project-card, .experience-row, .education-card,
+  .volunteer-card, .certificate-source, .certificate-card,
+  .section-intro-action, .portrait-frame
+) {
+  background: linear-gradient(145deg, #fff 0%, #fff 60%, #f9fafc 100%);
+  box-shadow: inset 0 1px 0 #fff, 0 18px 42px -35px #172d6940;
+}
+
+:root:not([data-theme="dark"]) .skill-card.featured {
+  background: #081d63;
+}

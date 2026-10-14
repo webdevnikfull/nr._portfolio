@@ -16,15 +16,6 @@
     0 0 18px #86a4ff24;
   animation: contact-dot-beacon 4.2s ease-out infinite;
 }
-.contact-section:hover .contact-monogram,
-.contact-section:focus-within .contact-monogram { color: #d4e0ff1b; }
-.contact-section:hover .contact-monogram > span,
-.contact-section:focus-within .contact-monogram > span {
-  color: #c7d6ff80;
-  text-shadow:
-    0 0 12px #cedcff66,
-    0 0 30px #91acff44;
-}
 @keyframes contact-dot-beacon {
   0%, 10%, 100% { opacity: .6; text-shadow: 0 0 5px #bdd0ff40, 0 0 15px #86a4ff20; }
   34% { opacity: .94; text-shadow: 0 0 10px #d4e0ff80, 0 0 27px #86a4ff52; }

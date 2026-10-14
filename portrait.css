@@ -86,7 +86,7 @@
   align-items: center;
   padding: 20px 24px;
   color: #e0e8ff;
-  font-family: "Segoe UI", Arial, sans-serif;
+  font-family: var(--font-site);
   font-size: 8px;
   font-weight: 600;
   letter-spacing: 2px;
@@ -225,7 +225,7 @@
 
 .portrait-steps small {
   color: var(--muted);
-  font: 9px Consolas, monospace;
+  font: 9px var(--font-site);
 }
 
 .portrait-steps strong {
