@@ -41,3 +41,7 @@ Usunięto wszystkie okrężne strzałki odtwarzania z siedmiu białych podgląd�
 Przycisk „Edytuj opis” pod krótkim opisem doświadczenia otwiera pole tekstowe. „Zapisz” zapisuje zmieniony opis w tej przeglądarce, osobno dla każdej wersji językowej; „Anuluj” lub Escape odrzuca szkic. Ctrl+Enter / Command+Enter zapisuje. Zmiana nie modyfikuje plików projektu ani treści widocznej w innych przeglądarkach. Gdy zapis lokalny jest niedostępny, opis można zmienić na czas bieżącej sesji.
 
 Zwykłe zaznaczanie oraz kopiowanie tekstu strony jest zablokowane. Pola edycji zachowują zaznaczanie, kopiowanie, wycinanie i wklejanie potrzebne do wprowadzania zmian.
+
+Portret używa poprzedniego, oryginalnego pliku `nikita-rysiev.png`, bez retuszu ani zmiany spojrzenia. Osobna warstwa zdjęcia porusza się bardzo delikatnie w spokojnym cyklu 16 sekund. Logo, podpis i efekty pioruna pozostają stabilne. Ruch działa w obu motywach i na urządzeniach mobilnych, zatrzymuje się poza ekranem, w ukrytej karcie przeglądarki oraz przy włączonym ograniczeniu animacji.
+
+W ciemnym motywie usunięto dolny gradient przyciemniający i poprzednie przejście 14 px. Zdjęcie ma stały obszar przycinania o dotychczasowych proporcjach 1.13, a animowana warstwa jest umieszczona w jego wnętrzu. Jednolita powierzchnia dolnej części karty pokrywa ewentualne pojedyncze piksele wychodzące poza obszar zdjęcia. Oryginalny plik zdjęcia, pozycja kadru, tempo i amplituda delikatnej animacji pozostają bez zmian.

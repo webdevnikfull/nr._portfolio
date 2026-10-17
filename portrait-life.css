@@ -1,0 +1,52 @@
+/* A separate photo layer keeps the identity, captions and electric interaction stable. */
+.portrait-frame { --portrait-life-play: paused; }
+.portrait-frame[data-portrait-motion="active"] { --portrait-life-play: running; }
+.portrait-photo-motion {
+  position: relative;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  line-height: 0;
+  transform-origin: 50% 43%;
+  transform: scale(1.008);
+  animation: portrait-natural-breath 16s cubic-bezier(.45,0,.55,1) infinite;
+  animation-play-state: var(--portrait-life-play);
+}
+.portrait-frame .portrait-image-wrap::before { animation-play-state: var(--portrait-life-play); }
+@keyframes portrait-natural-breath {
+  0%, 100% { transform: translate3d(-.25px, .2px, 0) scale(1.008); }
+  48% { transform: translate3d(.25px, -.4px, 0) scale(1.012); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portrait-photo-motion { animation: none !important; transform: none; }
+  .portrait-frame .portrait-image-wrap::before { animation: none !important; }
+}
+@media print { .portrait-photo-motion { animation: none !important; transform: none; } }
+
+/* Give the moving photo one explicit viewport and one composited clip. */
+.portrait-frame .portrait-image-wrap {
+  display: block;
+  aspect-ratio: 1.13;
+  clip-path: inset(0);
+}
+.portrait-frame .portrait-photo-motion {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+}
+.portrait-frame .portrait-photo-motion img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+/* Keep the existing upper shade; no lower fade or edge-darkening layer. */
+:root[data-theme="dark"] .portrait-frame .portrait-image-wrap::after {
+  background: linear-gradient(180deg, rgba(5, 19, 66, .58), transparent 78%);
+}
+/* Paint the details surface above any one-pixel transformed-photo overdraw. */
+:root[data-theme="dark"] .portrait-frame .portrait-details {
+  position: relative;
+  z-index: 3;
+  background: var(--surface);
+  box-shadow: 0 -1px 0 var(--surface);
+}
