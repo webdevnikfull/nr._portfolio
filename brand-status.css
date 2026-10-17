@@ -1,0 +1,146 @@
+/* Quiet, local feedback for the header signature and the profile shortcut. */
+.site-header .brand {
+  --brand-signal-quiet: #5374c720;
+  --brand-signal-core: #527edb91;
+  --brand-signal-halo: #416dd644;
+  --brand-signal-peak: #abcaffb3;
+  position: relative;
+  min-height: 44px;
+  padding-block: 4px;
+  -webkit-tap-highlight-color: transparent;
+}
+.site-header .brand > span:first-child {
+  position: relative;
+  text-shadow: 0 0 9px var(--brand-signal-quiet);
+  transition: color .25s ease, text-shadow .25s ease;
+}
+.site-header .brand .brand-caption {
+  position: relative;
+  transition: color .25s ease;
+}
+.site-header .brand .brand-caption::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 -7px;
+  height: 1px;
+  background: linear-gradient(90deg, #5374c7, #8db6e6a0, transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  opacity: 0;
+  transition: opacity .25s ease, transform .35s ease;
+}
+.site-header .brand:is(:hover, :focus-visible, .is-brand-status-active) > span:first-child {
+  color: #476ac2;
+  text-shadow: 0 0 8px var(--brand-signal-core), 0 0 15px var(--brand-signal-halo);
+}
+.site-header .brand:is(:hover, :focus-visible, .is-brand-status-active) .brand-caption {
+  color: var(--navy);
+}
+.site-header .brand:is(:hover, :focus-visible, .is-brand-status-active) .brand-caption::after {
+  opacity: .7;
+  transform: scaleX(1);
+}
+.site-header .brand.is-brand-status-active > span:first-child {
+  /* The light follows the dot's actual glyph, without a separately positioned ring. */
+  animation: signature-signal .8s ease-out both;
+}
+.site-header .brand:focus-visible {
+  outline: 2px solid #6b8bd8;
+  outline-offset: 7px;
+  border-radius: 4px;
+}
+.hero-copy > .availability {
+  position: relative;
+  min-height: 40px;
+  max-width: 100%;
+  padding: 8px 14px;
+  gap: 10px;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color .25s ease, box-shadow .25s ease, background-color .25s ease;
+}
+.hero-copy > .availability > span:last-child {
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size .3s ease;
+}
+.hero-copy > .availability:is(:hover, :focus-visible, .is-brand-status-active) {
+  border-color: color-mix(in srgb, var(--green) 48%, var(--line));
+  background-color: color-mix(in srgb, var(--green) 4%, var(--surface));
+  box-shadow: 0 3px 17px color-mix(in srgb, var(--green) 9%, transparent);
+}
+.hero-copy > .availability:is(:hover, :focus-visible, .is-brand-status-active) > span:last-child {
+  background-size: 100% 1px;
+}
+.hero-copy > .availability:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 4px;
+}
+.hero-copy > .availability .status-dot {
+  flex: 0 0 6px;
+  width: 6px;
+  height: 6px;
+  transition: box-shadow .25s ease;
+}
+.hero-copy > .availability .status-dot::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border: 1px solid var(--green);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+.hero-copy > .availability:is(:hover, :focus-visible, .is-brand-status-active) .status-dot {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 11%, transparent), 0 0 12px color-mix(in srgb, var(--green) 48%, transparent);
+}
+.hero-copy > .availability.is-brand-status-active .status-dot::before {
+  animation: status-response .85s ease-out both;
+}
+html[data-theme="dark"] .site-header .brand {
+  --brand-signal-quiet: #759de533;
+  --brand-signal-core: #a7d6ff99;
+  --brand-signal-halo: #7aabff44;
+  --brand-signal-peak: #effaffd9;
+}
+html[data-theme="dark"] .site-header .brand > span:first-child { color: #91abef; }
+html[data-theme="dark"] .site-header .brand:is(:hover, :focus-visible, .is-brand-status-active) > span:first-child {
+  color: #c5dcff;
+  text-shadow: 0 0 8px var(--brand-signal-core), 0 0 15px var(--brand-signal-halo);
+}
+html[data-electric="on"] .site-header .brand.is-brand-status-active > span:first-child {
+  animation: signature-charge .8s ease-out both;
+}
+html[data-electric="on"] .hero-copy > .availability.is-brand-status-active .status-dot::before {
+  animation-name: status-energy-response;
+}
+.brand-status-paused .hero-copy > .availability .status-dot::after { animation-play-state: paused; }
+@keyframes signature-signal {
+  0% { text-shadow: 0 0 4px var(--brand-signal-quiet); }
+  35% { text-shadow: 0 0 5px var(--brand-signal-core), 0 0 13px var(--brand-signal-halo); }
+  100% { text-shadow: 0 0 8px var(--brand-signal-core), 0 0 15px var(--brand-signal-halo); }
+}
+@keyframes signature-charge {
+  0%, 31%, 100% { text-shadow: 0 0 8px var(--brand-signal-core), 0 0 15px var(--brand-signal-halo); }
+  15%, 43% { text-shadow: 0 0 3px var(--brand-signal-peak), 0 0 17px var(--brand-signal-core), 0 0 26px var(--brand-signal-halo); }
+}
+@keyframes status-response {
+  0% { opacity: .65; box-shadow: 0 0 0 0 color-mix(in srgb, var(--green) 28%, transparent); }
+  70%, 100% { opacity: 0; box-shadow: 0 0 0 9px color-mix(in srgb, var(--green) 0%, transparent); }
+}
+@keyframes status-energy-response {
+  0% { opacity: .75; box-shadow: 0 0 0 0 color-mix(in srgb, var(--green) 40%, transparent), 0 0 9px color-mix(in srgb, var(--green) 42%, transparent); }
+  75%, 100% { opacity: 0; box-shadow: 0 0 0 12px color-mix(in srgb, var(--green) 0%, transparent), 0 0 18px transparent; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header .brand > span:first-child,
+  .site-header .brand .brand-caption,
+  .site-header .brand .brand-caption::after,
+  .hero-copy > .availability,
+  .hero-copy > .availability > span:last-child,
+  .hero-copy > .availability .status-dot { transition: none; animation: none !important; }
+  .hero-copy > .availability .status-dot::before { animation: none !important; }
+}
+@media print {
+  .site-header .brand .brand-caption::after,
+  .hero-copy > .availability .status-dot::before { display: none; }
+}

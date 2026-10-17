@@ -117,3 +117,6 @@ body { text-rendering: optimizeLegibility; }
   .project-links a:first-child:hover,
   .project-links a:last-child:hover { transform: none; }
 }
+
+/* Keep the communication label readable in the compact profile strip. */
+.facts-strip .facts-communication { display: block; font-size: clamp(16px, 1.6vw, 23px); line-height: 1.35; letter-spacing: -.5px; text-wrap: balance; }

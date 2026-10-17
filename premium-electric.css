@@ -1,0 +1,67 @@
+/* A restrained material response, enabled only by the lightning switch. */
+[data-electric="on"] {
+  --electric-material: 15, 57, 125;
+  --electric-specular: 32, 87, 168;
+}
+[data-theme="dark"][data-electric="on"] {
+  --electric-material: 129, 190, 255;
+  --electric-specular: 218, 239, 255;
+}
+.electric-surface-aura { display: none; }
+[data-electric="on"] .electric-surface { position: relative; isolation: isolate; }
+[data-electric="on"] .electric-surface > .electric-surface-aura {
+  position: absolute;
+  display: block;
+  inset: 0;
+  z-index: 3;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+  transform: none !important;
+  opacity: 0;
+  background: radial-gradient(220px circle at var(--electric-surface-x, 50%) var(--electric-surface-y, 25%), rgba(var(--electric-material), .065), transparent 72%);
+  box-shadow: inset 0 0 0 1px rgba(var(--electric-material), .13);
+  transition: opacity .4s ease;
+}
+[data-electric="on"] .electric-surface:is(.electric-surface-active, .electric-surface-charged) > .electric-surface-aura { opacity: 1; }
+.electric-surface-aura > svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: none;
+}
+.electric-surface-aura rect {
+  stroke: rgba(var(--electric-specular), .7);
+  stroke-width: 1.2px;
+  stroke-linecap: round;
+  stroke-dasharray: 19 81;
+  stroke-dashoffset: 0;
+  opacity: 0;
+}
+[data-electric="on"] .electric-surface-charged > .electric-surface-aura rect {
+  animation: electric-material-trace 1.05s var(--electric-surface-delay, 0ms) cubic-bezier(.2,.6,.3,1) both;
+}
+[data-electric="on"] .electric-control.electric-surface-active {
+  border-color: rgba(var(--electric-material), .5);
+  box-shadow: 0 0 0 1px rgba(var(--electric-material), .06), 0 7px 22px -15px rgba(var(--electric-material), .4);
+}
+@keyframes electric-material-trace {
+  0% { stroke-dashoffset: 17; opacity: 0; }
+  14% { opacity: .85; }
+  76% { opacity: .6; }
+  100% { stroke-dashoffset: -83; opacity: 0; }
+}
+@media (max-width: 640px) {
+  [data-electric="on"] .electric-surface > .electric-surface-aura {
+    background: radial-gradient(160px circle at var(--electric-surface-x, 50%) var(--electric-surface-y, 25%), rgba(var(--electric-material), .075), transparent 72%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-electric="on"] .electric-surface > .electric-surface-aura { transition: none; background: none; }
+  [data-electric="on"] .electric-surface-charged > .electric-surface-aura rect { animation: none; }
+}
+@media print {
+  .electric-surface-aura { display: none !important; }
+}

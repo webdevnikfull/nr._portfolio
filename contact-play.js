@@ -17,6 +17,8 @@
   ball.type = 'button';
   ball.className = 'contact-play-ball';
   ball.setAttribute('aria-label', labels.play);
+  const hint = section.querySelector('.contact-play-hint');
+  if (hint?.id) ball.setAttribute('aria-describedby', hint.id);
   const reset = document.createElement('button');
   reset.type = 'button';
   reset.className = 'contact-play-reset';
@@ -41,7 +43,7 @@
   let x = 0, y = 0, vx = 0, vy = 0, running = false, dragging = false, displaced = false;
   let pointer = null, samples = [], previous = 0, frame = 0, visible = true;
   let pointerOffset = { x: 0, y: 0 }, previousTrail = null, collisionAt = 0;
-  let protectedArea = null;
+  let protectedArea = null, resetArea = null;
   const clamp = (value, min, max) => Math.min(Math.max(value, min), Math.max(min, max));
   const inset = () => radius + 9;
   const drawPosition = () => { ball.style.left = `${x - radius}px`; ball.style.top = `${y - radius}px`; };
@@ -60,10 +62,34 @@
     if (sides[0]?.axis === 'x') { x = sides[0].value; vx = 0; }
     else if (sides[0]) { y = sides[0].value; vy = Math.max(0, vy); }
   }
+  function measureResetArea(sectionRect = section.getBoundingClientRect()) {
+    const rect = !reset.hidden ? reset.getBoundingClientRect?.() : null;
+    resetArea = rect?.width && rect?.height ? {
+      left: rect.left - sectionRect.left - radius - 8,
+      right: rect.right - sectionRect.left + radius + 8,
+      top: rect.top - sectionRect.top - radius - 8,
+      bottom: rect.bottom - sectionRect.top + radius + 8
+    } : null;
+  }
+  function avoidReset(falling = false) {
+    const area = resetArea;
+    if (!area || reset.hidden || !(x > area.left && x < area.right && y > area.top && y < area.bottom)) return;
+    // Keep both the light and its reset action reachable, including at the mobile baseline.
+    const sides = [
+      { distance: x - area.left, axis: 'x', value: area.left },
+      { distance: area.right - x, axis: 'x', value: area.right },
+      { distance: area.bottom - y, axis: 'y', value: area.bottom },
+      ...(!falling ? [{ distance: y - area.top, axis: 'y', value: area.top }] : [])
+    ].filter(side => side.value >= inset() && side.value <= (side.axis === 'x' ? width - inset() : floor));
+    sides.sort((a, b) => a.distance - b.distance);
+    if (sides[0]?.axis === 'x') { x = sides[0].value; vx = 0; }
+    else if (sides[0]) { y = sides[0].value; vy = 0; }
+  }
   function limitPosition(falling = false) {
     x = clamp(x, inset(), width - inset());
     y = clamp(y, inset(), floor);
     avoidText(falling);
+    avoidReset(falling);
   }
 
   function measure() {
@@ -104,6 +130,7 @@
       top: textRect.top - sectionRect.top - radius - 10,
       bottom: textRect.bottom - sectionRect.top + radius + 10
     } : null;
+    measureResetArea(sectionRect);
     if (!enabled || !displaced) { x = origin.x; y = origin.y; }
     else {
       if (oldWidth) x *= width / oldWidth;
@@ -168,7 +195,7 @@
         x = clamp(x, inset(), width - inset()); vx *= -.2; collide(timestamp);
       }
       if (y < inset()) { y = inset(); vy = Math.max(0, vy); }
-      avoidText(true);
+      limitPosition(true);
       if (y >= floor) {
         y = floor;
         if (vy > 35) collide(timestamp);
@@ -192,6 +219,8 @@
     if (!enabled) return;
     dragging = false; displaced = true;
     ball.classList.remove('is-grabbed'); ball.classList.add('is-playing'); reset.hidden = false;
+    measureResetArea();
+    limitPosition(true);
     // A release supplies only modest momentum. There is no autonomous launch.
     vx = clamp(vx, -160, 160); vy = clamp(vy, -120, 180);
     if (motion.matches) {
@@ -231,6 +260,8 @@
     pointerOffset = { x: event.clientX - rect.left - x, y: event.clientY - rect.top - y };
     samples = [{ x, y, time: performance.now() }];
     ball.classList.add('is-grabbed'); ball.classList.remove('is-playing'); reset.hidden = false;
+    measureResetArea();
+    limitPosition(); drawPosition();
     startFrames();
   });
   ball.addEventListener('pointermove', event => {
@@ -260,6 +291,7 @@
     if (!enabled || dragging || !['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) return;
     event.preventDefault();
     settle(); displaced = true; reset.hidden = false;
+    measureResetArea();
     const amount = event.shiftKey ? 48 : 24;
     x += event.key === 'ArrowLeft' ? -amount : event.key === 'ArrowRight' ? amount : 0;
     y += event.key === 'ArrowUp' ? -amount : event.key === 'ArrowDown' ? amount : 0;

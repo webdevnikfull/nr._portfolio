@@ -19,3 +19,11 @@
 :root:not([data-theme="dark"]) .skill-card.featured {
   background: #081d63;
 }
+
+/* Match the pale hover text from refinement.css with an equally specific dark surface. */
+@media (hover: hover) {
+  :root:not([data-theme="dark"]) .skill-card:hover {
+    background: linear-gradient(145deg, #19367f, #142b79);
+    box-shadow: inset 0 1px 0 #ffffff12, 0 18px 42px -30px #172d6960;
+  }
+}

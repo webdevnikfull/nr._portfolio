@@ -1,0 +1,222 @@
+/* The portrait keeps its natural image; light stays on the blue outer edges. */
+.portrait-electric-rim,
+.portrait-electric-aura,
+.portrait-electric-threads,
+.portrait-electric-burst { display: none; pointer-events: none; }
+
+[data-electric="on"] .portrait-frame[data-portrait-electric] {
+  position: relative;
+  --portrait-x: 50%;
+  --portrait-y: 45%;
+  --portrait-tilt-x: 0deg;
+  --portrait-tilt-y: 0deg;
+  --portrait-lift: 0px;
+  transform: perspective(1100px) translateY(var(--portrait-lift)) rotateX(var(--portrait-tilt-x)) rotateY(var(--portrait-tilt-y));
+  transition: transform .38s cubic-bezier(.2,.7,.2,1), border-color .5s ease, box-shadow .5s ease;
+  border-color: #839bd1;
+  box-shadow: 0 0 0 1px #b6ccff14, 0 22px 62px -32px #07195975;
+}
+
+[data-theme="dark"][data-electric="on"] .portrait-frame[data-portrait-electric] {
+  border-color: #6f86b6;
+  box-shadow: 0 0 0 1px #c4d8ff12, 0 22px 62px -28px #0009;
+}
+
+[data-electric="on"] .portrait-frame[data-portrait-electric] .portrait-electric-rim {
+  position: absolute;
+  display: block;
+  z-index: 6;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.portrait-electric-rim::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: radial-gradient(ellipse 72% 46% at var(--portrait-x) var(--portrait-y), #eef6fff2, #9bbdfd80 40%, #6a88cf18 76%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: .55;
+  transition: opacity .5s ease;
+}
+
+[data-electric="on"] [data-portrait-electric] .portrait-electric-aura {
+  display: block;
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 48% 54% at var(--portrait-x) var(--portrait-y), #719be746, #3155c51c 55%, transparent 80%),
+    linear-gradient(120deg, #123a9e00 12%, #426cbd30 33%, #b8dfff18 42%, #123a9e00 60%);
+  background-size: 100% 100%, 240% 200%;
+  background-position: center, 100% 60%;
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 12%, transparent 25%, transparent 75%, #000 88%, #000 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 12%, transparent 25%, transparent 75%, #000 88%, #000 100%);
+  opacity: .65;
+  transition: opacity .65s ease;
+}
+
+[data-electric="on"] [data-portrait-electric] .portrait-electric-threads {
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: miter;
+  opacity: .68;
+  transition: opacity .5s ease;
+}
+
+.portrait-electric-thread {
+  stroke: #b6dcff;
+  stroke-width: .6;
+  stroke-dasharray: 12 88;
+  stroke-dashoffset: 100;
+  opacity: 0;
+  filter: drop-shadow(0 0 2px #91caff99);
+  vector-effect: non-scaling-stroke;
+}
+
+.portrait-electric-thread--branch { stroke-width: .4; stroke: #87b2ef; }
+
+[data-electric="on"] [data-portrait-electric] .portrait-image-wrap[role="button"] { cursor: pointer; }
+[data-electric="on"] [data-portrait-electric] .portrait-image-wrap[role="button"]:focus-visible {
+  outline: 2px solid #c4dfff;
+  outline-offset: -4px;
+}
+
+[data-electric="on"] [data-portrait-electric="active"] .portrait-electric-burst {
+  display: block;
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: miter;
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 17%, transparent 25%, transparent 75%, #000 83%, #000 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 17%, transparent 25%, transparent 75%, #000 83%, #000 100%);
+}
+
+.portrait-electric-burst-strand {
+  stroke: #eef8ff;
+  stroke-width: 1;
+  stroke-dasharray: 100 100;
+  stroke-dashoffset: 100;
+  opacity: 0;
+  filter: drop-shadow(0 0 2px #b7e4ffe0) drop-shadow(0 0 7px #5795e78c);
+  vector-effect: non-scaling-stroke;
+}
+.portrait-electric-burst-strand--branch { stroke: #b6d9ff; stroke-width: .6; }
+[data-electric="on"] [data-portrait-electric="active"][data-portrait-burst="on"] .portrait-electric-burst-strand {
+  animation: var(--portrait-burst-animation, portrait-electric-burst) var(--portrait-burst-duration, .9s) ease-out var(--portrait-burst-delay, 0s) both;
+}
+
+@keyframes portrait-electric-burst {
+  0% { opacity: 0; stroke-dashoffset: 100; }
+  13% { opacity: .72; stroke-dashoffset: 38; }
+  26% { opacity: .94; stroke-dashoffset: 0; }
+  40% { opacity: .18; }
+  53% { opacity: .78; }
+  72% { opacity: .22; }
+  100% { opacity: 0; stroke-dashoffset: -12; }
+}
+@keyframes portrait-electric-return {
+  0% { opacity: 0; stroke-dashoffset: -100; }
+  12% { opacity: .65; stroke-dashoffset: -45; }
+  27% { opacity: .9; stroke-dashoffset: 0; }
+  43% { opacity: .16; }
+  61% { opacity: .63; }
+  100% { opacity: 0; stroke-dashoffset: 12; }
+}
+@keyframes portrait-electric-flicker {
+  0% { opacity: 0; stroke-dashoffset: 100; }
+  16% { opacity: .9; stroke-dashoffset: 0; }
+  38% { opacity: .23; }
+  64% { opacity: .62; }
+  100% { opacity: 0; stroke-dashoffset: -8; }
+}
+@keyframes portrait-electric-fork {
+  0%, 18% { opacity: 0; stroke-dashoffset: 100; }
+  40% { opacity: .7; stroke-dashoffset: 0; }
+  63% { opacity: .22; }
+  78% { opacity: .4; }
+  100% { opacity: 0; stroke-dashoffset: 0; }
+}
+
+[data-electric="on"] [data-portrait-electric="active"] .portrait-electric-aura {
+  animation: portrait-electric-sheen 9s ease-in-out infinite;
+}
+
+[data-electric="on"] [data-portrait-electric="active"] .portrait-electric-thread {
+  animation: portrait-electric-thread 8.4s ease-in-out infinite;
+}
+
+[data-electric="on"] [data-portrait-electric="active"] .portrait-electric-thread--right { animation-delay: -4.2s; }
+[data-electric="on"] [data-portrait-electric="active"] .portrait-electric-thread--branch { animation-delay: -.18s; }
+[data-electric="on"] [data-portrait-electric="active"] .portrait-electric-thread--right.portrait-electric-thread--branch { animation-delay: -4.38s; }
+
+[data-electric="on"] [data-portrait-engaged] .portrait-electric-aura,
+[data-electric="on"] [data-portrait-electric]:focus-within .portrait-electric-aura { opacity: 1; }
+[data-electric="on"] [data-portrait-engaged] .portrait-electric-threads,
+[data-electric="on"] [data-portrait-electric]:focus-within .portrait-electric-threads { opacity: 1; }
+[data-electric="on"] [data-portrait-engaged] .portrait-electric-rim::before,
+[data-electric="on"] [data-portrait-electric]:focus-within .portrait-electric-rim::before { opacity: 1; }
+
+@keyframes portrait-electric-sheen {
+  0%, 100% { background-position: center, 100% 60%; }
+  50% { background-position: center, 0% 40%; }
+}
+
+@keyframes portrait-electric-thread {
+  0%, 18%, 56%, 100% { opacity: 0; stroke-dashoffset: 100; }
+  23% { opacity: .18; }
+  29% { opacity: .8; }
+  35% { opacity: .18; }
+  41% { opacity: .55; }
+  54% { opacity: 0; stroke-dashoffset: -100; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [data-electric="on"] .portrait-frame[data-portrait-electric]:hover { --portrait-lift: -3px; }
+  [data-electric="on"] .portrait-frame[data-portrait-electric]:hover .portrait-image-wrap img { transform: scale(1.015); }
+}
+
+/* No animation runs while the portrait is outside the viewport or the tab is hidden. */
+[data-portrait-electric="dormant"] .portrait-electric-aura,
+[data-portrait-electric="dormant"] .portrait-electric-thread,
+[data-portrait-electric="dormant"] .portrait-electric-burst-strand { animation: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-electric="on"] .portrait-frame[data-portrait-electric],
+  [data-electric="on"] .portrait-frame[data-portrait-electric]:hover {
+    transform: none;
+    transition: none;
+  }
+  [data-electric="on"] [data-portrait-electric] .portrait-electric-aura,
+  [data-electric="on"] [data-portrait-electric] .portrait-electric-thread,
+  [data-electric="on"] [data-portrait-electric] .portrait-electric-burst-strand { animation: none !important; }
+  .portrait-electric-burst { display: none !important; }
+  [data-electric="on"] [data-portrait-electric] .portrait-image-wrap img { transform: none !important; }
+  .portrait-electric-aura,
+  .portrait-electric-threads,
+  .portrait-electric-rim::before { transition: none; }
+}
+
+@media print {
+  .portrait-electric-rim,
+  .portrait-electric-aura,
+  .portrait-electric-threads,
+  .portrait-electric-burst { display: none !important; }
+  .portrait-frame[data-portrait-electric] { transform: none !important; }
+}

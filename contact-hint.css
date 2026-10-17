@@ -1,0 +1,71 @@
+/* A quiet invitation stays beneath the signature, outside its movable light. */
+.contact-section .contact-signature {
+  position: relative;
+  flex: 0 0 250px;
+  width: 250px;
+  align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 17px;
+}
+.contact-section .contact-signature .contact-monogram {
+  display: block;
+  position: static;
+  align-self: center;
+  font-size: clamp(160px, 15vw, 200px);
+  line-height: 1;
+}
+.contact-section .contact-signature .contact-play-hint {
+  margin: 0;
+  max-width: 240px;
+  color: #b3c7ee;
+  text-align: center;
+  font-size: 10.5px;
+  line-height: 1.7;
+  font-weight: 450;
+  letter-spacing: 0;
+}
+.contact-play-hint .contact-hint-title {
+  display: block;
+  color: #d4e2ff;
+  font-size: 10px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.contact-hint-electric { display: none; }
+[data-electric="on"] .contact-hint-normal { display: none; }
+[data-electric="on"] .contact-hint-electric { display: inline; }
+.contact-play-hint .contact-hint-icon {
+  display: inline-block;
+  width: 10px;
+  height: 12px;
+  vertical-align: -2px;
+  margin-inline: 2px;
+  color: #d3e6ff;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+@media (max-width: 900px) {
+  .contact-section { display: block; padding-bottom: 70px; }
+  .contact-section .contact-signature {
+    width: min(100%, 250px);
+    margin: 30px 0 0 auto;
+    gap: 12px;
+  }
+  .contact-section .contact-signature .contact-monogram {
+    inset: auto;
+    font-size: 116px;
+    letter-spacing: -.09em;
+  }
+  .contact-section .contact-signature .contact-play-hint { max-width: 235px; }
+}
+@media (max-width: 480px) {
+  .contact-section .contact-signature { margin-inline: auto; }
+  .contact-section .contact-signature .contact-monogram { font-size: 104px; }
+}
+@media print {
+  .contact-section .contact-signature { display: none; }
+}

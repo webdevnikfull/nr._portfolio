@@ -32,6 +32,8 @@
   let lastPointer = null;
   let pointerHistory = [];
   let pointerPulseStart = 0;
+  let pointerDistance = 0;
+  let channelSeed = 1;
   let lastTraceAt = 0;
   let width = 0;
   let height = 0;
@@ -53,6 +55,7 @@
     lastPointer = null;
     pointerHistory = [];
     pointerPulseStart = 0;
+    pointerDistance = 0;
     if (context) context.clearRect(0, 0, width, height);
   }
   function setEnabled(on) {
@@ -88,54 +91,97 @@
     points.push({ x: x2, y: y2 });
     return points;
   }
-  function addTrace(points, strength = .25, life = 390, lineWidth = 1.65, kind = 'spark') {
+  function addTrace(points, strength = .25, life = 390, lineWidth = 1.65, kind = 'spark', level = 0) {
     if (!context || !enabled || reducedMotion.matches || points.length < 2) return;
-    traces.push({ points, strength, life, lineWidth, kind, pulseStart: pointerPulseStart, born: performance.now() });
+    traces.push({ points, strength, life, lineWidth, kind, level, pulseStart: pointerPulseStart, born: performance.now() });
     if (traces.length > 24) traces.splice(0, traces.length - 24);
     if (!frame && !document.hidden) frame = requestAnimationFrame(render);
+  }
+  function strokePath(points) {
+    context.beginPath();
+    points.forEach((point, index) => {
+      if (!index) context.moveTo(point.x, point.y);
+      else context.lineTo(point.x, point.y);
+    });
+  }
+  function luminousSegment(points, from, to) {
+    // Follow the angular channel with a short moving return stroke, not a round cursor glow.
+    const lengths = [0];
+    for (let i = 1; i < points.length; i++) {
+      lengths.push(lengths[i - 1] + Math.hypot(points[i].x - points[i - 1].x, points[i].y - points[i - 1].y));
+    }
+    const total = lengths[lengths.length - 1];
+    const a = Math.max(0, from) * total;
+    const b = Math.min(1, to) * total;
+    if (b <= a) return [];
+    const result = [];
+    for (let i = 1; i < points.length; i++) {
+      if (lengths[i] < a || lengths[i - 1] > b) continue;
+      const span = lengths[i] - lengths[i - 1];
+      if (!span) continue;
+      const interpolate = distance => {
+        const t = (distance - lengths[i - 1]) / span;
+        return { x: points[i - 1].x + (points[i].x - points[i - 1].x) * t,
+          y: points[i - 1].y + (points[i].y - points[i - 1].y) * t };
+      };
+      if (!result.length) result.push(interpolate(Math.max(a, lengths[i - 1])));
+      result.push(interpolate(Math.min(b, lengths[i])));
+    }
+    return result;
   }
   function render(now) {
     frame = 0;
     if (!context || !enabled || reducedMotion.matches || document.hidden) return;
     context.clearRect(0, 0, width, height);
     traces = traces.filter(trace => now - trace.born < trace.life);
-    // Read the active theme at draw time so a theme switch also updates live traces.
+    // Read the active theme at draw time so a theme switch updates live channels too.
     const palette = root.dataset.theme === 'dark'
-      ? { core: '248, 251, 255', halo: '157, 203, 245', glow: '165, 218, 255', glint: '255, 255, 255' }
-      : { core: '7, 25, 89', halo: '19, 53, 115', glow: '70, 135, 223', glint: '192, 224, 255' };
+      ? { core: '244, 250, 255', halo: '143, 199, 245', glow: '145, 211, 255', glint: '255, 255, 255' }
+      : { core: '7, 25, 89', halo: '19, 53, 115', glow: '50, 126, 220', glint: '167, 211, 255' };
     traces.forEach(trace => {
-      const fade = Math.pow(1 - (now - trace.born) / trace.life, 1.65);
-      const phase = ((now - trace.pulseStart) % 1100) / 1100;
+      const age = Math.max(0, now - trace.born);
+      const fade = Math.pow(Math.max(0, 1 - age / trace.life), 1.5);
+      const phase = ((now - trace.pulseStart) % 1080) / 1080;
+      // A soft first strike, a smaller restrike, then a quiet interval. Only the channel flashes.
       const pulse = trace.kind === 'pointer'
-        ? Math.min(1, .38 + .62 * Math.exp(-Math.pow((phase - .07) / .045, 2))
-          + .38 * Math.exp(-Math.pow((phase - .25) / .065, 2)))
+        ? Math.min(1, .48 + .52 * Math.exp(-Math.pow((phase - .08) / .05, 2))
+          + .32 * Math.exp(-Math.pow((phase - .27) / .07, 2)))
         : 1;
       const alpha = trace.strength * fade * pulse;
-      context.beginPath();
-      trace.points.forEach((point, index) => {
-        if (index === 0) context.moveTo(point.x, point.y);
-        else context.lineTo(point.x, point.y);
-      });
+      strokePath(trace.points);
       context.lineJoin = trace.kind === 'pointer' ? 'miter' : 'round';
       context.miterLimit = 2;
       context.lineCap = 'round';
-      // A narrow blue halo supports a crisp beam without covering page content.
-      context.lineWidth = trace.lineWidth + 1.7;
-      context.strokeStyle = `rgba(${palette.halo}, ${alpha * .28})`;
-      context.shadowColor = `rgba(${palette.glow}, ${alpha * .8})`;
-      context.shadowBlur = 10;
+      // A transparent halo and a narrow channel keep text readable below the effect.
+      context.lineWidth = trace.lineWidth + (trace.kind === 'pointer' ? 2.8 : 1.7);
+      context.strokeStyle = `rgba(${palette.halo}, ${alpha * .22})`;
+      context.shadowColor = `rgba(${palette.glow}, ${alpha * .65})`;
+      context.shadowBlur = trace.kind === 'pointer' ? 13 : 10;
       context.stroke();
       context.lineWidth = trace.lineWidth;
       context.strokeStyle = `rgba(${palette.core}, ${alpha})`;
       context.shadowBlur = 0;
       context.stroke();
-      if (trace.kind === 'pointer' && trace.lineWidth > 1) {
-        // A hairline bright core catches each pulse inside the translucent blue bolt.
-        context.lineWidth = .45;
-        context.strokeStyle = `rgba(${palette.glint}, ${Math.min(.5, alpha * 1.9)})`;
-        context.shadowColor = `rgba(${palette.glow}, ${alpha * .7})`;
+      if (trace.kind === 'pointer' && trace.level === 0) {
+        context.lineWidth = .48;
+        context.strokeStyle = `rgba(${palette.glint}, ${Math.min(.62, alpha * 1.25)})`;
+        context.shadowColor = `rgba(${palette.glow}, ${alpha * .6})`;
         context.shadowBlur = 4;
         context.stroke();
+        const travel = ((now - trace.pulseStart) % 810) / 810;
+        const glint = luminousSegment(trace.points, travel * 1.28 - .28, travel * 1.28);
+        if (glint.length > 1) {
+          strokePath(glint);
+          context.lineWidth = 1.05;
+          context.strokeStyle = `rgba(${palette.glow}, ${alpha * .16})`;
+          context.shadowColor = `rgba(${palette.glow}, ${alpha * .6})`;
+          context.shadowBlur = 7;
+          context.stroke();
+          context.lineWidth = .6;
+          context.strokeStyle = `rgba(${palette.glint}, ${Math.min(.72, alpha * 1.75)})`;
+          context.shadowBlur = 2;
+          context.stroke();
+        }
         context.shadowBlur = 0;
       }
     });
@@ -178,110 +224,148 @@
       if (now - (openedAt.get(content) || -1000) < 120) return;
       openedAt.set(content, now);
       highlight(target);
-      const cards = content.querySelectorAll('.skill-card, .experience-row, .project-card, .education-card, .certificate-source, .certificate-card, .volunteer-card');
+      const cards = content.querySelectorAll('.skill-card, .experience-row, .project-card, .education-card, .certificate-source, .certificate-card, .volunteer-item');
       [...cards].slice(0, 6).forEach(highlight);
     });
   });
   observer.observe(document.body, { subtree: true, attributes: true, attributeFilter: ['aria-expanded'] });
 
-  // Follow the recent, real pointer trajectory instead of inventing a long straight jump.
+  function noise(key, seed = channelSeed) {
+    const value = Math.sin(key * 127.1 + seed * 311.7) * 43758.5453;
+    return value - Math.floor(value);
+  }
+  function channelOffset(distance, cell) {
+    // The same spatial seed survives pointer events: the bolt does not reroll on every movement.
+    const layer = (spacing, salt) => {
+      const cell = Math.floor(distance / spacing);
+      const t = distance / spacing - cell;
+      return (noise(cell + salt) * (1 - t) + noise(cell + 1 + salt) * t) * 2 - 1;
+    };
+    const fine = (noise(cell + 197) * 2 - 1) * 4.5;
+    // A few stable, sharper leader steps break up broad bends without re-randomizing the channel.
+    const step = noise(cell + 1217) > .82
+      ? (noise(cell + 1301) < .5 ? -1 : 1) * (7 + noise(cell + 1423) * 6) : 0;
+    return layer(72, 13) * 12 + layer(24, 79) * 9 + fine + step;
+  }
+  function forkChannel(start, end, seed, depth = 3) {
+    // Uneven recursive midpoint displacement creates a branching leader instead of a regular zigzag.
+    function split(a, b, level, key) {
+      if (!level) return [a, b];
+      const dx = b.x - a.x;
+      const dy = b.y - a.y;
+      const length = Math.hypot(dx, dy) || 1;
+      const ratio = .36 + noise(key, seed) * .28;
+      const displacement = (noise(key + 31, seed) * 2 - 1) * length * .23;
+      const middle = { x: a.x + dx * ratio - dy / length * displacement,
+        y: a.y + dy * ratio + dx / length * displacement };
+      return [...split(a, middle, level - 1, key * 2 + 1).slice(0, -1),
+        ...split(middle, b, level - 1, key * 2 + 2)];
+    }
+    return split(start, end, depth, 1);
+  }
+  // Follow the real recent trajectory, keeping an irregular but spatially stable discharge channel.
   function trailPath(maxLength) {
-    const path = [pointerHistory[pointerHistory.length - 1]];
-    let length = 0;
-    for (let i = pointerHistory.length - 2; i >= 0; i--) {
-      const previous = pointerHistory[i];
-      const next = path[0];
-      const distance = Math.hypot(next.x - previous.x, next.y - previous.y);
-      if (length + distance >= maxLength) {
-        const ratio = (maxLength - length) / distance;
-        path.unshift({ x: next.x + (previous.x - next.x) * ratio,
-          y: next.y + (previous.y - next.y) * ratio });
-        length = maxLength;
-        break;
-      }
-      path.unshift(previous);
-      length += distance;
-    }
-    if (length < 4) return [];
-    // Sample at a bounded, even spacing so corners remain natural on curved movements.
-    const pieces = Math.max(3, Math.min(18, Math.ceil(length / 11)));
-    const sampled = [path[0]];
+    if (pointerHistory.length < 2) return [];
+    const last = pointerHistory[pointerHistory.length - 1];
+    const firstArc = Math.max(pointerHistory[0].arc, last.arc - maxLength);
+    if (last.arc - firstArc < 4) return [];
     let segment = 1;
-    let covered = 0;
-    for (let i = 1; i < pieces; i++) {
-      const target = length * i / pieces;
-      let distance = Math.hypot(path[segment].x - path[segment - 1].x, path[segment].y - path[segment - 1].y);
-      while (covered + distance < target && segment < path.length - 1) {
-        covered += distance;
-        segment++;
-        distance = Math.hypot(path[segment].x - path[segment - 1].x, path[segment].y - path[segment - 1].y);
-      }
-      const ratio = distance ? (target - covered) / distance : 0;
-      const normalX = distance ? -(path[segment].y - path[segment - 1].y) / distance : 0;
-      const normalY = distance ? (path[segment].x - path[segment - 1].x) / distance : 0;
-      const taper = .55 + .45 * Math.sin(Math.PI * i / pieces);
-      const offset = (Math.random() < .5 ? -1 : 1) * (4 + Math.random() * 9) * taper;
-      sampled.push({ x: path[segment - 1].x + (path[segment].x - path[segment - 1].x) * ratio + normalX * offset,
-        y: path[segment - 1].y + (path[segment].y - path[segment - 1].y) * ratio + normalY * offset });
+    function sample(arc, displace, cell = 0) {
+      while (segment < pointerHistory.length - 1 && pointerHistory[segment].arc < arc) segment++;
+      const a = pointerHistory[segment - 1];
+      const b = pointerHistory[segment];
+      const ratio = (arc - a.arc) / (b.arc - a.arc || 1);
+      const dx = b.x - a.x;
+      const dy = b.y - a.y;
+      const length = Math.hypot(dx, dy) || 1;
+      const taper = Math.max(0, Math.min(1, (arc - firstArc) / 22, (last.arc - arc) / 15));
+      const offset = displace ? channelOffset(arc, cell) * taper : 0;
+      return { x: a.x + dx * ratio - dy / length * offset,
+        y: a.y + dy * ratio + dx / length * offset, arc };
     }
-    sampled.push(path[path.length - 1]);
-    return sampled;
+    const points = [sample(firstArc, false)];
+    const firstCell = Math.floor(firstArc / 10);
+    for (let cell = firstCell; cell <= Math.ceil(last.arc / 10); cell++) {
+      const arc = cell * 10 + (noise(cell + 409) - .5) * 6;
+      if (arc > firstArc + 3 && arc < last.arc - 3) points.push(sample(arc, true, cell));
+    }
+    points.push({ x: last.x, y: last.y, arc: last.arc });
+    return points;
   }
   function pointerBolt(points, touch) {
     if (points.length < 2) return;
-    // A single current bolt keeps overlapping long trails translucent.
+    // Replace the current channel so overlapping trails never build into an opaque streak.
     traces = traces.filter(trace => trace.kind !== 'pointer');
-    addTrace(points, touch ? .25 : .28, touch ? 400 : 460, 1.65, 'pointer');
-    const count = points.length > 10 ? 2 : 1;
-    for (let i = 0; i < count; i++) {
-      const index = Math.max(1, Math.min(points.length - 2, Math.floor(points.length * (i ? .72 : .42))));
+    addTrace(points, touch ? .38 : .42, touch ? 450 : 510, 1.65, 'pointer');
+    const first = points[0].arc;
+    const last = points[points.length - 1].arc;
+    let count = 0;
+    for (let station = Math.floor(first / 70); station <= Math.ceil(last / 70) && count < 3; station++) {
+      const anchor = station * 70 + noise(station + 571) * 25;
+      if (anchor < first + 12 || anchor > last - 14) continue;
+      const index = points.findIndex(point => point.arc >= anchor);
+      if (index < 1 || index >= points.length - 1) continue;
       const start = points[index];
       const next = points[index + 1];
-      const angle = Math.atan2(next.y - start.y, next.x - start.x) + (i ? -1 : 1) * (1 + Math.random() * .4);
-      const distance = Math.min(touch ? 30 : 44, 16 + points.length * 1.4);
-      const branch = jaggedLine(start.x, start.y, start.x + Math.cos(angle) * distance,
-        start.y + Math.sin(angle) * distance, 4);
-      addTrace(branch, touch ? .09 : .11, touch ? 390 : 440, .7, 'pointer');
-      if (!i && branch.length > 3) {
-        const fork = branch[Math.floor(branch.length / 2)];
-        const forkAngle = angle - .9;
-        addTrace(jaggedLine(fork.x, fork.y, fork.x + Math.cos(forkAngle) * 14,
-          fork.y + Math.sin(forkAngle) * 14, 2), .065, 390, .45, 'pointer');
+      const side = noise(station + 673) < .5 ? -1 : 1;
+      const angle = Math.atan2(next.y - start.y, next.x - start.x) + side * (.55 + noise(station + 733) * .7);
+      const distance = (touch ? 23 : 30) + noise(station + 811) * (touch ? 13 : 22);
+      const branch = forkChannel(start, { x: start.x + Math.cos(angle) * distance,
+        y: start.y + Math.sin(angle) * distance }, channelSeed + station * 17);
+      addTrace(branch, touch ? .15 : .18, touch ? 420 : 480, .68, 'pointer', 1);
+      if (!count) {
+        const fork = branch[4];
+        const forkAngle = angle - side * (.7 + noise(station + 919) * .5);
+        const length = touch ? 12 : 18;
+        addTrace(forkChannel(fork, { x: fork.x + Math.cos(forkAngle) * length,
+          y: fork.y + Math.sin(forkAngle) * length }, channelSeed + station * 29, 2), .09, 410, .38, 'pointer', 2);
       }
+      count++;
     }
   }
   function onPointerMove(event) {
     if (!enabled || reducedMotion.matches) return;
+    if (event.isPrimary === false) return;
     const now = performance.now();
     const touch = event.pointerType === 'touch';
     const current = { x: event.clientX, y: event.clientY, time: now, touch };
     if (!Number.isFinite(current.x) || !Number.isFinite(current.y)) return;
-    if (!lastPointer) pointerPulseStart = now;
+    let restart = !lastPointer;
     if (lastPointer) {
       const distance = Math.hypot(current.x - lastPointer.x, current.y - lastPointer.y);
       if (distance < .5 && lastPointer.touch === touch) return; // Pointer/touch duplicate.
-      if (lastPointer.touch !== touch || now - lastPointer.time > 280 || distance > (touch ? 180 : 260)) {
-        pointerHistory = [];
-        pointerPulseStart = now;
-      }
+      restart = lastPointer.touch !== touch || now - lastPointer.time > 280 || distance > (touch ? 180 : 260);
+      if (!restart) pointerDistance += distance;
     }
+    if (restart) {
+      pointerHistory = [];
+      pointerDistance = 0;
+      pointerPulseStart = now;
+      channelSeed = Math.random() * 65536;
+    }
+    current.arc = pointerDistance;
     // Keep the moving endpoint, but thin dense mouse samples by distance.
     const previousSample = pointerHistory[pointerHistory.length - 2];
     if (previousSample && Math.hypot(current.x - previousSample.x, current.y - previousSample.y) < 8) {
       pointerHistory[pointerHistory.length - 1] = current;
     } else pointerHistory.push(current);
-    pointerHistory = pointerHistory.filter(point => now - point.time <= 400).slice(-32);
+    pointerHistory = pointerHistory.filter(point => now - point.time <= 440).slice(-36);
     lastPointer = current;
-    if (now - lastTraceAt >= (touch ? 65 : 40)) {
-      pointerBolt(trailPath(touch ? 120 : 180), touch);
+    if (now - lastTraceAt >= (touch ? 55 : 32)) {
+      pointerBolt(trailPath(touch ? 150 : 220), touch);
       lastTraceAt = now;
     }
   }
   function onPointerDown(event) {
-    if (!enabled || reducedMotion.matches) return;
+    if (!enabled || reducedMotion.matches || !Number.isFinite(event.clientX) || !Number.isFinite(event.clientY)) return;
+    // A multi-touch gesture is navigation, not a channel between unrelated fingers.
+    if (event.isPrimary === false) { onPointerEnd(); return; }
     lastTraceAt = performance.now();
     pointerPulseStart = lastTraceAt;
-    lastPointer = { x: event.clientX, y: event.clientY, time: lastTraceAt, touch: event.pointerType === 'touch' };
+    pointerDistance = 0;
+    channelSeed = Math.random() * 65536;
+    lastPointer = { x: event.clientX, y: event.clientY, time: lastTraceAt,
+      touch: event.pointerType === 'touch', arc: 0 };
     pointerHistory = [lastPointer];
     burst(event.clientX, event.clientY, .65);
   }

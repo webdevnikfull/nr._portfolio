@@ -172,3 +172,53 @@ section.folded-section {
   .section-intro-cue { display: none; }
   .folded-section > .section-details[hidden] { display: block !important; }
 }
+
+/* A fixed state marker and a separate traveling glint keep the disclosure state clear. */
+.section-intro-action {
+  --cue-anchor: 0%;
+  --cue-travel-color: transparent;
+  --cue-rail-color: color-mix(in srgb, var(--accent) 32%, transparent);
+}
+.section-intro-action[aria-expanded="true"] { --cue-anchor: 100%; --cue-travel-color: var(--accent); }
+.section-intro-action .section-intro-cue::after {
+  flex: 1 1 30px;
+  min-width: 24px;
+  height: 6px;
+  border-radius: 3px;
+  background-image:
+    radial-gradient(circle, var(--accent) 0 1.3px, transparent 2.8px),
+    linear-gradient(90deg, transparent, var(--cue-travel-color), transparent),
+    linear-gradient(var(--cue-rail-color), var(--cue-rail-color));
+  background-size: 6px 6px, 26px 2px, 100% 1px;
+  background-repeat: no-repeat;
+  background-position: var(--cue-anchor) 50%, -28px 50%, 0 50%;
+  transform: none;
+  opacity: .85;
+  filter: drop-shadow(0 0 2px color-mix(in srgb, var(--accent) 35%, transparent));
+  transition: background-position .35s ease, opacity .22s ease;
+}
+.section-intro-action[aria-expanded="true"] .section-intro-cue::after {
+  animation: section-cue-return 1.6s ease-in-out both;
+}
+.section-intro-action:focus-visible { --cue-travel-color: var(--accent); }
+.section-intro-action:focus-visible .section-intro-cue::after {
+  animation: section-cue-return 1.8s ease-in-out infinite;
+}
+@media (hover: hover) {
+  .section-intro-action:hover { --cue-travel-color: var(--accent); }
+  .section-intro-action:hover .section-intro-cue::after {
+    transform: none;
+    opacity: 1;
+    animation: section-cue-return 1.8s ease-in-out infinite;
+  }
+}
+@keyframes section-cue-return {
+  0%, 100% { background-position: var(--cue-anchor) 50%, -28px 50%, 0 50%; }
+  50% { background-position: var(--cue-anchor) 50%, calc(100% + 28px) 50%, 0 50%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .section-intro-action .section-intro-cue::after {
+    animation: none !important;
+    transition: none;
+  }
+}

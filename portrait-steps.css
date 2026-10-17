@@ -1,0 +1,69 @@
+/* Three readable choices. Selection works equally in the calm and electric themes. */
+.portrait-frame .portrait-steps {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+.portrait-frame .portrait-steps > .portrait-method-step {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 7px;
+  min-width: 0;
+  min-height: 68px;
+  margin: 0;
+  padding: 12px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-alt);
+  color: var(--navy);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color .22s ease, border-color .22s ease, box-shadow .22s ease, color .22s ease;
+}
+.portrait-frame .portrait-method-step small {
+  color: var(--muted);
+  font-size: 8.5px;
+  font-variant-numeric: tabular-nums;
+}
+.portrait-frame .portrait-method-step strong {
+  max-width: 100%;
+  color: inherit;
+  font-size: 10.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -.18px;
+  overflow-wrap: anywhere;
+}
+.portrait-frame .portrait-method-step:hover { border-color: #8aa2d6; }
+.portrait-frame .portrait-method-step:focus-visible {
+  outline: 2px solid #7395e6;
+  outline-offset: 3px;
+}
+.portrait-frame .portrait-method-step[aria-pressed="true"] {
+  color: #fff;
+  background: #193c8d;
+  border-color: #315bab;
+  box-shadow: inset 0 1px 0 #ffffff1c, 0 5px 12px -8px #173c8b80;
+}
+.portrait-frame .portrait-method-step[aria-pressed="true"] small { color: #c8dbff; }
+[data-theme="dark"] .portrait-frame .portrait-method-step[aria-pressed="true"] {
+  background: #2a4382;
+  border-color: #617fb9;
+}
+[data-electric="on"] .portrait-frame .portrait-method-step[aria-pressed="true"] {
+  box-shadow: inset 0 1px 0 #d9edff30, 0 0 0 1px #8bcbff24, 0 0 15px #719eff29;
+}
+@media (max-width: 640px) {
+  .portrait-frame .portrait-steps > .portrait-method-step { padding: 12px 4px; min-height: 66px; }
+  .portrait-frame .portrait-method-step strong { font-size: clamp(9px, 2.65vw, 10.5px); letter-spacing: -.2px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portrait-frame .portrait-steps > .portrait-method-step { transition: none; }
+}
+@media print {
+  .portrait-frame .portrait-method-step[aria-pressed="true"] { color: #142b63; background: #edf2fc; box-shadow: none; }
+  .portrait-frame .portrait-method-step[aria-pressed="true"] small { color: #3d568d; }
+}

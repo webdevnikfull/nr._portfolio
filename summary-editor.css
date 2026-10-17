@@ -1,0 +1,55 @@
+/* Limit ordinary page selection; native editing fields retain text operations. */
+body, body * {
+  -webkit-user-select: none;
+  user-select: none;
+}
+body :is(input, textarea, [contenteditable="true"], [contenteditable="plaintext-only"]) {
+  -webkit-user-select: text;
+  user-select: text;
+  -webkit-touch-callout: default;
+}
+.summary-editor, .summary-tools { max-width: 490px; }
+.summary-editor[hidden], .summary-tools [hidden], .hero-description[hidden] { display: none !important; }
+.summary-editor textarea {
+  display: block;
+  width: 100%;
+  min-height: 140px;
+  padding: 13px 15px;
+  border: 1px solid var(--accent);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+  font: 400 14px/1.85 var(--font-site);
+  resize: vertical;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 9%, transparent);
+}
+.summary-editor textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.summary-tools {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.summary-tools button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 7px 11px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--navy);
+  font: 600 11px/1.4 var(--font-site);
+  cursor: pointer;
+}
+.summary-tools button:hover { background: var(--soft); border-color: var(--accent); }
+.summary-tools .summary-save { background: #173a94; border-color: #173a94; color: #fff; }
+.summary-tools .summary-save:hover { background: #102b70; }
+.summary-tools svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.summary-status { flex-basis: 100%; color: var(--muted); font: 400 10.5px/1.6 var(--font-site); }
+.summary-status:empty { display: none; }
+@media (max-width: 640px) { .summary-tools button { min-height: 40px; } }
+@media print { .summary-editor, .summary-tools { display: none !important; } }

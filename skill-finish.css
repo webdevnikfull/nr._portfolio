@@ -1,0 +1,119 @@
+/* Readable technology labels share the navy-blue palette in both themes. */
+:root {
+  --tag-surface: #eaf1ff;
+  --tag-border: #bfceea;
+  --tag-ink: #24467d;
+  --tag-mark: #547ebd;
+  --tag-shine: #ffffff99;
+}
+[data-theme="dark"] {
+  --tag-surface: #203353;
+  --tag-border: #3c557c;
+  --tag-ink: #d9e7ff;
+  --tag-mark: #96bbf4;
+  --tag-shine: #ffffff08;
+}
+.skill-card.featured {
+  --tag-surface: #ffffff14;
+  --tag-border: #bfd5ff4d;
+  --tag-ink: #f0f5ff;
+  --tag-mark: #b8d3ff;
+  --tag-shine: #ffffff0a;
+}
+:root .skill-card .tags,
+:root .experience-row .experience-tags,
+:root .project-card .tags { gap: 8px; align-items: center; }
+:root .skill-card .tags > span,
+:root .experience-row .experience-tags > span,
+:root .project-card .tags > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 7px;
+  min-height: 29px;
+  max-width: 100%;
+  padding: 6px 10px;
+  border: 1px solid var(--tag-border);
+  border-radius: 8px;
+  background: var(--tag-surface);
+  color: var(--tag-ink);
+  box-shadow: inset 0 1px 0 var(--tag-shine);
+  font: 600 10.5px/1.4 var(--font-site);
+  letter-spacing: .02em;
+  transform: none;
+  transition: border-color .22s ease, background-color .22s ease, color .22s ease;
+}
+:root .skill-card .tags > span::before,
+:root .experience-row .experience-tags > span::before,
+:root .project-card .tags > span::before {
+  content: '';
+  flex: 0 0 4px;
+  width: 4px;
+  height: 4px;
+  border-radius: 0;
+  transform: rotate(45deg);
+  background: var(--tag-mark);
+}
+@media (hover: hover) {
+  .skill-card:hover {
+    --tag-surface: #ffffff14;
+    --tag-border: #bfd5ff4d;
+    --tag-ink: #f0f5ff;
+    --tag-mark: #b8d3ff;
+    --tag-shine: #ffffff0a;
+  }
+  :root .skill-card .tags > span:hover,
+  :root .experience-row .experience-tags > span:hover,
+  :root .project-card .tags > span:hover {
+    color: #fff;
+    background: #173a94;
+    border-color: #4268aa;
+    transform: none;
+  }
+  :root .skill-card .tags > span:hover::before,
+  :root .experience-row .experience-tags > span:hover::before,
+  :root .project-card .tags > span:hover::before { background: #c2daff; }
+}
+@media (max-width: 640px) {
+  :root .skill-card .tags > span,
+  :root .experience-row .experience-tags > span,
+  :root .project-card .tags > span { font-size: 10px; padding: 6px 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  :root .skill-card .tags > span,
+  :root .experience-row .experience-tags > span,
+  :root .project-card .tags > span { transition: none; }
+}
+
+/* Keep the three skill labels on one shared baseline without narrowing the cards. */
+:root .skills-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
+  align-items: stretch;
+}
+:root .skill-card .tags {
+  flex-wrap: nowrap;
+  gap: 6px;
+  width: 100%;
+  margin-top: auto;
+  padding-bottom: 2px;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: thin;
+}
+:root .skill-card .tags > span {
+  flex: 0 0 auto;
+  gap: 5px;
+  padding-inline: 7px;
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  :root .skill-card .tags { gap: 4px; }
+  :root .skill-card .tags > span { padding-inline: 6px; font-size: 10px; }
+  :root .skill-card .tags > span::before { display: none; }
+}
+@media (max-width: 360px) {
+  :root .skill-card { padding-inline: 18px; }
+}
+@media (max-width: 340px) {
+  :root .skill-card .tags > span { font-size: 9.5px; }
+}
