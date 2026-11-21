@@ -1,0 +1,10 @@
+{
+  "intune": "https://learn.microsoft.com/en-us/azure/architecture/icons/",
+  "entra": "https://learn.microsoft.com/en-us/entra/architecture/architecture-icons",
+  "copilot": "https://github.com/lobehub/lobe-icons",
+  "office": "https://www.npmjs.com/package/simple-icons/v/9.21.0",
+  "windows": "https://www.npmjs.com/package/simple-icons/v/9.21.0",
+  "android": "https://github.com/simple-icons/simple-icons",
+  "ios": "https://github.com/simple-icons/simple-icons",
+  "jira": "https://github.com/simple-icons/simple-icons"
+}

@@ -1,7 +1,7 @@
 (() => {
   'use strict';
   const root=document.documentElement;
-  const languages={pl:'Polski',en:'English',de:'Deutsch',es:'Español',fr:'Français',uk:'Українська',ru:'Русский'};
+  const languages={pl:'Polski',en:'English',de:'Deutsch',uk:'Українська',};
   const labels={pl:['Wybierz język','Włącz ciemny motyw','Włącz jasny motyw'],en:['Choose language','Use dark theme','Use light theme'],de:['Sprache wählen','Dunkles Design aktivieren','Helles Design aktivieren'],es:['Elegir idioma','Activar tema oscuro','Activar tema claro'],fr:['Choisir la langue','Activer le thème sombre','Activer le thème clair'],uk:['Вибрати мову','Увімкнути темну тему','Увімкнути світлу тему'],ru:['Выбрать язык','Включить тёмную тему','Включить светлую тему']};
   const picker=document.querySelector('.language-picker'), toggle=document.getElementById('lang'), menu=document.getElementById('lang-menu'), theme=document.getElementById('theme');
   if(!picker||!toggle||!menu||!theme)return;

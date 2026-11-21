@@ -1,0 +1,19 @@
+.cloud-scroll-layer { position:fixed;inset:0;z-index:18;pointer-events:none;overflow:hidden; }
+.cloud-scroll-layer[hidden] { display:none; }
+.cloud-scroll-puff { position:absolute;width:45px;height:17px;border-radius:18px;background:rgba(196,218,244,.3);opacity:0;pointer-events:none; }
+.cloud-scroll-puff::before,.cloud-scroll-puff::after { content:'';position:absolute;border-radius:50%;background:inherit; }
+.cloud-scroll-puff::before { width:21px;height:21px;left:7px;top:-11px; }
+.cloud-scroll-puff::after { width:15px;height:15px;right:5px;top:-7px; }
+.cloud-scroll-puff.is-floating { animation:scroll-cloud-float 1.6s ease-out both; }
+[data-theme="dark"] .cloud-scroll-puff { background:rgba(188,217,247,.23); }
+@keyframes scroll-cloud-float { 0% { opacity:0;transform:translate(-50%,-20%) scale(calc(var(--puff-size,1)*.65)); } 20% { opacity:.65; } 100% { opacity:0;transform:translate(calc(-50% + var(--puff-drift,8px)),-45px) scale(var(--puff-size,1)); } }
+.cloud-ambient-layer{position:fixed;inset:0;z-index:1;overflow:hidden;pointer-events:none;contain:strict}
+.cloud-ambient-layer[hidden]{display:none}
+.cloud-ambient-puff{position:absolute;width:var(--cloud-volume);height:calc(var(--cloud-volume)*.3);border-radius:100px;background:rgba(var(--cloud-rgb),.12);opacity:0;animation:cloud-ambient-drift var(--cloud-drift-time,30s) linear var(--cloud-drift-delay,0s) infinite}
+.cloud-ambient-puff::before,.cloud-ambient-puff::after{content:'';position:absolute;border-radius:50%;background:inherit}
+.cloud-ambient-puff::before{width:46%;height:150%;left:13%;bottom:10%}.cloud-ambient-puff::after{width:34%;height:115%;right:11%;bottom:14%}
+@keyframes cloud-ambient-drift{0%{opacity:0;transform:translate(-45px,8px)}20%,75%{opacity:.75}100%{opacity:0;transform:translate(65px,-15px)}}
+.cloud-paused .cloud-ambient-puff{animation-play-state:paused}
+@media(max-width:600px){.cloud-ambient-puff:nth-child(n+19){display:none}}
+@media(prefers-reduced-motion:reduce),print{.cloud-ambient-layer{display:none!important}}
+@media(prefers-reduced-motion:reduce),print { .cloud-scroll-layer { display:none!important; } }

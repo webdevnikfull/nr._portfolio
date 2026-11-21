@@ -5,7 +5,7 @@
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   const entries = [
     { element: document.querySelector('.site-header .brand'), dot: 'span:first-child', strength: .55, brand: true },
-    { element: document.querySelector('.hero-copy > .availability'), dot: '.status-dot', strength: .45, brand: false }
+    { element: document.querySelector('.hero-copy .availability'), dot: '.status-dot', strength: .45, brand: false }
   ].filter(entry => entry.element);
   if (!entries.length) return;
   const listeners = [];

@@ -59,6 +59,7 @@
     if (context) context.clearRect(0, 0, width, height);
   }
   function setEnabled(on) {
+    on = Boolean(on) && root.dataset.theme === 'dark';
     enabled = on;
     root.dataset.electric = on ? 'on' : 'off';
     button.setAttribute('aria-pressed', String(on));
@@ -198,6 +199,8 @@
   }
   function highlight(element) {
     if (!element || !enabled) return;
+    const rect = element.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
     if (highlights.has(element)) clearTimeout(highlights.get(element));
     element.classList.remove('electric-reveal');
     void element.offsetWidth;
@@ -206,8 +209,7 @@
       element.classList.remove('electric-reveal');
       highlights.delete(element);
     }, 900));
-    const rect = element.getBoundingClientRect();
-    if (rect.top >= height || rect.bottom <= 0) return;
+    if (element.matches('.certificate-provider-empty') || rect.top >= height || rect.bottom <= 0) return;
     // Draw only along the top edge, leaving text and images unobscured.
     const endX = Math.min(rect.right - 20, width - 14);
     const startX = Math.max(rect.left + 20, endX - Math.min(rect.width * .55, 155));
@@ -224,7 +226,7 @@
       if (now - (openedAt.get(content) || -1000) < 120) return;
       openedAt.set(content, now);
       highlight(target);
-      const cards = content.querySelectorAll('.skill-card, .experience-row, .project-card, .education-card, .certificate-source, .certificate-card, .volunteer-item');
+      const cards = content.querySelectorAll('.skill-card, .experience-row, .project-card, .education-card, .certificate-source:not(.certificate-provider), .certificate-provider-empty, .certificate-card, .volunteer-item');
       [...cards].slice(0, 6).forEach(highlight);
     });
   });

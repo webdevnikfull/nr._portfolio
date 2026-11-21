@@ -1,1 +1,5 @@
-try{document.documentElement.dataset.theme=(localStorage.getItem('qa-portfolio-theme')||localStorage.getItem('nr-security-theme'))==='dark'?'dark':'light'}catch{document.documentElement.dataset.theme='light'}
+(() => {
+  let theme = 'dark';
+  try { theme = localStorage.getItem('nr-security-theme') || localStorage.getItem('qa-portfolio-theme') || 'dark'; } catch {}
+  document.documentElement.dataset.theme = ['light', 'dark'].includes(theme) ? theme : 'dark';
+})();

@@ -1,0 +1,67 @@
+/* Security accents for the cybersecurity-focused portfolio. */
+:root {
+  --cyber-accent: #08685f;
+  --cyber-soft: #e6f5f1;
+  --cyber-border: #94c6bc;
+}
+:root[data-theme="dark"] {
+  --cyber-accent: #91ebdc;
+  --cyber-soft: #1a3439;
+  --cyber-border: #3d7776;
+}
+.hero-role {
+  color: var(--cyber-accent);
+  line-height: 1.5;
+}
+.cyber-learning-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  max-width: 100%;
+  margin-top: 1.25rem;
+  color: var(--cyber-accent);
+  font-size: .9375rem;
+  font-weight: 600;
+  line-height: 1.55;
+  text-decoration: underline;
+  text-decoration-color: var(--cyber-border);
+  text-underline-offset: .3em;
+  transition: color .25s ease, text-decoration-color .25s ease;
+}
+.cyber-learning-link svg {
+  flex: 0 0 1.125rem;
+  width: 1.125rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.cyber-learning-link:hover {
+  text-decoration-color: currentColor;
+}
+.cyber-learning-link:focus-visible {
+  outline-color: var(--cyber-accent);
+}
+.project-card[data-it-project="security"] {
+  border-color: var(--cyber-border);
+}
+.project-card[data-it-project="security"] .security-shield,
+.project-card[data-it-project="security"] .security-signals,
+.project-card[data-it-project="security"] .project-meta,
+.project-card[data-it-project="security"] .qa-note > span {
+  color: var(--cyber-accent);
+}
+.project-card[data-it-project="security"] .qa-note {
+  border-color: var(--cyber-border);
+}
+#certificates .section-card-icon,
+#skills .section-card-icon {
+  color: var(--cyber-accent);
+  background: var(--cyber-soft);
+  border-color: var(--cyber-border);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cyber-learning-link { transition: none; }
+}

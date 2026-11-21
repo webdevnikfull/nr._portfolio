@@ -1,0 +1,10 @@
+/* Ordinary page text stays read-only; native form fields retain normal editing. */
+body, body * {
+  -webkit-user-select: none;
+  user-select: none;
+}
+body :is(input, textarea, [contenteditable="true"], [contenteditable="plaintext-only"]) {
+  -webkit-user-select: text;
+  user-select: text;
+  -webkit-touch-callout: default;
+}
