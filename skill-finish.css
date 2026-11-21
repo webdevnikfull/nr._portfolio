@@ -85,26 +85,29 @@
   :root .project-card .tags > span { transition: none; }
 }
 
-/* Keep the three skill labels on one shared baseline without narrowing the cards. */
+/* Full localized labels wrap naturally within each card. */
 :root .skills-grid {
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
   align-items: stretch;
 }
 :root .skill-card .tags {
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   gap: 6px;
   width: 100%;
   margin-top: auto;
   padding-bottom: 2px;
-  overflow-x: auto;
-  white-space: nowrap;
-  scrollbar-width: thin;
+  overflow: visible;
+  white-space: normal;
+  align-items: flex-start;
 }
 :root .skill-card .tags > span {
-  flex: 0 0 auto;
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  text-align: left;
   gap: 5px;
   padding-inline: 7px;
-  white-space: nowrap;
+  white-space: normal;
 }
 @media (max-width: 640px) {
   :root .skill-card .tags { gap: 4px; }

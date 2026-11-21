@@ -1,0 +1,65 @@
+/* A compact interactive network sketch inside the original portrait details. */
+.profile-network { display:block; width:100%; height:62px; margin:0 0 20px; padding:2px 8px; border:1px solid transparent; border-radius:12px; color:var(--accent); background:transparent; cursor:pointer; transition:border-color .3s ease,background-color .3s ease; }
+.profile-network svg { display:block; width:100%; height:100%; overflow:visible; fill:none; stroke:currentColor; stroke-width:1.35; stroke-linecap:round; stroke-linejoin:round; pointer-events:none; }
+.profile-network .network-wire { opacity:.24; }
+.profile-network .network-route-selected > .network-wire { opacity:.55; }
+.profile-network .network-packet { opacity:0; stroke-width:2; stroke-dasharray:10 90; stroke-dashoffset:100; }
+.profile-network .network-endpoint { fill:var(--surface); }
+.profile-network .network-hub { fill:color-mix(in srgb,var(--soft) 75%,var(--surface)); }
+.profile-network .network-led { fill:currentColor;stroke:none;opacity:.45; }
+.profile-network .network-ring { opacity:0;transform-box:fill-box;transform-origin:center; }
+.profile-network.is-network-playing .network-route-selected > .network-packet { animation:network-packet 1.6s ease both; }
+.profile-network.is-network-playing .network-led { animation:network-led 1.7s ease var(--led-delay,0ms) both; }
+.profile-network.is-network-playing .network-ring { animation:network-ping 1.8s ease var(--ping-delay,0ms) both; }
+.profile-network.is-network-pointed { background:radial-gradient(ellipse 100px 65px at var(--network-x,50%) var(--network-y,50%),rgba(var(--section-tint),.09),transparent); border-color:color-mix(in srgb,var(--accent) 12%,transparent); }
+.profile-network:focus-visible { outline:2px solid var(--accent);outline-offset:3px;background:color-mix(in srgb,var(--soft) 35%,transparent); }
+[data-cloud="on"] .profile-network { color:color-mix(in srgb,var(--accent) 72%,#71b9df); }
+@keyframes network-packet { 0% { stroke-dashoffset:100;opacity:0; } 16%,75% { opacity:.95; } 100% { stroke-dashoffset:-15;opacity:0; } }
+@keyframes network-led { 0%,100% { opacity:.45; } 35%,55% { opacity:1; } }
+@keyframes network-ping { 0%,100% { opacity:0;transform:scale(.8); } 35% { opacity:.4; } 78% { opacity:0;transform:scale(1.4); } }
+@media(max-width:700px) { .profile-network { height:58px;padding-inline:2px; } }
+@media(prefers-reduced-motion:reduce) { .profile-network,.profile-network * { animation:none!important;transition:none!important; } }
+@media print { .profile-network { display:none; } }
+
+.profile-network { height:88px;padding:4px 0;background:linear-gradient(120deg,transparent,rgba(var(--section-tint),.035),transparent); }
+.profile-network svg { opacity:.85; }
+.profile-network .network-wire { opacity:.3; }
+.profile-network .network-endpoint { fill:var(--accent);stroke:var(--surface);filter:drop-shadow(0 0 3px var(--accent));animation:network-beacon 3.6s ease-in-out infinite; }
+.profile-network:hover .network-endpoint,.profile-network:focus-visible .network-endpoint { filter:drop-shadow(0 0 6px var(--accent)); }
+.profile-network .network-endpoint:nth-of-type(3n) { animation-delay:-1.2s; }
+.profile-network .network-endpoint:nth-of-type(3n + 1) { animation-delay:-2.4s; }
+@keyframes network-beacon { 0%,100% { opacity:.55; } 50% { opacity:1; } }
+@media(prefers-reduced-motion:reduce) { .profile-network .network-endpoint { animation:none!important; } }
+.network-editor { position:relative;height:112px;cursor:default; }
+.network-editor > svg { position:absolute;inset:0;width:100%;height:100%;pointer-events:none; }
+.network-node-control { position:absolute;width:22px;height:22px;padding:0;transform:translate(-50%,-50%);border:0;border-radius:50%;background:transparent;color:var(--accent);cursor:grab;touch-action:none; }
+.network-node-control::after { content:'';position:absolute;inset:6px;border-radius:50%;background:currentColor;box-shadow:0 0 5px currentColor,0 0 12px color-mix(in srgb,currentColor 55%,transparent);opacity:.65;transition:background .2s,box-shadow .2s,opacity .2s; }
+.network-node-control[aria-pressed="true"] { color:#579aff; }
+.network-node-control[aria-pressed="true"]::after,.network-node-control:hover::after { opacity:1;box-shadow:0 0 0 3px #579aff24,0 0 9px currentColor,0 0 19px #3985ff80; }
+.network-node-control:active { cursor:grabbing; }
+.network-node-control:focus-visible { outline:2px solid #579aff;outline-offset:2px; }
+.network-editor .network-link-selected { stroke:#579aff;opacity:.85;stroke-width:1.6; }
+@media(prefers-reduced-motion:reduce) { .network-node-control::after { transition:none; } }
+
+.network-editor .network-mesh-wire { stroke:currentColor;stroke-width:.8;opacity:.2; }
+.network-editor .network-mesh-wire.network-link-selected { stroke:#579aff;stroke-width:1.2;opacity:.7; }
+
+.network-editor { margin-bottom:36px; }
+.network-support-caption { position:absolute;top:calc(100% + 10px);left:0;width:100%;text-align:center;color:var(--muted);font:650 8px/1.5 var(--font-site);letter-spacing:1.7px;pointer-events:none; }
+
+.network-editor { margin-top:27px;margin-bottom:24px; }
+.network-support-caption { top:auto;bottom:calc(100% + 10px);text-transform:none;letter-spacing:1.2px;font-size:9px; }
+
+.network-disclosure { margin:0 0 22px; }
+.network-disclosure-title { display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:40px;list-style:none;text-align:left;color:var(--muted);font:650 9px/1.6 var(--font-site);letter-spacing:.8px;cursor:pointer; }
+.network-disclosure-title::-webkit-details-marker { display:none; }
+.network-disclosure-title::after { content:'+';font-size:19px;color:var(--accent); }
+.network-disclosure[open] > .network-disclosure-title::after { content:'−'; }
+.network-disclosure-title:focus-visible { outline:2px solid var(--accent);outline-offset:3px;border-radius:5px; }
+.network-disclosure .network-editor { margin:12px 0 6px;height:120px; }
+.network-node-control { font:700 8px/1 var(--font-site);color:var(--accent);isolation:isolate; }
+.network-node-control::after { z-index:-1;inset:2px;background:var(--surface);border:1px solid currentColor;opacity:1; }
+.network-node-control[aria-pressed="true"]::after { background:#244f93; }
+.network-node-control[aria-pressed="true"] { color:#e5efff; }
+
+.network-disclosure[hidden] { display:none!important; }

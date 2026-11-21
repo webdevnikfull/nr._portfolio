@@ -3,7 +3,7 @@
   'use strict';
   const root = document.documentElement;
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const cards = '.skill-card, .experience-row, .project-card, .education-card, .language-card, .certificate-source, .certificate-card, .volunteer-item';
+  const cards = '.skill-card, .experience-row, .project-card, .education-card, .language-card, .certificate-source:not(.certificate-provider), .certificate-provider-empty, .certificate-card, .volunteer-item';
   const controls = '.section-intro-action, .section-disclosure, .button, .education-tab, .certificate-action, .certificate-more, .project-links a';
   const targets = cards + ', ' + controls;
   const decorated = new Map();

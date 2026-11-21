@@ -1,0 +1,38 @@
+/* Heading connections use the existing gutter marker and avoid the title text. */
+.heading-links { position:absolute;inset:0;z-index:0;pointer-events:none;color:var(--accent); }
+.heading-links svg { display:block;width:100%;height:100%;overflow:visible; }
+.heading-link-base { fill:none;stroke:currentColor;stroke-width:1;opacity:.13; }
+.heading-link-packet { fill:none;stroke:currentColor;stroke-width:1.5;stroke-dasharray:8 92;stroke-dashoffset:100;opacity:0; }
+.heading-link-node { fill:var(--surface);stroke:currentColor;stroke-width:1;opacity:.45; }
+.heading-link-group.is-links-active .heading-link-base { opacity:.33; }
+.heading-link-group.is-links-active.is-links-current.is-links-visible .heading-link-packet { animation:heading-data 2.7s ease-in-out infinite; }
+.heading-link-group.is-links-active.is-links-visible .heading-link-return { animation-delay:.6s;animation-direction:reverse; }
+@keyframes heading-data { 0% { stroke-dashoffset:100;opacity:0; } 20%,75% { opacity:.65; } 100% { stroke-dashoffset:-8;opacity:0; } }
+@media(max-width:700px) { .heading-link-base { opacity:.1; } }
+@media(prefers-reduced-motion:reduce) { .heading-link-packet { animation:none!important; } }
+@media print { .heading-links { display:none; } }
+
+.fact-service-detail { display:block;margin-top:3px;color:var(--muted);font-size:10px;line-height:1.5; }
+.experience-tags > span,.tags > span { max-width:100%;white-space:normal; }
+
+.heading-link-base { stroke-linecap:round;stroke-linejoin:round;opacity:.17; }
+.heading-link-packet { stroke-linecap:round;stroke-linejoin:round; }
+.heading-link-group.is-links-active .heading-link-base { opacity:.4; }
+
+.heading-link-group.is-links-current .heading-link-base { opacity:.48; }
+.heading-link-group.is-links-current.is-links-visible .heading-link-packet { animation:heading-data 3s ease-in-out infinite; }
+.heading-link-group.is-links-current.is-links-visible .heading-link-return { animation-delay:.7s;animation-direction:reverse; }
+.heading-link-group.is-links-current .heading-link-node { fill:currentColor;opacity:1;filter:drop-shadow(0 0 4px currentColor); }
+@media(prefers-reduced-motion:reduce) { .heading-link-group .heading-link-packet { animation:none!important; } }
+/* Visible sections carry the same quiet traveling highlights as v67. */
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-effects-paused="true"]) .heading-link-group.is-links-current.is-links-visible .heading-link-packet {
+    animation: heading-data 4.8s ease-in-out infinite;
+    stroke-linecap: round;
+    filter: drop-shadow(0 0 2px currentColor);
+  }
+  :root:not([data-effects-paused="true"]) .heading-link-group.is-links-current.is-links-visible .heading-link-return {
+    animation-delay: .8s;
+    animation-direction: reverse;
+  }
+}

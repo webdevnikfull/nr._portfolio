@@ -1,0 +1,39 @@
+/* Reserve the final text layout before revealing letters: no animated geometry. */
+.portrait-welcome{position:absolute;left:var(--welcome-left,78%);top:var(--welcome-top,200px);z-index:8;width:var(--welcome-size,100px);box-sizing:border-box;margin:0;border:0;background:transparent;color:var(--navy);font:550 11px/1.65 var(--font-site);isolation:isolate;cursor:grab;touch-action:pan-y;transition:none}
+.portrait-welcome::before{content:none}
+.portrait-welcome{visibility:hidden}
+.portrait-welcome.is-welcome-ready{visibility:visible}
+.portrait-welcome{font-weight:700}
+.portrait-welcome .welcome-message,.portrait-welcome .welcome-title{position:relative;z-index:1;color:#081d63;text-shadow:0 1px 2px #fffffff0,0 0 7px #ffffffb3}
+:root[data-theme=dark] .portrait-welcome .welcome-message,:root[data-theme=dark] .portrait-welcome .welcome-title{color:#f1f6ff;text-shadow:0 1px 2px #07111d,0 0 8px #b6d5ff66}
+.portrait-welcome .welcome-outline{z-index:0}
+.portrait-welcome>summary{position:relative;z-index:1;display:block;box-sizing:border-box;width:100%;min-height:42px;padding:11px 14px;list-style:none;text-align:center;cursor:grab;user-select:none;touch-action:pan-y;line-height:1.65;border-radius:20px}
+.portrait-welcome>summary::-webkit-details-marker{display:none}
+.portrait-welcome>summary::marker{content:''}
+.portrait-welcome>summary:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.welcome-outline{position:absolute;left:-10px;top:0;width:calc(100% + 10px);height:100%;overflow:visible;pointer-events:none;filter:drop-shadow(0 0 5px color-mix(in srgb,var(--accent) 20%,transparent))}
+.welcome-outline path{fill:#ffffff8c;stroke:color-mix(in srgb,var(--accent) 70%,var(--line));stroke-width:1.1;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+:root[data-theme=dark] .welcome-outline path{fill:#0f192d66;stroke:#adc7f0b8}
+.portrait-welcome>summary{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.portrait-welcome:not([open]) .welcome-outline{left:0;width:100%}
+.portrait-welcome .welcome-icon,.portrait-welcome .welcome-chevron,.portrait-welcome .welcome-caret{display:none}
+.portrait-welcome .welcome-message{display:block;min-width:0;white-space:normal;word-break:normal;overflow-wrap:normal;hyphens:none;text-align:justify;text-align-last:left}
+.portrait-welcome .welcome-title{display:inline;white-space:nowrap;font:inherit}
+.portrait-welcome[open] .welcome-title,.portrait-welcome:not([open]) .welcome-message{display:none}
+.portrait-welcome.has-typewriter .welcome-full{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.welcome-typed{display:inline;white-space:normal}
+.welcome-lead{display:inline-block;width:1.1em;margin-right:5px;transform-origin:70% 75%;font-family:'Segoe UI Emoji','Apple Color Emoji',sans-serif}
+.portrait-welcome[open] .welcome-lead{animation:welcome-smile 2.8s ease-in-out 3}
+.welcome-word{display:inline-block;white-space:nowrap}
+.welcome-letter,.welcome-emoji{opacity:0;transition:opacity .22s ease;white-space:pre}
+.welcome-letter.is-visible,.welcome-emoji.is-visible{opacity:1}
+.welcome-emoji{display:inline-block;transform-origin:50% 60%}
+.welcome-emoji.is-visible{animation:welcome-smile 2.8s ease-in-out 2}
+@keyframes welcome-smile{0%,100%{transform:none}35%{transform:rotate(-7deg) scale(1.08)}65%{transform:rotate(6deg) scale(1.04)}}
+.welcome-measure{position:absolute!important;left:0;top:0;width:max-content!important;max-width:none!important;visibility:hidden;pointer-events:none;white-space:pre!important;font:inherit}
+.portrait-welcome.is-welcome-dragging{cursor:grabbing}
+.portrait-welcome[hidden],[data-electric=on] .portrait-welcome,[data-cloud=on] .portrait-welcome,[data-stars=on] .portrait-welcome{display:none!important}
+@media(max-width:600px){.hero-visual{max-width:calc(100% - 72px);justify-self:start;margin-inline:0}.portrait-welcome>summary{padding:10px 12px}}
+@media(prefers-reduced-motion:reduce){.portrait-welcome *{animation:none!important;transition:none!important}}
+@media print{.portrait-welcome{display:none}}
+@media(hover:none),(pointer:coarse){.portrait-frame:hover{transform:none!important}}

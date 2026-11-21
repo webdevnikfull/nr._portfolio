@@ -122,38 +122,6 @@
   animation: var(--portrait-burst-animation, portrait-electric-burst) var(--portrait-burst-duration, .9s) ease-out var(--portrait-burst-delay, 0s) both;
 }
 
-@keyframes portrait-electric-burst {
-  0% { opacity: 0; stroke-dashoffset: 100; }
-  13% { opacity: .72; stroke-dashoffset: 38; }
-  26% { opacity: .94; stroke-dashoffset: 0; }
-  40% { opacity: .18; }
-  53% { opacity: .78; }
-  72% { opacity: .22; }
-  100% { opacity: 0; stroke-dashoffset: -12; }
-}
-@keyframes portrait-electric-return {
-  0% { opacity: 0; stroke-dashoffset: -100; }
-  12% { opacity: .65; stroke-dashoffset: -45; }
-  27% { opacity: .9; stroke-dashoffset: 0; }
-  43% { opacity: .16; }
-  61% { opacity: .63; }
-  100% { opacity: 0; stroke-dashoffset: 12; }
-}
-@keyframes portrait-electric-flicker {
-  0% { opacity: 0; stroke-dashoffset: 100; }
-  16% { opacity: .9; stroke-dashoffset: 0; }
-  38% { opacity: .23; }
-  64% { opacity: .62; }
-  100% { opacity: 0; stroke-dashoffset: -8; }
-}
-@keyframes portrait-electric-fork {
-  0%, 18% { opacity: 0; stroke-dashoffset: 100; }
-  40% { opacity: .7; stroke-dashoffset: 0; }
-  63% { opacity: .22; }
-  78% { opacity: .4; }
-  100% { opacity: 0; stroke-dashoffset: 0; }
-}
-
 [data-electric="on"] [data-portrait-electric="active"] .portrait-electric-aura {
   animation: portrait-electric-sheen 9s ease-in-out infinite;
 }
@@ -220,3 +188,65 @@
   .portrait-electric-burst { display: none !important; }
   .portrait-frame[data-portrait-electric] { transform: none !important; }
 }
+
+/* Radial return strokes: a bright core over a softer channel, with one local flash. */
+.portrait-electric-flash { display: none; pointer-events: none; }
+[data-electric="on"] [data-portrait-electric="active"][data-portrait-burst="on"] .portrait-electric-flash { display: block; position: absolute; z-index: 2; inset: 0; -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 16%, transparent 26%, transparent 74%, #000 84%, #000 100%); mask-image: linear-gradient(90deg, #000 0%, #000 16%, transparent 26%, transparent 74%, #000 84%, #000 100%); }
+.portrait-electric-flash::before, .portrait-electric-flash::after { content: ''; position: absolute; inset: 0; opacity: 0; }
+.portrait-electric-flash::before { background: radial-gradient(ellipse 25% 38% at var(--portrait-flash-x-a) var(--portrait-flash-y-a), #d7efff75, #80baff29 38%, transparent 74%); animation: portrait-electric-flash .72s ease-out var(--portrait-flash-delay-a, 0s) both; }
+.portrait-electric-flash::after { background: radial-gradient(ellipse 25% 38% at var(--portrait-flash-x-b) var(--portrait-flash-y-b), #d7efff75, #80baff29 38%, transparent 74%); animation: portrait-electric-flash .72s ease-out var(--portrait-flash-delay-b, .18s) both; }
+.portrait-electric-burst-strand { stroke: #f3fbff; stroke-width: var(--portrait-burst-width, 1px); stroke-linejoin: round; filter: drop-shadow(0 0 1.8px #d7f1ffa6); }
+.portrait-electric-burst-strand--branch { stroke: #cee8ff; stroke-width: .65px; }
+.portrait-electric-burst-strand--glow { stroke: #74afff; stroke-width: 3.6px; filter: blur(1.8px); }
+.portrait-electric-burst-strand--glow.portrait-electric-burst-strand--branch { stroke-width: 2.4px; }
+@keyframes portrait-electric-burst {
+  0% { opacity: 0; stroke-dashoffset: 100; }
+  16% { opacity: .58; stroke-dashoffset: 24; }
+  27% { opacity: 1; stroke-dashoffset: 0; }
+  43% { opacity: .45; }
+  70% { opacity: .13; }
+  100% { opacity: 0; stroke-dashoffset: -12; }
+}
+@keyframes portrait-electric-return {
+  0% { opacity: 0; stroke-dashoffset: 100; }
+  12% { opacity: .3; stroke-dashoffset: 35; }
+  24% { opacity: .9; stroke-dashoffset: 0; }
+  38% { opacity: .68; }
+  61% { opacity: .22; }
+  100% { opacity: 0; stroke-dashoffset: -8; }
+}
+@keyframes portrait-electric-flicker {
+  0% { opacity: 0; stroke-dashoffset: 100; }
+  20% { opacity: .42; stroke-dashoffset: 15; }
+  34% { opacity: .95; stroke-dashoffset: 0; }
+  52% { opacity: .35; }
+  78% { opacity: .09; }
+  100% { opacity: 0; stroke-dashoffset: -16; }
+}
+@keyframes portrait-electric-fork {
+  0%, 12% { opacity: 0; stroke-dashoffset: 100; }
+  34% { opacity: .78; stroke-dashoffset: 0; }
+  57% { opacity: .28; }
+  100% { opacity: 0; stroke-dashoffset: -6; }
+}
+@keyframes portrait-electric-flash {
+  0% { opacity: 0; }
+  18% { opacity: .8; }
+  38% { opacity: .24; }
+  100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .portrait-electric-flash { display: none !important; } .portrait-electric-flash::before, .portrait-electric-flash::after { animation: none !important; } }
+@media print { .portrait-electric-flash { display: none !important; } }
+
+/* Calm standby: occasional translucent channels, with no downward sweep. */
+.portrait-electric-thread { stroke-dasharray: none; stroke-dashoffset: 0; }
+[data-electric="on"] [data-portrait-electric="active"] .portrait-electric-threads { opacity: .4; }
+[data-electric="on"] [data-portrait-electric="active"] .portrait-electric-thread { animation: portrait-electric-quiet 11s ease-in-out infinite; }
+[data-electric="on"] [data-portrait-electric="active"] .portrait-electric-thread--right { animation-delay: -5.7s; }
+[data-electric="on"] [data-portrait-electric="active"] .portrait-electric-thread--branch { animation-delay: -.17s; }
+[data-electric="on"] [data-portrait-electric="active"] .portrait-electric-thread--right.portrait-electric-thread--branch { animation-delay: -5.92s; }
+[data-electric="on"] [data-portrait-electric="active"] .portrait-electric-aura { opacity: .3; animation: portrait-electric-quiet-aura 13s ease-in-out infinite; }
+[data-electric="on"] [data-portrait-burst="on"] .portrait-electric-thread { animation: none; opacity: 0; }
+@keyframes portrait-electric-quiet { 0%, 61%, 67%, 71%, 100% { opacity: 0; } 63% { opacity: .28; } 65% { opacity: .08; } 69% { opacity: .18; } }
+@keyframes portrait-electric-quiet-aura { 0%,100% { opacity: .22; } 50% { opacity: .36; } }
+@media(prefers-reduced-motion:reduce) { [data-electric="on"] [data-portrait-electric="active"] .portrait-electric-thread, [data-electric="on"] [data-portrait-electric="active"] .portrait-electric-aura { animation: none !important; } }

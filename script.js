@@ -24,7 +24,7 @@
     menuButton.setAttribute('aria-expanded', String(open));
     navigation.classList.toggle('is-open', open);
   }
-  root.dataset.theme = storage.get('qa-portfolio-theme') === 'dark' ? 'dark' : 'light';
+  root.dataset.theme = 'dark';
   updateThemeLabel();
   document.querySelectorAll('.language-switch a').forEach(link => {
     if (location.hash) link.hash = location.hash;

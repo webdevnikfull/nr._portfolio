@@ -2,6 +2,7 @@
 (() => {
   'use strict';
   const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const motionPaused = () => preference.matches || document.documentElement.dataset.effectsPaused === 'true';
   const fine = window.matchMedia('(hover: hover) and (pointer: fine)');
   const narrow = window.matchMedia('(max-width: 400px)');
   const panels = [...document.querySelectorAll('#projects .project-demo-panel')];
@@ -59,7 +60,7 @@
     clearTimeout(timers.get(panel));
     timers.delete(panel);
     panel.classList.remove('is-demo-running');
-    if (document.hidden || preference.matches) return;
+    if (document.hidden || motionPaused()) return;
     // Reset only this miniature's looping effects, leaving the background orbits alone.
     panel.getAnimations?.({ subtree: true }).forEach(animation => {
       if (animation.effect?.getTiming().iterations === Infinity) animation.currentTime = 0;
@@ -92,15 +93,15 @@
       panel.click();
     });
     panel.addEventListener('pointerenter', event => {
-      if (event.pointerType !== 'touch' && fine.matches && !preference.matches && !document.hidden) panel.classList.add('is-demo-hover');
+      if (event.pointerType !== 'touch' && fine.matches && !motionPaused() && !document.hidden) panel.classList.add('is-demo-hover');
     }, { passive: true });
     panel.addEventListener('pointermove', event => {
-      if (!fine.matches || preference.matches || document.hidden || event.pointerType === 'touch' || event.isPrimary === false) return;
+      if (!fine.matches || motionPaused() || document.hidden || event.pointerType === 'touch' || event.isPrimary === false) return;
       pending = { panel, x: event.clientX, y: event.clientY };
       if (frame) return;
       frame = requestAnimationFrame(() => {
         frame = 0;
-        if (!pending || preference.matches || document.hidden) return;
+        if (!pending || motionPaused() || document.hidden) return;
         const point = pending;
         pending = null;
         const rect = point.panel.getBoundingClientRect();
@@ -118,7 +119,8 @@
     panel.addEventListener('focusout', event => { if (!panel.contains(event.relatedTarget)) leave(panel); });
   });
   document.addEventListener('visibilitychange', () => { if (document.hidden) clear(); });
-  preference.addEventListener('change', () => { if (preference.matches) clear(); });
+  preference.addEventListener('change', () => { if (motionPaused()) clear(); });
   window.addEventListener('pagehide', clear);
+  window.addEventListener('portfoliovisualeffectschange', event => { if (!event.detail.enabled) clear(); });
   window.addEventListener('blur', clear);
 })();

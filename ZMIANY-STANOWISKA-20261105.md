@@ -1,0 +1,1 @@
+Doprecyzowano stanowisko ISS jako wsparcie użytkowników i infrastruktury oraz INFLAA jako wsparcie e-commerce. Wersje polska, angielska, niemiecka i ukraińska zawierają odpowiednie tłumaczenia. Nazwa stanowiska Fujitsu pozostaje zachowana. Paczka zawiera także łagodne połączenia sekcji zbiegające się w jednym punkcie przy karcie.

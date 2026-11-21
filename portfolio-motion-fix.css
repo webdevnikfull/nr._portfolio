@@ -1,0 +1,12 @@
+.attribute-mini-icon { width: 16px; height: 16px; flex: 0 0 16px; }
+img.attribute-brand-icon { display: inline-block; object-fit: contain; }
+img.attribute-brand-icon[data-brand="ios"] { padding: 1px; border-radius: 3px; background: white; }
+.certificate-course-skills > .has-attribute-icon { display: inline-flex; align-items: center; gap: 6px; }
+.contact-section { transition: box-shadow .35s ease, border-color .35s ease; }
+.contact-section:focus-within { outline: 1px solid #b6c6ff80; outline-offset: 4px; }
+:root:not([data-effects-paused="true"]) .contact-section:hover { box-shadow: 0 18px 46px -28px #607dcb80; }
+:root[data-effects-paused="true"] #projects .project-demo-panel {
+  transition: none !important;
+  transform: translate(-50%, -50%) !important;
+}
+@media (prefers-reduced-motion: reduce) { .contact-section { transition: none; } }

@@ -1,6 +1,6 @@
 # Portfolio — font i efekty
 
-Otwórz `index.html`, aby zobaczyć polską wersję. Ten wariant korzysta z czcionki Inter. Lokalny plik czcionki i licencja znajdują się w katalogu `fonts`.
+Otwórz `index.html`, aby zobaczyć angielską wersję startową. Polska wersja jest w `index-pl.html`, niemiecka w `index-de.html`, a ukraińska w `index-uk.html`. Dotychczasowy adres `index-en.html` również otwiera wersję angielską. Ten wariant korzysta z czcionki Inter. Lokalny plik czcionki i licencja znajdują się w katalogu `fonts`.
 
 Przycisk z piorunem obok zmiany motywu włącza efekty światła. Nieregularna błyskawica z cienkimi odgałęzieniami podąża za kursorem, a na telefonie za dotykiem i przesuwaniem palca. Jasny rdzeń pulsuje, a wzdłuż kanału przesuwa się świetlisty rozbłysk. Przezroczysta poświata łagodnie zanika. Kształt jest stabilny podczas ruchu, bez losowego przeskakiwania całej błyskawicy. W jasnym motywie piorun ma głęboki oceaniczny błękit zbliżony do tła portretu, w ciemnym — prawie biały promień.
 
@@ -38,10 +38,15 @@ Każdy biały panel reaguje poświatą oraz delikatnym przechyleniem na ruch mys
 
 Usunięto wszystkie okrężne strzałki odtwarzania z siedmiu białych podglądów. Ostatni projekt ma ten sam podpis co pozostałe: „Animowana ilustracja interfejsu” (lub odpowiednie tłumaczenie). Animacje i interakcje paneli pozostają aktywne.
 
-Przycisk „Edytuj opis” pod krótkim opisem doświadczenia otwiera pole tekstowe. „Zapisz” zapisuje zmieniony opis w tej przeglądarce, osobno dla każdej wersji językowej; „Anuluj” lub Escape odrzuca szkic. Ctrl+Enter / Command+Enter zapisuje. Zmiana nie modyfikuje plików projektu ani treści widocznej w innych przeglądarkach. Gdy zapis lokalny jest niedostępny, opis można zmienić na czas bieżącej sesji.
 
 Zwykłe zaznaczanie oraz kopiowanie tekstu strony jest zablokowane. Pola edycji zachowują zaznaczanie, kopiowanie, wycinanie i wklejanie potrzebne do wprowadzania zmian.
 
 Portret używa poprzedniego, oryginalnego pliku `nikita-rysiev.png`, bez retuszu ani zmiany spojrzenia. Osobna warstwa zdjęcia porusza się bardzo delikatnie w spokojnym cyklu 16 sekund. Logo, podpis i efekty pioruna pozostają stabilne. Ruch działa w obu motywach i na urządzeniach mobilnych, zatrzymuje się poza ekranem, w ukrytej karcie przeglądarki oraz przy włączonym ograniczeniu animacji.
 
 W ciemnym motywie usunięto dolny gradient przyciemniający i poprzednie przejście 14 px. Zdjęcie ma stały obszar przycinania o dotychczasowych proporcjach 1.13, a animowana warstwa jest umieszczona w jego wnętrzu. Jednolita powierzchnia dolnej części karty pokrywa ewentualne pojedyncze piksele wychodzące poza obszar zdjęcia. Oryginalny plik zdjęcia, pozycja kadru, tempo i amplituda delikatnej animacji pozostają bez zmian.
+
+Przy zielonym statusie znajduje się pełny zegar: godziny, minuty, sekundy, trzy cyfry milisekund, nazwa dnia tygodnia oraz dzień, pełna nazwa miesiąca i rok. Czas pochodzi bezpośrednio z urządzenia odwiedzającego, wraz z jego lokalną strefą czasową; nie jest ustawiony na Polskę ani zależny od języka strony. Zmiana strefy lub czasu systemowego zostaje uwzględniona bez przeładowania. Nie są pobierane dane z zewnętrznych serwisów.
+
+Panel zegara reaguje delikatnym światłem i przechyleniem na mysz, a dotknięcie wywołuje krótką reakcję światła. Przycisk 24H/12H zmienia zapis godziny i dodaje AM/PM w trybie 12H. Pasek pod cyframi pokazuje upływ bieżącej sekundy. Zegar działa w obu motywach i w trybie pioruna; poza ekranem i w ukrytej karcie przeglądarki zatrzymuje odświeżanie, a po powrocie natychmiast pokazuje aktualny czas. Ograniczenie ruchu zmniejsza częstotliwość zmian milisekund i wyłącza efekty ruchu.
+
+Funkcja edycji krótkiego opisu doświadczenia została usunięta. Opis jest zwykłym tekstem z pliku strony; nie są wczytywane wcześniejsze lokalne zmiany. Dotychczasowa blokada zwykłego kopiowania pozostaje aktywna.

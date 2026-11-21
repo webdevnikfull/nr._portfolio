@@ -1,0 +1,93 @@
+/* Full device-local time beside the profile status, in the portfolio palette. */
+.hero-copy .availability { margin-bottom: 12px; }
+.profile-clock {
+  --clock-accent: #456dc0;
+  --clock-digit: #142d69;
+  --clock-panel: linear-gradient(145deg, #fff 35%, #f7f9ff);
+  --clock-border: #dce4f2;
+  --clock-shine: #fff;
+  --clock-shadow: #173a9416;
+  --clock-x: 50%;
+  --clock-y: 30%;
+  --clock-pitch: 0deg;
+  --clock-yaw: 0deg;
+  --clock-phase: 0;
+  position: relative;
+  isolation: isolate;
+  width: min(100%, 390px);
+  min-width: 0;
+  margin: 0 0 26px;
+  padding: 14px 18px 15px;
+  border: 1px solid var(--clock-border);
+  border-radius: 14px;
+  background: var(--clock-panel);
+  box-shadow: inset 0 1px 0 var(--clock-shine), 0 12px 30px -22px var(--clock-shadow);
+  color: var(--clock-digit);
+  font-family: var(--font-site);
+  transform: perspective(900px) rotateX(var(--clock-pitch)) rotateY(var(--clock-yaw));
+  transition: transform .4s cubic-bezier(.22,1,.36,1), border-color .3s ease, box-shadow .3s ease;
+}
+.profile-clock[hidden], .profile-clock [hidden] { display: none !important; }
+.profile-clock::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: radial-gradient(220px circle at var(--clock-x) var(--clock-y), color-mix(in srgb, var(--clock-accent) 10%, transparent), transparent 78%); opacity: 0; transition: opacity .35s ease; pointer-events: none; }
+.profile-clock:is(.is-clock-engaged, :focus-within)::before { opacity: 1; }
+.profile-clock:is(.is-clock-engaged, :focus-within) { border-color: color-mix(in srgb, var(--clock-accent) 52%, var(--clock-border)); }
+[data-theme="dark"] .profile-clock {
+  --clock-accent: #95baff;
+  --clock-digit: #d9e7ff;
+  --clock-panel: linear-gradient(145deg, #1c2942, #152037);
+  --clock-border: #354966;
+  --clock-shine: #bed5ff0d;
+  --clock-shadow: #0007;
+}
+.profile-clock-head { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-bottom: 10px; }
+.profile-clock-controls { display: inline-flex; align-items: center; gap: 10px; }
+.profile-clock-format { position: relative; min-width: 35px; min-height: 32px; padding: 5px 6px; border: 1px solid var(--clock-border); border-radius: 6px; background: var(--surface); color: var(--clock-accent); font: 650 8.5px/1 var(--font-site); letter-spacing: .3px; cursor: pointer; }
+.profile-clock-format::after { content: ''; position: absolute; inset: -6px -4px; }
+.profile-clock-format:is(:hover, :focus-visible) { background: var(--soft); border-color: var(--clock-accent); }
+.profile-clock-format:focus-visible { outline: 2px solid var(--clock-accent); outline-offset: 3px; }
+.profile-clock-format:active { background: var(--clock-border); }
+.profile-clock-title { display: inline-flex; align-items: center; gap: 7px; color: var(--muted); font: 650 8.5px/1.4 var(--font-site); letter-spacing: 1.3px; text-transform: uppercase; }
+.profile-clock-title svg { width: 13px; height: 13px; flex: none; fill: none; stroke: var(--clock-accent); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.profile-clock-live { display: inline-flex; align-items: center; gap: 6px; color: var(--clock-accent); font: 550 8px/1.4 var(--font-site); }
+.profile-clock-live i { width: 4px; height: 4px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 3px color-mix(in srgb, var(--clock-accent) 9%, transparent); }
+.profile-clock-time { display: flex; align-items: baseline; width: max-content; max-width: 100%; font: 650 32px/1.15 var(--font-site); font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "zero" 0; letter-spacing: -.8px; white-space: nowrap; }
+.profile-clock-time > span:not(.profile-clock-colon):not(.profile-clock-fraction) { min-width: 2ch; text-align: center; }
+.profile-clock-colon { padding-inline: 2px; color: var(--clock-accent); opacity: .55; font-weight: 400; }
+.profile-clock-fraction { display: inline-flex; align-items: baseline; color: var(--clock-accent); font-size: 17px; font-weight: 500; letter-spacing: 0; }
+.profile-clock-decimal { padding-inline: 4px 3px; }
+[data-clock-milliseconds] { display: inline-block; width: 3ch; text-align: start; }
+.profile-clock-period { align-self: center; margin-left: 9px; padding-top: 3px; color: var(--clock-accent); font: 650 9px/1 var(--font-site); letter-spacing: .4px; }
+.profile-clock-meter { display: block; position: relative; width: 100%; height: 2px; margin-top: 10px; overflow: hidden; border-radius: 2px; background: color-mix(in srgb, var(--clock-border) 65%, transparent); }
+.profile-clock-meter i { display: block; width: 100%; height: 100%; transform: scaleX(var(--clock-phase)); transform-origin: left; background: linear-gradient(90deg, color-mix(in srgb, var(--clock-accent) 25%, transparent), var(--clock-accent)); opacity: .65; }
+.profile-clock-calendar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.profile-clock-weekday { color: var(--clock-accent); font: 650 9px/1.5 var(--font-site); text-transform: uppercase; letter-spacing: .6px; }
+.profile-clock-date { color: var(--muted); font: 500 10.5px/1.5 var(--font-site); }
+.profile-clock-date-divider { width: 3px; height: 3px; background: var(--clock-accent); transform: rotate(45deg); opacity: .45; }
+[data-electric="on"] .profile-clock { border-color: color-mix(in srgb, var(--clock-accent) 48%, var(--clock-border)); box-shadow: inset 0 1px 0 var(--clock-shine), 0 0 20px -12px var(--clock-accent); }
+@media (max-width: 400px) {
+  .profile-clock { padding: 13px 14px 14px; border-radius: 12px; }
+  .profile-clock-time { font-size: 29px; }
+  .profile-clock-fraction { font-size: 16px; }
+  .profile-clock-title { letter-spacing: 1px; }
+  .profile-clock-calendar { gap: 7px; }
+}
+@media print { .profile-clock { display: none !important; } }
+@media (prefers-reduced-motion: reduce) { .profile-clock, .profile-clock::before { transform: none; transition: none; } .profile-clock-meter { display: none; } }
+
+/* The local calendar shares the clock's navy palette and compact typography. */
+.profile-clock-calendar { display:flex;align-items:center;gap:8px;margin-top:12px;padding:9px 10px;border:1px solid color-mix(in srgb,var(--clock-border) 78%,transparent);border-radius:10px;background:color-mix(in srgb,var(--clock-accent) 4%,transparent);box-shadow:inset 0 1px 0 var(--clock-shine); }
+.profile-clock-calendar-icon { display:block;flex:0 0 16px;width:16px;height:16px;fill:none;stroke:var(--clock-accent);stroke-width:1.45;stroke-linecap:round;stroke-linejoin:round;opacity:.85; }
+.profile-clock-weekday { font-weight:650;letter-spacing:.5px; }
+.profile-clock-date { font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1,"zero" 0;font-weight:550; }
+.profile-clock-date-divider { width:3px;height:3px;border-radius:50%;transform:none;opacity:.5; }
+@media(max-width:400px) { .profile-clock-calendar { gap:7px;padding:8px 9px; } .profile-clock-weekday { font-size:8px;letter-spacing:.35px; } .profile-clock-date { font-size:10px; } }
+
+/* A single, staggered date reveal runs on entry and local date changes. */
+.profile-clock-date > span { display:inline-block;animation:calendar-arrive .55s cubic-bezier(.22,.7,.22,1) both; }
+.profile-clock-date .calendar-day { color:var(--clock-digit);font-weight:700;animation-delay:0s; }
+.profile-clock-date .calendar-month { animation-delay:.07s; }
+.profile-clock-date .calendar-year { color:var(--clock-accent);animation-delay:.14s; }
+.profile-clock-calendar { transition:background-color .25s ease,border-color .25s ease; }
+.profile-clock-calendar:hover { border-color:color-mix(in srgb,var(--clock-accent) 55%,var(--clock-border));background:color-mix(in srgb,var(--clock-accent) 7%,transparent); }
+@keyframes calendar-arrive { from { opacity:0;transform:translateY(3px);filter:blur(.7px); } to { opacity:1;transform:none;filter:blur(0); } }
+@media(prefers-reduced-motion:reduce) { .profile-clock-date > span { animation:none!important; } .profile-clock-calendar { transition:none; } }

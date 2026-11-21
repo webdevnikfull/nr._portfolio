@@ -1,0 +1,1 @@
+Grafika karty doświadczenia przedstawia zgłoszenie użytkownika, diagnostykę i rozwiązanie. Natywne rozwijanie, śledzenie kursora, dotyk i klawiatura pozostają zachowane. Pozostała zawartość projektu jest zgodna z poprzednią paczką.

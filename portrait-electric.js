@@ -22,10 +22,10 @@
   threads.setAttribute('aria-hidden', 'true');
   threads.setAttribute('focusable', 'false');
   [
-    ['M 18 48 L 25 79 L 19 90 L 32 113 L 24 130 L 33 155 L 24 173 L 30 202 L 21 225 L 27 244', ''],
-    ['M 32 113 L 43 128 L 38 141 L 49 151', 'portrait-electric-thread--branch'],
-    ['M 411 113 L 402 135 L 409 151 L 395 176 L 402 192 L 392 219 L 400 238 L 391 260', 'portrait-electric-thread--right'],
-    ['M 395 176 L 382 190 L 387 204 L 377 215', 'portrait-electric-thread--right portrait-electric-thread--branch']
+    ['M 17 101 L 31 113 L 25 125 L 48 135 L 39 151 L 57 159', ''],
+    ['M 39 151 L 21 157 L 29 170', 'portrait-electric-thread--branch'],
+    ['M 415 223 L 398 214 L 406 199 L 384 187 L 392 174 L 375 165', 'portrait-electric-thread--right'],
+    ['M 398 214 L 380 220 L 385 235', 'portrait-electric-thread--right portrait-electric-thread--branch']
   ].forEach(([path, modifier]) => {
     const node = document.createElementNS(namespace, 'path');
     node.setAttribute('d', path);
@@ -35,71 +35,87 @@
   });
   image.append(threads);
 
-  // Reuse one small burst layer: repeated taps restart it instead of adding effects.
+  // Two independently timed radial discharges: twelve directions each, plus twelve forks.
+  const flash = decorative('portrait-electric-flash');
+  image.append(flash);
   const burst = document.createElementNS(namespace, 'svg');
   burst.setAttribute('class', 'portrait-electric-burst');
   burst.setAttribute('viewBox', '0 0 430 380');
   burst.setAttribute('preserveAspectRatio', 'none');
   burst.setAttribute('aria-hidden', 'true');
   burst.setAttribute('focusable', 'false');
-  const burstPaths = Array.from({ length: 12 }, (_, index) => {
+  const burstGroups = [];
+  const burstHalos = [];
+  const burstPaths = Array.from({ length: 36 }, (_, index) => {
+    const group = document.createElementNS(namespace, 'g');
+    const halo = document.createElementNS(namespace, 'path');
     const node = document.createElementNS(namespace, 'path');
-    node.setAttribute('pathLength', '100');
-    node.setAttribute('class', `portrait-electric-burst-strand${index >= 8 ? ' portrait-electric-burst-strand--branch' : ''}`);
-    node.setAttribute('style', `--portrait-burst-delay: ${index * 18}ms`);
-    burst.append(node);
+    [halo, node].forEach(path => path.setAttribute('pathLength', '100'));
+    const modifier = index >= 24 ? ' portrait-electric-burst-strand--branch' : '';
+    halo.setAttribute('class', 'portrait-electric-burst-strand portrait-electric-burst-strand--glow' + modifier);
+    node.setAttribute('class', 'portrait-electric-burst-strand' + modifier);
+    group.append(halo, node);
+    burst.append(group);
+    burstGroups.push(group);
+    burstHalos.push(halo);
     return node;
   });
   let burstCycle = 0;
   const constrain = (value, min, max) => Math.min(max, Math.max(min, value));
   const pathData = points => points.map((p, index) => `${index ? 'L' : 'M'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ');
-  function branchPath(start, end, minX, maxX, depth = 3) {
+  function branchPath(start, end, bounds, depth = 3) {
     if (!depth) return [start, end];
     const dx = end.x - start.x, dy = end.y - start.y;
     const distance = Math.hypot(dx, dy) || 1;
-    const along = .36 + Math.random() * .28;
+    const along = .38 + Math.random() * .24;
     const offset = (Math.random() - .5) * distance * .42;
     const middle = {
-      x: constrain(start.x + dx * along - dy / distance * offset, minX, maxX),
-      y: constrain(start.y + dy * along + dx / distance * offset, 32, 326)
+      x: constrain(start.x + dx * along - dy / distance * offset, bounds.minX, bounds.maxX),
+      y: constrain(start.y + dy * along + dx / distance * offset, bounds.minY, bounds.maxY)
     };
-    return [...branchPath(start, middle, minX, maxX, depth - 1).slice(0, -1),
-      ...branchPath(middle, end, minX, maxX, depth - 1)];
+    return [...branchPath(start, middle, bounds, depth - 1).slice(0, -1), ...branchPath(middle, end, bounds, depth - 1)];
   }
   function refreshBurstGeometry() {
-    // Sideways, upward and downward leaders stay on the blue background, clear of the face.
-    const rays = [
-      [10, 83, 83, 143], [80, 124, 17, 42],
-      [12, 264, 83, 205], [81, 197, 24, 312],
-      [420, 94, 346, 149], [349, 163, 413, 45],
-      [416, 282, 347, 218], [350, 194, 408, 318]
-    ];
     const cycle = burstCycle++;
-    let forkIndex = 8;
-    rays.forEach(([x1, y1, x2, y2], index) => {
-      const left = index < 4, minX = left ? 6 : 338, maxX = left ? 92 : 424;
-      const point = (x, y) => ({ x, y: constrain(y + (Math.random() - .5) * 15, 32, 326) });
-      let start = point(x1, y1), end = point(x2, y2);
-      // Every leader chooses its own direction instead of mirroring the opposite side.
-      if (Math.random() < .5) [start, end] = [end, start];
-      const channel = branchPath(start, end, minX, maxX);
-      burstPaths[index].setAttribute('d', pathData(channel));
-      if (index % 2 === 0) {
-        const anchor = channel[4];
-        const angle = Math.atan2(end.y - start.y, end.x - start.x) + (left ? 1 : -1) * (1 + Math.random() * .5);
-        const length = 18 + Math.random() * 16;
-        const tip = { x: constrain(anchor.x + Math.cos(angle) * length, minX, maxX),
-          y: constrain(anchor.y + Math.sin(angle) * length, 32, 326) };
-        burstPaths[forkIndex++].setAttribute('d', pathData(branchPath(anchor, tip, minX, maxX, 2)));
-      }
-    });
+    const leftY = 112 + Math.random() * 140;
+    const origins = [{ x: 52 + (Math.random() - .5) * 8, y: leftY }, { x: 378 + (Math.random() - .5) * 8, y: 356 - leftY + (Math.random() - .5) * 18 }];
     const rhythms = ['portrait-electric-burst', 'portrait-electric-return', 'portrait-electric-flicker'];
-    burstPaths.forEach((node, index) => {
-      const last = index === burstPaths.length - 1;
-      const rhythm = index >= 8 ? 'portrait-electric-fork' : rhythms[(index + cycle) % rhythms.length];
-      const duration = last ? 1.06 : index >= 8 ? .52 + Math.random() * .3 : .65 + Math.random() * .38;
-      const delay = last ? .22 : Math.random() * .18;
-      node.setAttribute('style', `--portrait-burst-animation: ${rhythm}; --portrait-burst-duration: ${duration.toFixed(3)}s; --portrait-burst-delay: ${delay.toFixed(3)}s`);
+    const put = (index, points, animation, duration, delay) => {
+      const d = pathData(points);
+      burstPaths[index].setAttribute('d', d);
+      burstHalos[index].setAttribute('d', d);
+      burstGroups[index].setAttribute('style', `--portrait-burst-animation: ${animation}; --portrait-burst-duration: ${duration.toFixed(3)}s; --portrait-burst-delay: ${delay.toFixed(3)}s; --portrait-burst-width: ${(.8 + Math.random() * .35).toFixed(2)}px`);
+    };
+    origins.forEach((origin, side) => {
+      const bounds = side ? { minX: 326, maxX: 424, minY: 64, maxY: 346 } : { minX: 6, maxX: 104, minY: 26, maxY: 326 };
+      const rotation = (Math.random() - .5) * .12;
+      const baseDelay = side ? .15 + Math.random() * .04 : 0;
+      for (let ray = 0; ray < 12; ray++) {
+        // Cardinal rays are present on every tap, alongside the diagonal rays.
+        const angle = ray * Math.PI / 6 + rotation + (Math.random() - .5) * .10;
+        const dx = Math.cos(angle), dy = Math.sin(angle);
+        const edgeX = Math.abs(dx) < .001 ? Infinity : ((dx > 0 ? bounds.maxX : bounds.minX) - origin.x) / dx;
+        const edgeY = Math.abs(dy) < .001 ? Infinity : ((dy > 0 ? bounds.maxY : bounds.minY) - origin.y) / dy;
+        const length = Math.min(edgeX, edgeY, 170 + Math.random() * 65) * (.94 + Math.random() * .04);
+        const end = { x: origin.x + dx * length, y: origin.y + dy * length };
+        const channel = branchPath(origin, end, bounds);
+        const index = side * 12 + ray;
+        const delay = baseDelay + Math.random() * .045;
+        put(index, channel, rhythms[(ray + cycle + side) % rhythms.length], .86 + Math.random() * .38, delay);
+        if (ray % 2 === 0) {
+          const forkIndex = 24 + side * 6 + ray / 2;
+          const anchor = channel[4];
+          const forkAngle = angle + (Math.random() < .5 ? -1 : 1) * (.65 + Math.random() * .5);
+          const forkLength = 26 + Math.random() * 30;
+          const tip = { x: constrain(anchor.x + Math.cos(forkAngle) * forkLength, bounds.minX, bounds.maxX), y: constrain(anchor.y + Math.sin(forkAngle) * forkLength, bounds.minY, bounds.maxY) };
+          const last = forkIndex === 35;
+          put(forkIndex, branchPath(anchor, tip, bounds, 2), 'portrait-electric-fork', last ? 1.5 : .66 + Math.random() * .32, last ? .40 : delay + .08);
+        }
+      }
+      const suffix = side ? 'b' : 'a';
+      flash.style.setProperty(`--portrait-flash-x-${suffix}`, `${(origin.x / 430 * 100).toFixed(2)}%`);
+      flash.style.setProperty(`--portrait-flash-y-${suffix}`, `${(origin.y / 380 * 100).toFixed(2)}%`);
+      flash.style.setProperty(`--portrait-flash-delay-${suffix}`, `${(baseDelay + .025).toFixed(3)}s`);
     });
   }
   refreshBurstGeometry();
@@ -167,8 +183,12 @@
     point = { x, y, kind };
     if (!pending) pending = requestAnimationFrame(draw);
   };
+  let lastActivation = -Infinity;
   const illuminate = () => {
     if (!canMove()) return;
+    const now = Date.now();
+    if (frame.dataset.portraitBurst === 'on' && now - lastActivation < 350) return;
+    lastActivation = now;
     clearBurst();
     refreshBurstGeometry();
     // Flush only on deliberate activation to restart the bounded CSS animation.

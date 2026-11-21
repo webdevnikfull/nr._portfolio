@@ -1,0 +1,30 @@
+/* Shared control rows and touch states. */
+@media(max-width:1100px){
+ .site-header .nav-tools{align-items:flex-start;gap:10px}
+ .site-header .nav-tool-item{display:grid;grid-template-rows:36px 12px;gap:5px;justify-items:center;align-items:center}
+ .site-header .nav-tool-item>.icon-button,.site-header .nav-tools>.menu-toggle{width:36px;height:36px;min-width:36px;padding:0;margin:0;box-sizing:border-box}
+ .site-header .nav-tool-item>.language-switch summary{height:36px;min-height:36px;box-sizing:border-box;white-space:nowrap}
+ .site-header .nav-tool-caption{line-height:12px;white-space:nowrap}
+ .site-header .brand{flex-shrink:0;visibility:visible;opacity:1}
+}
+@media(max-width:480px){.site-header .nav-tools{gap:6px}.site-header .nav-shell{width:calc(100% - 24px);gap:8px}.site-header .nav-tool-item>.language-switch summary{padding-inline:8px;gap:4px}}
+.skill-card{position:relative;transition:border-color .25s,box-shadow .25s,background .25s}
+.skill-card:is(:hover,:focus-within,.is-touch-active){border-color:var(--accent);box-shadow:inset 3px 0 var(--accent),0 12px 30px -24px var(--accent);background:color-mix(in srgb,var(--surface) 93%,var(--accent))}
+.skill-card .tags{display:flex;flex-wrap:wrap;gap:8px;overflow:visible}
+.skill-card .tags>button{font:inherit;font-size:11px;font-weight:600;color:inherit;background:var(--soft);border:1px solid var(--line);border-radius:9px;padding:8px 10px;max-width:100%;white-space:normal;word-break:normal;cursor:pointer;transition:background .2s,border-color .2s,box-shadow .2s}
+.skill-card .tags>button:is(:hover,:focus-visible,[aria-pressed=true]){background:color-mix(in srgb,var(--accent) 22%,var(--surface));border-color:var(--accent);box-shadow:0 0 12px color-mix(in srgb,var(--accent) 18%,transparent)}
+@media(max-width:1000px){.facts-strip>div,.facts-strip>div+div{grid-template-rows:minmax(58px,auto) auto;align-content:start}.facts-strip strong{align-content:start;align-items:baseline;margin:0;line-height:1.4}.facts-strip p{align-self:start}}
+@media(prefers-reduced-motion:reduce){.skill-card,.skill-card .tags>button{transition:none}}
+.skill-card .tags,.experience-tags{display:flex!important;flex-wrap:wrap!important;align-items:center;gap:8px!important;overflow:visible!important}
+.skill-card .tags>button,.experience-tags>button{font:600 11px/1.35 var(--font-site);color:var(--navy);background:var(--soft);border:1px solid var(--line);border-radius:9px;padding:8px 10px;white-space:nowrap;max-width:100%;cursor:pointer;transition:background .2s,border-color .2s,box-shadow .2s}
+@media(hover:hover) and (pointer:fine){.skill-card .tags>button:hover,.experience-tags>button:hover{background:color-mix(in srgb,var(--accent) 22%,var(--surface));border-color:var(--accent);box-shadow:0 0 12px color-mix(in srgb,var(--accent) 18%,transparent)}}
+@media(hover:none),(pointer:coarse){.skill-card .tags>button[aria-pressed=true],.experience-tags>button[aria-pressed=true]{background:color-mix(in srgb,var(--accent) 28%,var(--surface));border-color:var(--accent);box-shadow:0 0 12px color-mix(in srgb,var(--accent) 22%,transparent)}}
+@media(max-width:600px){.skill-card .tags>button,.experience-tags>button{font-size:10px;padding:8px}.skill-card .tags,.experience-tags{gap:6px!important}}
+/* Reset inherited negative tile margins so every column stays inside the strip. */
+.facts-strip{width:100%;max-width:100%;box-sizing:border-box;gap:0;isolation:isolate}
+.facts-strip>div,.facts-strip>div+div{margin:0!important;min-width:0;max-width:100%;box-sizing:border-box;padding-inline:clamp(12px,2vw,28px);transform:none!important}
+.facts-strip>div:first-child{padding-left:16px}
+.facts-strip>div:last-child{padding-right:16px}
+.facts-strip strong,.facts-strip p{max-width:100%;min-width:0;white-space:normal;word-break:normal;overflow-wrap:normal}
+@media(max-width:1000px){.facts-strip>div:nth-child(odd){padding-left:16px}.facts-strip>div:nth-child(even){padding-right:16px}.facts-strip strong{font-size:clamp(15px,2.8vw,19px)}}
+@media(max-width:380px){.facts-strip>div,.facts-strip>div+div{padding-inline:10px!important}.facts-strip strong{font-size:14px;letter-spacing:-.3px}.facts-strip p{font-size:10px}}

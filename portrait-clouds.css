@@ -1,0 +1,12 @@
+.portrait-cloud-burst { position:absolute;inset:0;z-index:3;overflow:hidden;pointer-events:none;opacity:0; }
+.portrait-cloud-burst i { position:absolute;width:70%;height:48%;border-radius:50%;background:radial-gradient(ellipse,rgba(224,242,255,.4),rgba(165,208,244,.16) 45%,transparent 72%);opacity:0; }
+.portrait-cloud-burst i:nth-child(1) { left:-30%;top:8%;--cloud-dx:24%;--cloud-dy:-12%; }
+.portrait-cloud-burst i:nth-child(2) { right:-30%;top:34%;--cloud-dx:-24%;--cloud-dy:16%;animation-delay:.12s!important; }
+.portrait-cloud-burst i:nth-child(3) { left:-22%;bottom:-14%;--cloud-dx:18%;--cloud-dy:-28%;animation-delay:.23s!important; }
+.portrait-cloud-burst i:nth-child(4) { right:-24%;top:-15%;--cloud-dx:-14%;--cloud-dy:24%;animation-delay:.32s!important; }
+[data-cloud="on"] .portrait-cloud-burst.is-cloud-burst { opacity:1; }
+[data-cloud="on"] .portrait-cloud-burst.is-cloud-burst i { animation:portrait-cloud-release 2.5s ease-out both; }
+[data-cloud="on"] .portrait-image-wrap[role="button"] { cursor:pointer; }
+[data-cloud="on"] .portrait-image-wrap:focus-visible { outline:2px solid #c6e7ff;outline-offset:-5px; }
+@keyframes portrait-cloud-release { 0% { opacity:0;transform:scale(.6); } 25% { opacity:1; } 65% { opacity:.7; } 100% { opacity:0;transform:translate(var(--cloud-dx),var(--cloud-dy)) scale(1.4); } }
+@media(prefers-reduced-motion:reduce) { .portrait-cloud-burst { display:none; } }

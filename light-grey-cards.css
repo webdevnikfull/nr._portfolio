@@ -1,0 +1,14 @@
+/* Neutral grey canvas with white cards in the manually selected light theme. */
+:root[data-theme=light]{--bg:#e7e9ed;--surface:#fff;--surface-alt:#f4f5f7;--soft:#edf0f4;--line:#d2d8e2;--muted:#58667b;--shadow:0 20px 52px -36px #24334d35}
+:root[data-theme=light] :is(.skill-card,.skill-card.featured,.experience-row,.project-card,.education-card,.education-list article,.certificate-card,.certificate-entry,.certificate-provider-empty,.volunteer-card,.volunteer-item,.section-intro-action,.portrait-frame,.profile-clock,.availability){background:#fff;border-color:var(--line);box-shadow:0 12px 35px -28px #263b6040,inset 0 1px 0 #fff}
+:root[data-theme=light] .skill-card:is(:hover,:focus-within,.is-touch-active){background:#fff;color:var(--text);border-color:color-mix(in srgb,var(--accent) 50%,var(--line));box-shadow:inset 3px 0 var(--accent),0 14px 30px -25px #20397250}
+:root[data-theme=light] .skill-card h3,:root[data-theme=light] .skill-card.featured h3,:root[data-theme=light] .skill-card .skill-symbol{color:var(--navy)}
+:root[data-theme=light] .skill-card p,:root[data-theme=light] .skill-card.featured p{color:var(--muted)}
+:root[data-theme=light] :is(.section-intro-preview,.project-visual){background:linear-gradient(140deg,#f2f3f6,#e5e9ef)}
+:root[data-theme=light] :is(.portrait-details,.project-content){background:#fff}
+:root[data-theme=light] .profile-clock-calendar{background:#f4f5f7;border-color:var(--line)}
+:root[data-theme=light] :is(.skill-card .tags>button,.experience-tags>button){background:#f2f4f7;color:var(--navy);border-color:#d7dfe9}
+:root[data-theme=light] :is(.skill-card .tags>button,.experience-tags>button):is(:hover,:focus-visible,[aria-pressed=true]){background:#e8eef9;border-color:var(--accent)}
+:root[data-theme=light] :is(#electric-toggle,#cloud-toggle,#stars-toggle):disabled{opacity:1;color:#8a929f;background:#e0e3e8;border-color:#cdd2da;filter:grayscale(1);cursor:not-allowed;box-shadow:none}
+:root[data-theme=light] .is-effect-disabled .nav-tool-caption{color:#77818e}
+:root[data-theme=light] :is(.star-scroll-layer,.star-trail-layer,.star-ambient-layer,.portrait-starfield,.card-star-glow,.cloud-scroll-layer,.cloud-ambient-layer,.cloud-atmosphere,.cloud-wash,.portrait-cloud-burst,.electric-page-rain,.electric-portrait-rain,.portfolio-electric-canvas){display:none!important}

@@ -1,0 +1,37 @@
+.solar-system-layer { position:fixed; inset:0; z-index:0; contain:strict; overflow:hidden; pointer-events:none; }
+.solar-system-layer[hidden] { display:none!important; }
+[data-stars=on] .theme-orb-layer { display:none; }
+.solar-traveller { position:absolute; left:50%; top:50%; width:40px; height:40px; pointer-events:none; offset-anchor:center; offset-rotate:0deg; }
+@supports (offset-path:path("M 0 0 L 1 1")) {
+  .solar-traveller { left:0; top:0; offset-path:var(--solar-path); offset-distance:var(--solar-phase); animation:solar-revolution var(--solar-duration,900s) linear var(--solar-delay,0s) infinite; }
+}
+.solar-traveller.solar-primary { left:50%; top:50%; transform:translate(-50%,-50%); offset-path:none; animation:none; }
+.solar-sphere { position:absolute; inset:0; margin:auto; display:block; width:calc(var(--planet-size,30px)*var(--solar-scale,1)); height:calc(var(--planet-size,30px)*var(--solar-scale,1)); border-radius:50%; opacity:.85; box-shadow:inset -8px -3px 10px #030b20c9,0 0 12px #9ed8ff16; }
+.solar-sphere::before { content:''; position:absolute; inset:0; border-radius:inherit; background:radial-gradient(circle at 30% 26%,#fff3,transparent 56%); }
+.solar-sphere { animation:planet-light-breath 16s ease-in-out infinite alternate; }
+.solar-sun { --planet-size:48px; opacity:1; background:radial-gradient(circle at 38% 32%,#fffef3,#fff3b7 30%,#ffdc74 58%,#f8b447 84%); box-shadow:0 0 8px 3px #fff7cce6,0 0 26px 10px #ffd37680,0 0 62px 23px #f3b85238; }
+.solar-sun::after { content:''; position:absolute; inset:-34px; border-radius:50%; background:radial-gradient(circle,transparent 22%,#ffdf9b26 32%,#ffd28614 48%,transparent 72%); animation:solar-corona 12s ease-in-out infinite alternate; }
+.solar-mercury { --planet-size:17px; background:radial-gradient(circle at 38% 28%,#b9afa5,#716f70 50%,#3b414a); }
+.solar-venus { --planet-size:26px; background:repeating-linear-gradient(160deg,#b7a18a 0 12%,#d3bd97 13% 24%,#9f866e 25% 31%); }
+.solar-earth { --planet-size:29px; background:radial-gradient(ellipse at 34% 32%,#b4d9ca 0 8%,transparent 9%),radial-gradient(ellipse at 63% 58%,#639381 0 19%,transparent 20%),radial-gradient(ellipse at 33% 45%,#658f73 0 16%,transparent 17%),radial-gradient(circle at 30% 25%,#b2d8ee,#467ea7 38%,#1b476c 76%); }
+.solar-mars { --planet-size:21px; background:radial-gradient(circle at 35% 28%,#c79880,#a16654 45%,#613b36 80%); }
+.solar-jupiter { --planet-size:52px; background:radial-gradient(ellipse at 65% 66%,#9d6350 0 7%,transparent 10%),repeating-linear-gradient(173deg,#c4ad99 0 9%,#9d8675 10% 16%,#d8c3aa 17% 25%,#ab8a71 26% 34%); }
+.solar-saturn { --planet-size:44px; background:repeating-linear-gradient(167deg,#bfae91 0 13%,#928470 14% 20%,#cabc9e 21% 31%); }
+.solar-saturn::after { content:''; position:absolute; left:50%; top:50%; width:185%; height:42%; box-sizing:border-box; border:clamp(2px,calc(5px*var(--solar-scale,1)),5px) solid #c8b99b99; border-inline-color:#dfcfac55; border-radius:50%; transform:translate(-50%,-50%) rotate(-25deg); transform-origin:center; box-shadow:0 0 0 1px #b7a88c25; }
+.solar-uranus { --planet-size:34px; background:radial-gradient(circle at 30% 26%,#b3d7d8,#6aabb8 45%,#356b88 80%); }
+.solar-neptune { --planet-size:32px; background:radial-gradient(circle at 30% 26%,#91aee0,#45699d 45%,#253f75 82%); }
+.solar-lunar-orbit { position:absolute; inset:-9px; border-radius:50%; animation:lunar-revolution 120s linear infinite; }
+.solar-moon { position:absolute; left:0; top:50%; width:8px; height:8px; border-radius:50%; background:radial-gradient(circle at 35% 28%,#d0dce4,#74879b 64%,#34465d); box-shadow:0 0 6px #cae4ff24; }
+@keyframes solar-revolution { from { offset-distance:0%; } to { offset-distance:100%; } }
+@keyframes lunar-revolution { to { transform:rotate(360deg); } }
+.is-solar-paused .solar-traveller,.is-solar-paused .solar-lunar-orbit { animation-play-state:paused!important; }
+.is-solar-paused .solar-sphere { animation-play-state:paused!important; }
+.is-solar-paused .solar-sun::after { animation-play-state:paused!important; }
+.cosmic-shooting-star::after { content:''; position:absolute; left:-2px; top:50%; width:5px; height:5px; border-radius:50%; transform:translateY(-50%); background:#dcefff; box-shadow:0 0 7px 2px #95c9ff70; animation:comet-core 1.4s ease-in-out infinite alternate; }
+.stars-paused .cosmic-shooting-star::after { animation-play-state:paused!important; }
+@keyframes planet-light-breath { from { filter:brightness(.96); } to { filter:brightness(1.06); } }
+@keyframes comet-core { from { opacity:.5; transform:translateY(-50%) scale(.8); } to { opacity:1; transform:translateY(-50%) scale(1.1); } }
+@media(max-width:600px) { .cosmic-shooting-star:nth-child(n+4) { display:none; } }
+@media(max-width:600px) { .solar-lunar-orbit { inset:3px; } .solar-moon { width:5px; height:5px; } }
+@media(prefers-reduced-motion:reduce) { .solar-traveller { animation:none; offset-distance:var(--solar-phase); } .solar-lunar-orbit,.solar-sphere,.solar-sun::after { animation:none; } }
+@media print { .solar-system-layer { display:none!important; } }

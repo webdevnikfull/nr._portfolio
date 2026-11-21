@@ -3,6 +3,7 @@
   'use strict';
   const root = document.documentElement;
   const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const motionPaused = () => preference.matches || document.documentElement.dataset.effectsPaused === 'true';
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
   const cards = [...document.querySelectorAll('#projects .project-card')];
   const foundation = document.querySelector('.volunteer-card');
@@ -18,7 +19,7 @@
   function flash(element, className, duration = 900) {
     clearTimer(element);
     element.classList.remove(className);
-    if (preference.matches || document.hidden) return;
+    if (motionPaused() || document.hidden) return;
     void element.offsetWidth;
     element.classList.add(className);
     timers.set(element, setTimeout(() => {
@@ -44,12 +45,12 @@
     });
   }
   function queuePoint(element, event, isFoundation = false) {
-    if (preference.matches || document.hidden || !finePointer.matches || event.pointerType === 'touch' || event.isPrimary === false) return;
+    if (motionPaused() || document.hidden || !finePointer.matches || event.pointerType === 'touch' || event.isPrimary === false) return;
     pending = { element, x: event.clientX, y: event.clientY, isFoundation };
     if (frame) return;
     frame = requestAnimationFrame(() => {
       frame = 0;
-      if (!pending || document.hidden || preference.matches) return;
+      if (!pending || document.hidden || motionPaused()) return;
       const point = pending;
       pending = null;
       const rect = point.element.getBoundingClientRect();
@@ -76,7 +77,7 @@
   }
   cards.forEach(card => {
     card.addEventListener('pointerenter', event => {
-      if (event.pointerType !== 'touch' && finePointer.matches && !preference.matches) card.classList.add('is-showcase-engaged');
+      if (event.pointerType !== 'touch' && finePointer.matches && !motionPaused()) card.classList.add('is-showcase-engaged');
     }, { passive: true });
     card.addEventListener('pointermove', event => queuePoint(card, event), { passive: true });
     card.addEventListener('pointerleave', () => leave(card, 'is-showcase-engaged'), { passive: true });
@@ -99,18 +100,19 @@
   }
   function syncMotion() {
     root.classList.toggle('showcase-page-hidden', document.hidden);
-    if (document.hidden || preference.matches) resetInput();
+    if (document.hidden || motionPaused()) resetInput();
   }
   document.addEventListener('visibilitychange', syncMotion);
   preference.addEventListener('change', syncMotion);
   window.addEventListener('blur', resetInput);
   window.addEventListener('pagehide', resetInput);
   window.addEventListener('pageshow', syncMotion);
+  window.addEventListener('portfoliovisualeffectschange', syncMotion);
   syncMotion();
 
   if (foundation) {
     foundation.addEventListener('pointerenter', event => {
-      if (event.pointerType !== 'touch' && finePointer.matches && !preference.matches) foundation.classList.add('is-foundation-engaged');
+      if (event.pointerType !== 'touch' && finePointer.matches && !motionPaused()) foundation.classList.add('is-foundation-engaged');
     }, { passive: true });
     foundation.addEventListener('pointermove', event => queuePoint(foundation, event, true), { passive: true });
     foundation.addEventListener('pointerleave', () => leave(foundation, 'is-foundation-engaged'), { passive: true });
